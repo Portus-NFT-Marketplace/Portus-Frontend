@@ -7,20 +7,21 @@ const NavBarItem = ({ title, classprops }) => (
 );
 
 const SearchBar = () => (
-    <div className="flex justify-end"> 
-        <form action="/" method="get" style={{float: "right"}}>
-            <label htmlFor="header-search">
-            </label>
+    <form action="/" method="get">
+        <label htmlFor="header-search">
+        </label>
+        <div className="flex justify-end">
             <input
-                type="text"
-                id="header-search"
-                style={{height: '35px', width: '300px', textAlign: "center"}}
-                placeholder="Find the art that will be your portus"
-                name="s" 
-            />
-            <button type="submit">🗝️</button>
-        </form>
-    </div>
+            type="text"
+            id="header-search"
+            style={{height: '35px', width: '300px', textAlign: "center"}}
+            placeholder="Find the art that will be your portus"
+            name="s" 
+            ></input>
+            <button type="submit">🗝️</button> 
+        </div>
+
+    </form>
 
 );
 
@@ -39,8 +40,8 @@ const Navbar = () => {
             </ul>
         </div>
 
-        <div>        
-            <SearchBar/>  
+        <div className="flex justify-end">  
+            <SearchBar/> 
         </div>
       </nav>
     );

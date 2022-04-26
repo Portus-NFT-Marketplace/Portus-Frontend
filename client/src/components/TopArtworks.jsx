@@ -18,6 +18,18 @@ const TopArtworks = () => {
         url: "https://media.istockphoto.com/photos/underwater-world-of-the-coral-reef-picture-id501192746?k=20&m=501192746&s=612x612&w=0&h=YhtyFVKh97fywXmR6Cg9S0IHLCrKlxAQbVWX7oUnTP0=",
         price: "0.92",
         views: "42"
+    },
+    {
+        name: "Chicken or Bird",
+        url: "https://www.hellowonderful.co/ckfinder/userfiles/images/134_sycheva_planet_5_suns__35846_1405327849_1280_1280.jpg",
+        price: "0.95",
+        views: "48"
+    },
+    {
+        name: "Chicken or Bird",
+        url: "https://www.hellowonderful.co/ckfinder/userfiles/images/134_sycheva_planet_5_suns__35846_1405327849_1280_1280.jpg",
+        price: "0.95",
+        views: "48"
     } ]
 
     function createCard(json) {
@@ -36,7 +48,7 @@ const TopArtworks = () => {
             <div className="flex w-full justify-center items-center p-6">
                 <b style={{ fontSize: "2.5rem" }}>Top artworks over last 7 days</b>
             </div>
-            <div className="flex flex-row justify-center">
+            <div className="grid grid-cols-4 grid-flow-row gap-4 place-content-center">
                     { data.map(createCard) }
             </div>
         </div>
