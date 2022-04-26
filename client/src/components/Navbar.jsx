@@ -25,7 +25,6 @@ const SearchBar = () => (
 );
 
 const Navbar = () => {
-    const [toggleMenu, setToggleMenu] = React.useState(false);
   
     return (
       <nav className="w-full flex md:items-center p-4">
@@ -40,7 +39,7 @@ const Navbar = () => {
             </ul>
         </div>
 
-        <div className="flex justify-end">        
+        <div>        
             <SearchBar/>  
         </div>
       </nav>
