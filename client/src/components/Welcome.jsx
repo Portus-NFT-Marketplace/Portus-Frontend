@@ -1,13 +1,11 @@
+import { TransactionContext } from "../context/TransactionContext";
+import React, { useContext } from "react";
 const Welcome = () => {
 
-    const connectWallet = () => {
-
-    }
-
+    const { connectWallet } = useContext(TransactionContext);
     const productsPage = () => {
 
     }
-
 
     return (
         <div className="flex w-full justify-left items-center">
