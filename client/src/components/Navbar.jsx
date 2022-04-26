@@ -27,7 +27,7 @@ const SearchBar = () => (
 const Navbar = () => {
   
     return (
-      <nav className="w-full flex md:items-center p-4" ห>
+      <nav className="w-full flex md:items-center p-4" style={{position: "fixed", backgroundColor: "#FFFF"}}>
         <div className="md:flex-initial justify-center items-left">
           <img src={logo} alt="logo" className="w-32 cursor-pointer" />
         </div>   

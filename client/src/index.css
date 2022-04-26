@@ -19,7 +19,9 @@ body {
 
 .gradient-bg-welcome {
   background-color:#222147;
-  background-image: url(http://3.bp.blogspot.com/-d2JZfpo4lFc/TgdmpQje-uI/AAAAAAAADaU/1XY6CZp_Yik/s1600/scan0001.jpg);
+  background-image: url(https://www.artranked.com/images/38/3827bc56ca83ad4043f2c4c2999dc871.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .gradient-bg-services {
@@ -37,8 +39,10 @@ body {
 }
 
 .gradient-bg-footer {
-  background-color: #ffffff;
-  /* background-image: url(http://3.bp.blogspot.com/-d2JZfpo4lFc/TgdmpQje-uI/AAAAAAAADaU/1XY6CZp_Yik/s1600/scan0001.jpg); */
+  background-color: #000000;
+  /* background-image: url(http://1.bp.blogspot.com/-WBPxp8LvIvA/UwKFvB0b2OI/AAAAAAAADr0/FT9vFgg52yg/s1600/14036+-+S+-+Sea+Dean+-+Winds+of+Change+-+Acrylic+-+11+x+14+-%2524395.jpg);
+  background-repeat: no-repeat;
+  background-size: cover; */
 }
 
 

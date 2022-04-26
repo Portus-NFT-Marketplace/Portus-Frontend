@@ -8,15 +8,15 @@ const Footer = () => (
     </div>
 
     <div className="flex justify-center items-center flex-col mt-2">
-      <p className="text-black text-sm text-center">NFTs online marketplace from children arts</p>
-      <p className="text-black text-sm text-center font-medium mt-2">Portus</p>
+      <p className="text-white text-sm text-center">NFTs online marketplace from children arts</p>
+      <p className="text-white text-sm text-center font-medium mt-2">Portus</p>
     </div>
 
     <div className="sm:w-[90%] w-full h-[0.25px] bg-gray-400 mt-5 " />
 
     <div className="sm:w-[90%] w-full flex justify-between items-center mt-3">
-      <p className="text-black text-left text-xs">@first demo</p>
-      <p className="text-black text-right text-xs">Saruj, Pitchapa</p>
+      <p className="text-white text-left text-xs">@first demo</p>
+      <p className="text-white text-right text-xs">Saruj, Pitchapa</p>
     </div>
   </div>
 );
