@@ -1,4 +1,4 @@
-import { Navbar, Welcome, TopArtworks} from './components'
+import { Navbar, Welcome, TopArtworks, Footer} from './components'
 
 const App = () => {
 
@@ -11,6 +11,7 @@ const App = () => {
         <Welcome />
       </div>
       <TopArtworks />
+      <Footer />
     </div>
   )
 }
