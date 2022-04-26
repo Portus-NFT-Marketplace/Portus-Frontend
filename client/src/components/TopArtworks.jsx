@@ -26,6 +26,7 @@ const TopArtworks = () => {
           <Artwork
             url={json.url}
             name={json.name}
+            price={json.price}
           />
         );
     }
