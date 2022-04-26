@@ -1,11 +1,19 @@
 import { TransactionContext } from "../context/TransactionContext";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import "aos/dist/aos.css";
+import Aos from 'aos';
+
+
 const Welcome = () => {
 
     const { connectWallet } = useContext(TransactionContext);
     const productsPage = () => {
 
     }
+
+    // useEffect(() => {
+    //     Aos.init({ duration: 2000 });
+    // }, [])
 
     return (
         <div className="flex w-full justify-left items-center">
