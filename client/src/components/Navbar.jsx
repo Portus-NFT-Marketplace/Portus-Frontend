@@ -6,20 +6,43 @@ const NavBarItem = ({ title, classprops }) => (
   <li className={`mx-4 cursor-pointer ${classprops}`}>{title}</li>
 );
 
+const SearchBar = () => (
+    <div className="flex justify-end"> 
+        <form action="/" method="get" style={{float: "right"}}>
+            <label htmlFor="header-search">
+            </label>
+            <input
+                type="text"
+                id="header-search"
+                style={{height: '35px', width: '300px', textAlign: "center"}}
+                placeholder="Find the art that's right for you"
+                name="s" 
+            />
+            <button type="submit">🗝️</button>
+        </form>
+    </div>
+
+);
+
 const Navbar = () => {
     const [toggleMenu, setToggleMenu] = React.useState(false);
   
     return (
-      <nav className="w-full flex md:justify-left items-left p-4">
+      <nav className="w-full flex md:items-center p-4">
         <div className="md:flex-initial justify-center items-left">
           <img src={logo} alt="logo" className="w-32 cursor-pointer" />
         </div>   
+        <div>
+            <ul className="text-black md:flex hidden list-none flex-row justify-center justify-between items-center flex-initial">
+            {["Home", "Products", "Resources", "About"].map((item, index) => (
+                <NavBarItem key={item + index} title={item} />
+            ))}
+            </ul>
+        </div>
 
-        <ul className="text-black md:flex hidden list-none flex-row justify-between items-center flex-initial">
-          {["Home", "Products", "Resources", "About"].map((item, index) => (
-            <NavBarItem key={item + index} title={item} />
-          ))}
-        </ul>    
+        <div className="flex justify-end">        
+            <SearchBar/>  
+        </div>
       </nav>
     );
   };
