@@ -1,5 +1,3 @@
-
-
 import React from "react";
 
 
@@ -11,7 +9,7 @@ const Footer = () => (
       </div>
     </div>
 
-    <div className="flex justify-center items-center flex-col mt-5">
+    <div className="flex justify-center items-center flex-col mt-2">
       <p className="text-white text-sm text-center">NFTs online marketplace from children arts</p>
       <p className="text-white text-sm text-center font-medium mt-2">Portus</p>
     </div>

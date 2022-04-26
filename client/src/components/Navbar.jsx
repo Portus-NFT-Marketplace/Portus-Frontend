@@ -15,7 +15,7 @@ const SearchBar = () => (
                 type="text"
                 id="header-search"
                 style={{height: '35px', width: '300px', textAlign: "center"}}
-                placeholder="Find the art that's right for you"
+                placeholder="Find the art that will be your portus"
                 name="s" 
             />
             <button type="submit">🗝️</button>
