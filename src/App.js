@@ -8,17 +8,16 @@ import {
   useLocation,
 } from "react-router-dom";
 
-// import Routers from "./Routers";
+import Routers from "./Routers";
 import { Header } from "./components/layouts";
 
 function App() {
   return (
     <Router>
       <div>
-        <Header />    
-        {/* <Routers /> */}
+        <Header />
+        <Routers />
       </div>
-  
     </Router>
   );
 }

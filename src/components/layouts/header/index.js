@@ -32,6 +32,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 import Logo from "../../../components/pages/assets/portus_logo.png";
 import ButtonBlue from "../../pages/shared/general/ButtonBlue";
+import ButtonOrange from "../../pages/shared/general/ButtonOrange";
 
 // import { logout } from "../../../actions/auth";
 import { Box } from "@mui/system";
@@ -131,56 +132,7 @@ const Header = (props) => {
   //   };
 
   const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <>
-      {/* <Menu
-      anchorEl={anchorEl}
-      id={menuId}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-      PaperProps={{
-        elevation: 0,
-        sx: {
-          top: "56px !important",
-          right: "190px !important",
-          overflow: "visible",
-          filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-          mt: 1.5,
-          borderRadius: "20px",
-          width: "250px",
-          "& .MuiAvatar-root": {
-            width: 32,
-            height: 32,
-            ml: -0.5,
-            mr: 1,
-          },
-        },
-      }}
-      transformOrigin={{ horizontal: "right", vertical: "top" }}
-      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-    > */}
-      <Divider />
-      <MenuItem>
-        <ListItemIcon>
-          <HomeOutlinedIcon fontSize="small" />
-        </ListItemIcon>
-        Home
-      </MenuItem>
-      <MenuItem component={Link} to="/">
-        <ListItemIcon>
-          <PersonOutlineOutlinedIcon fontSize="small" />
-        </ListItemIcon>
-        Profile
-      </MenuItem>
-      {/* <MenuItem component={Link} to="/login" onClick={logOut}>
-        <ListItemIcon>
-          <LogoutIcon fontSize="small" />
-        </ListItemIcon>
-        Logout
-      </MenuItem> */}
-      {/* </Menu> */}
-    </>
-  );
+  const renderMenu = <></>;
 
   return (
     <div>
@@ -188,11 +140,34 @@ const Header = (props) => {
         <StyledAppBar>
           <Toolbar>
             <Container maxWidth="lg">
+              {" "}
               <a href="/">
-                {" "}
                 <img src={Logo} alt="logo" width={190} />
               </a>
-
+              <Stack direction="row" spacing={2}>
+                <Divider orientation="vertical" />
+                <ButtonOrange
+                  variant={"text"}
+                  component={NavLink}
+                  to="/"
+                >
+                  FOUNDATION
+                </ButtonOrange>
+                <ButtonOrange
+                  variant={"text"}
+                  component={NavLink}
+                  to="/"
+                >
+                  RESOURCES
+                </ButtonOrange>
+                <ButtonOrange
+                  variant={"text"}
+                  component={NavLink}
+                  to="/"
+                >
+                  ABOUT US
+                </ButtonOrange>
+              </Stack>
               <div style={{ flexGrow: 1 }}></div>
               <div className={`headerAction`}>
                 <Stack
@@ -201,37 +176,45 @@ const Header = (props) => {
                   style={{ alignItems: "center" }}
                 >
                   <div>
-                    <ButtonBlue
-                      variant={"text"}
+                    <ButtonOrange
+                      variant={"contained"}
                       component={NavLink}
-                        to="/"
+                      to="/"
                       className="partner"
-                      style={{ padding: 0, minWidth: 30, marginRight: 15 }}
+                      style={{ padding: 8, minWidth: 30, marginRight: 15 }}
                     >
-                      <PermIdentityOutlinedIcon />
-                    </ButtonBlue>
+                      <Typography
+                        style={{
+                          fontSize: 11.5,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        CONNECT WALLET
+                      </Typography>
+                    </ButtonOrange>
                   </div>
                   <div>
-                    <ButtonBlue
+                    <ButtonOrange
                       variant={"text"}
                       component={NavLink}
-                        to="/"
+                      to="/"
                       className="partner"
                       style={{ padding: 0, minWidth: 30, marginRight: 8 }}
                     >
-                      <MailOutlineOutlinedIcon />
-                    </ButtonBlue>
+                      <PersonOutlineOutlinedIcon />
+                    </ButtonOrange>
                   </div>
-                  <div>
-                    <ButtonBlue
+                  {/* <div>
+                    <ButtonOrange
                       variant={"text"}
                       component={NavLink}
                         to="/"
                       className="partner"
                     >
                       Orders
-                    </ButtonBlue>
-                  </div>
+                    </ButtonOrange>
+                  </div> */}
                   {/* <div>
                     <ButtonBlue
                       variant={"text"}
@@ -244,7 +227,7 @@ const Header = (props) => {
                   </div> */}
                 </Stack>
 
-                <Divider className="divider" orientation="vertical" />
+                {/* <Divider className="divider" orientation="vertical" /> */}
 
                 {/* <div style={{ display: "flex", alignItems: "center" }}>
                   {isLoggedIn ? (
