@@ -5,21 +5,23 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Stack } from "@mui/system";
 
-export default function NFTCard() {
+export default function NFTCard({ name, description, price, img_url }) {
   return (
-    <Card style={{ maxWidth: 345 }}>
-      <CardMedia
-        style={{ height: 240 }}
-        image="https://goodparentingbrighterchildren.com/wp-content/uploads/2019/03/Children-drawing-PB.jpg"
-        title="green iguana"
-      />
+    <Card style={{ maxWidth: 345, marginTop: 20 }}>
+      <CardMedia style={{ height: 240 }} image={img_url} />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          NFT NAME
-        </Typography>
+        <Stack direction="row" style={{justifyContent: "space-between"}}>
+          <Typography gutterBottom variant="h5" component="div">
+            {name}
+          </Typography>
+          <Typography gutterBottom variant="h5" component="div">
+            {price}
+          </Typography>
+        </Stack>
         <Typography variant="body2" color="text.secondary">
-          NFT Description
+          {description}
         </Typography>
       </CardContent>
       <CardActions style={{ justifyContent: "flex-end" }}>
