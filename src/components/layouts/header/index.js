@@ -79,17 +79,17 @@ const StyledAppBar = styled(AppBar)(({}) => ({
   },
 }));
 
-const StyledIconButtonTranslate = styled(IconButton)(({}) => ({
-  border: "1px solid #00000030",
-  borderRadius: 8,
-  marginLeft: 8,
-  "&:hover": {
-    transform: "scale(1.09) translateZ(0px)",
-  },
-  ["@media only screen and (max-width: 600px)"]: {
-    display: "none",
-  },
-}));
+// const StyledIconButtonTranslate = styled(IconButton)(({}) => ({
+//   border: "1px solid #00000030",
+//   borderRadius: 8,
+//   marginLeft: 8,
+//   "&:hover": {
+//     transform: "scale(1.09) translateZ(0px)",
+//   },
+//   ["@media only screen and (max-width: 600px)"]: {
+//     display: "none",
+//   },
+// }));
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -180,7 +180,7 @@ const Header = (props) => {
                       variant={"contained"}
                       component={NavLink}
                       to="/"
-                      className="partner"
+                      // className="partner"
                       style={{ padding: 8, minWidth: 30, marginRight: 15 }}
                     >
                       <Typography
@@ -199,7 +199,7 @@ const Header = (props) => {
                       variant={"text"}
                       component={NavLink}
                       to="/"
-                      className="partner"
+                      // className="partner"
                       style={{ padding: 0, minWidth: 30, marginRight: 8 }}
                     >
                       <PersonOutlineOutlinedIcon />
