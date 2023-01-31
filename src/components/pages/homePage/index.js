@@ -6,6 +6,7 @@ import { Grid, Container, Stack, Box } from "@mui/material";
 import CarouselAds from "./carousel";
 import NFTCard from "../shared/general/CardNFT";
 import ButtonFilter from "../shared/general/ButtonFilter";
+import CreatingArtworkForm from "../NFTCreatingPage";
 
 const StyledRoot = styled("div")({
   minWidth: 350,
