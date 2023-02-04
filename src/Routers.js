@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Container from "@mui/material/Container";
 
 import HomePage from "./components/pages/homePage";
+import CreatingArtworkForm from "./components/pages/NFTCreatingPage";
 
 const Routers = () => {
   // const classes = useStyles();
@@ -116,6 +117,7 @@ const Routers = () => {
       <Suspense fallback={<div>Loading..</div>}>
         <Switch>
           <Route exact path={["/", ""]} component={HomePage} />
+          <Route exact path="/create_artwork" component={CreatingArtworkForm} />
         </Switch>
       </Suspense>
     </Container>

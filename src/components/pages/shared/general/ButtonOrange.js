@@ -47,6 +47,7 @@ const ButtonOrange = (props) => {
       endIcon={props.endIcon}
       style={props.style}
       size={props.size}
+      type={props.type}
       variant={props.variant}
       onClick={props.onClick}
       component={props.component}
