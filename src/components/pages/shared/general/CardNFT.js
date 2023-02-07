@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/system";
 
-export default function NFTCard({ name, description, price, img_url }) {
+export default function NFTCard({ name, description, price, img_url, id }) {
   return (
     <Card style={{ maxWidth: 345, marginTop: 20 }}>
       <CardMedia style={{ height: 240 }} image={img_url} />
@@ -25,7 +25,7 @@ export default function NFTCard({ name, description, price, img_url }) {
         </Typography>
       </CardContent>
       <CardActions style={{ justifyContent: "flex-end" }}>
-        <Button size="small">VIEW</Button>
+        <Button size="small" href={`/details/${id}`}>VIEW</Button>
       </CardActions>
     </Card>
   );

@@ -119,7 +119,7 @@ const Routers = () => {
         <Switch>
           <Route exact path={["/", ""]} component={HomePage} />
           <Route exact path="/create_artwork" component={CreatingArtworkForm} />
-          <Route exact path="/details" component={DetailPage} />
+          <Route exact path="/details/:id" component={DetailPage} />
         </Switch>
       </Suspense>
     </Container>

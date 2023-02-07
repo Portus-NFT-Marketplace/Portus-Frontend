@@ -139,6 +139,7 @@ function HomePage(props) {
                   price={value.price}
                   description={value.description}
                   img_url={value.image_url}
+                  id={value.id}
                 />
               );
             })}
