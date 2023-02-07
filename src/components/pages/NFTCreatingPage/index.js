@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import {
@@ -22,6 +22,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Stack } from "@mui/system";
+import axios from "axios";
 
 import "./style.css";
 
@@ -92,7 +93,7 @@ const schema = yup.object().shape({
     .typeError("Price should be a number.")
     .positive("Price should be greater than 0.")
     .required(),
-  image: yup.mixed().required("A file is required"),
+  image_url: yup.mixed().required("A file is required"),
   // .test(
   //   "Fichier taille",
   //   "upload file",
@@ -123,10 +124,35 @@ const CreatingArtworkForm = () => {
     },
   });
 
+  const url = "https://portus-api.herokuapp.com/api/v1/artworks";
+  const [token, setToken] = useState({});
+  useEffect(() => {
+    axios
+      .post("https://portus-api.herokuapp.com/oauth/token", {
+        grant_type: "client_credentials",
+        client_id: `${process.env.REACT_APP_CLIENT_ID}`,
+        client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
+      })
+      .then((response) => {
+        //get token from response
+        console.log(response);
+        setToken(response.data.access_token);
+        console.log(token);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   const onSubmit = (data) => {
     const newData = { ...data };
-    console.log(newData);
-    console.log(errors);
+
+    // console.log(errors);
+    axios.post(url, newData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    // console.log(newData);
+    // console.log(`Test ${token}`);
   };
 
   return (
@@ -198,7 +224,7 @@ const CreatingArtworkForm = () => {
                 />
                 <Stack style={{ marginTop: "16px" }}>
                   <Controller
-                    name="image"
+                    name="image_url"
                     control={control}
                     render={({ field }) => (
                       <input
@@ -211,7 +237,7 @@ const CreatingArtworkForm = () => {
                     )}
                   />
                   <StyledSpanErrorMessage>
-                    {errors.image?.message}
+                    {errors.image_url?.message}
                   </StyledSpanErrorMessage>
                 </Stack>
               </Grid>
@@ -221,7 +247,7 @@ const CreatingArtworkForm = () => {
           <ButtonOrange
             type="submit"
             variant="contained"
-            style={{ marginTop: 20}}
+            style={{ marginTop: 20 }}
           >
             Create Artwork
           </ButtonOrange>
