@@ -26,82 +26,36 @@ const StyledBox = styled(Box)({
   // justifyContent: "space-evenly"
 });
 
-function fetchData() {
-  return [
-    {
-      name: "test_1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      // owner_name: string,
-      // foundation_name: string,
-      image_url:
-        "https://goodparentingbrighterchildren.com/wp-content/uploads/2019/03/Children-drawing-PB.jpg",
-      //   status: string,
-      //   nft_owner: string,
-      //   nft_id,
-      //   string,
-      price: 100.0,
-    },
-    {
-      name: "test_2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      // owner_name: string,
-      // foundation_name: string,
-      image_url:
-        "https://www.thetelegraphandargus.co.uk/resources/images/13541891/?type=responsive-gallery-fullscreen",
-      //   status: string,
-      //   nft_owner: string,
-      //   nft_id,
-      //   string,
-      price: 100.0,
-    },
-    {
-      name: "test_3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      // owner_name: string,
-      // foundation_name: string,
-      image_url:
-        "https://images.squarespace-cdn.com/content/v1/618af22352c572536b8bab75/5fc89b74-517f-4a2d-8de0-58a0ed01be7f/IMG_8250.jpg?format=750w",
-      //   status: string,
-      //   nft_owner: string,
-      //   nft_id,
-      //   string,
-      price: 100.0,
-    },
-    {
-      name: "test_4",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      // owner_name: string,
-      // foundation_name: string,
-      image_url:
-        "https://media.istockphoto.com/id/1050915576/vector/childs-drawing-happy-family-building-car.jpg?s=612x612&w=0&k=20&c=zep-ls4og2W1aBIdIPXsLEDhMcO9d--fhCz6rAIc3L8=",
-      //   status: string,
-      //   nft_owner: string,
-      //   nft_id,
-      //   string,
-      price: 100.0,
-    },
-  ];
-}
-
 function HomePage(props) {
-  //   const dispatch = useDispatch();
-  // const [data, setData] = useState([{}]);
+  const url = "https://portus-api.herokuapp.com/api/v1/artworks";
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  const [token, setToken] = useState({});
+  const [artworks, setArtworks] = useState([{}]);
 
-  // function getData() {
-  //   axios
-  //     .get("https://pokeapi.co/api/v2/pokemon/ditto")
-  //     .then((res) => {
-  //       setData(res.data);
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+  useEffect(() => {
+    axios
+      .post("https://portus-api.herokuapp.com/oauth/token", {
+        grant_type: "client_credentials",
+        client_id: `${process.env.REACT_APP_CLIENT_ID}`,
+        client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
+      })
+      .then((res) => setToken(res.data.access_token))
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setArtworks(res.data))
+      .catch((err) => console.log(err));
+  }, [token]);
+
+  console.log(token);
+  console.log(artworks);
 
   return (
     <StyledRoot className={`page`}>
@@ -128,10 +82,11 @@ function HomePage(props) {
           </Stack>
         </Stack>
         <Stack style={{ justifyContent: "center" }}>
-          <div style={{ display: "flex", justifyContent: "flex-end"}}>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <ButtonFilter />
           </div>
           <StyledBox>
+<<<<<<< HEAD
             {fetchData().map((value, index) => {
               return (
                 <NFTCard
@@ -143,6 +98,22 @@ function HomePage(props) {
                 />
               );
             })}
+=======
+            {Array.isArray(artworks["data"]) ? (
+              artworks["data"].map((value, index) => {
+                return (
+                  <NFTCard
+                    name={value.name}
+                    price={value.price}
+                    description={value.description}
+                    img_url={value.image_url}
+                  />
+                );
+              })
+            ) : (
+              <div></div>
+            )}
+>>>>>>> 8dc98c0f53c018f07a8d29c665a031433c223948
           </StyledBox>
         </Stack>
       </Container>
