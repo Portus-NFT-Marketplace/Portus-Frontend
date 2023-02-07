@@ -24,9 +24,8 @@ const StyledBox = styled(Box)({
   borderColor: "#CFD3D7",
   borderRadius: "12px",
   padding: 35,
-  display: "grid",
-  gridTemplateColumns: "repeat(3, 1fr)",
-  // justifyContent: "space-evenly"
+  wordWrap: "break-word",
+
 });
 
 function DetailPage(props) {
