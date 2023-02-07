@@ -6,6 +6,7 @@ import Container from "@mui/material/Container";
 
 import HomePage from "./components/pages/homePage";
 import CreatingArtworkForm from "./components/pages/NFTCreatingPage";
+import DetailPage from "./components/pages/detailPage";
 
 const Routers = () => {
   // const classes = useStyles();
@@ -118,6 +119,7 @@ const Routers = () => {
         <Switch>
           <Route exact path={["/", ""]} component={HomePage} />
           <Route exact path="/create_artwork" component={CreatingArtworkForm} />
+          <Route exact path="/details" component={DetailPage} />
         </Switch>
       </Suspense>
     </Container>
