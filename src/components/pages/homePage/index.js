@@ -50,7 +50,7 @@ function HomePage(props) {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => setArtworks(res.data))
+      .then((res) => setArtworks(res.data.data))
       .catch((err) => console.log(err));
   }, [token]);
 
@@ -86,8 +86,7 @@ function HomePage(props) {
             <ButtonFilter />
           </div>
           <StyledBox>
-<<<<<<< HEAD
-            {fetchData().map((value, index) => {
+            {artworks.map((value, index) => {
               return (
                 <NFTCard
                   name={value.name}
@@ -98,22 +97,6 @@ function HomePage(props) {
                 />
               );
             })}
-=======
-            {Array.isArray(artworks["data"]) ? (
-              artworks["data"].map((value, index) => {
-                return (
-                  <NFTCard
-                    name={value.name}
-                    price={value.price}
-                    description={value.description}
-                    img_url={value.image_url}
-                  />
-                );
-              })
-            ) : (
-              <div></div>
-            )}
->>>>>>> 8dc98c0f53c018f07a8d29c665a031433c223948
           </StyledBox>
         </Stack>
       </Container>
