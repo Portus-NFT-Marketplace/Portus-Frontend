@@ -22,6 +22,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Stack } from "@mui/system";
+
+import { Link, withRouter, NavLink } from "react-router-dom";
+
 import axios from "axios";
 
 import "./style.css";
@@ -87,13 +90,14 @@ const StyledSpanErrorMessage = styled("span")({
 const schema = yup.object().shape({
   name: yup.string().required("This field is required."),
   description: yup.string(),
-  ownerName: yup.string().required("This field is required."),
+  // ownerName: yup.string().required("This field is required."),
   price: yup
     .number()
     .typeError("Price should be a number.")
     .positive("Price should be greater than 0.")
     .required(),
-  image_url: yup.mixed().required("A file is required"),
+  image_url: yup.string().required("This field is required."),
+  // image_url: yup.mixed().required("A file is required"),
   // .test(
   //   "Fichier taille",
   //   "upload file",
@@ -118,7 +122,7 @@ const CreatingArtworkForm = () => {
     resolver: yupResolver(schema),
     defaultValues: {
       name: "",
-      ownerName: "",
+      // ownerName: "",
       description: "",
       price: "",
     },
@@ -179,7 +183,7 @@ const CreatingArtworkForm = () => {
                   )}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Controller
                   name="ownerName"
                   control={control}
@@ -192,7 +196,7 @@ const CreatingArtworkForm = () => {
                     />
                   )}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <Controller
                   name="description"
@@ -205,6 +209,20 @@ const CreatingArtworkForm = () => {
                       rows={4}
                       error={!!errors.description}
                       helperText={errors.description?.message}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  name="image_url"
+                  control={control}
+                  render={({ field }) => (
+                    <TextFieldTheme
+                      {...field}
+                      label="Image URL"
+                      error={!!errors.image_url}
+                      helperText={errors.image_url?.message}
                     />
                   )}
                 />
@@ -222,7 +240,7 @@ const CreatingArtworkForm = () => {
                     />
                   )}
                 />
-                <Stack style={{ marginTop: "16px" }}>
+                {/* <Stack style={{ marginTop: "16px" }}>
                   <Controller
                     name="image_url"
                     control={control}
@@ -239,18 +257,19 @@ const CreatingArtworkForm = () => {
                   <StyledSpanErrorMessage>
                     {errors.image_url?.message}
                   </StyledSpanErrorMessage>
-                </Stack>
+                </Stack> */}
               </Grid>
               {/* <input type="file" name="picture" /> */}
             </Grid>
           </Grid>
-          <ButtonOrange
+          <Button
             type="submit"
             variant="contained"
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 20, borderRadius: 8 }}
+            // href="/"
           >
             Create Artwork
-          </ButtonOrange>
+          </Button>
         </form>
       </Container>
     </StyledRoot>

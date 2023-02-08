@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import EmailIcon from "@mui/icons-material/Email";
 import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
-import { Stack } from "@mui/material";
+import { Stack, Button } from "@mui/material";
 
 import TranslateIcon from "@mui/icons-material/Translate";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -146,25 +146,13 @@ const Header = (props) => {
               </a>
               <Stack direction="row" spacing={2}>
                 <Divider orientation="vertical" />
-                <ButtonOrange
-                  variant={"text"}
-                  component={NavLink}
-                  to="/"
-                >
+                <ButtonOrange variant={"text"} component={NavLink} to="/">
                   FOUNDATION
                 </ButtonOrange>
-                <ButtonOrange
-                  variant={"text"}
-                  component={NavLink}
-                  to="/"
-                >
+                <ButtonOrange variant={"text"} component={NavLink} to="/">
                   RESOURCES
                 </ButtonOrange>
-                <ButtonOrange
-                  variant={"text"}
-                  component={NavLink}
-                  to="/"
-                >
+                <ButtonOrange variant={"text"} component={NavLink} to="/">
                   ABOUT US
                 </ButtonOrange>
               </Stack>
@@ -176,6 +164,22 @@ const Header = (props) => {
                   style={{ alignItems: "center" }}
                 >
                   <div>
+                    <Button
+                      variant="outlined"
+                      href="/image_uploader"
+                      // className="partner"
+                      style={{ padding: 8, minWidth: 30, marginRight: 15, borderRadius: 10 }}
+                    >
+                      <Typography
+                        style={{
+                          fontSize: 11.5,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        Create Artwork
+                      </Typography>
+                    </Button>
                     <ButtonOrange
                       variant={"contained"}
                       component={NavLink}
