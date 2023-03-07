@@ -27,7 +27,7 @@ import { Link, withRouter, NavLink } from "react-router-dom";
 
 import axios from "axios";
 
-import "./style.css";
+import "./styles.css";
 
 const StyledRoot = styled("div")({
   marginTop: 100,

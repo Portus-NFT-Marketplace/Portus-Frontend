@@ -181,6 +181,23 @@ const Header = (props) => {
                       </Typography>
                     </Button>
                     <ButtonOrange
+                      variant={"outlined"}
+                      component={NavLink}
+                      to="/sign_in"
+                      // className="partner"
+                      style={{ padding: 8, minWidth: 30, marginRight: 15, }}
+                    >
+                      <Typography
+                        style={{
+                          fontSize: 11.5,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        LOG IN AS FOUNDATION
+                      </Typography>
+                    </ButtonOrange>
+                    <ButtonOrange
                       variant={"contained"}
                       component={NavLink}
                       to="/"

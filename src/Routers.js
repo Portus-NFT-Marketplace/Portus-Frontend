@@ -8,6 +8,7 @@ import HomePage from "./components/pages/homePage";
 import CreatingArtworkForm from "./components/pages/NFTCreatingPage";
 import DetailPage from "./components/pages/detailPage";
 import IPFSImageUploader from "./components/pages/NFTCreatingPage/IPFSUploader";
+import LoginForm from "./components/pages/loginPage";
 
 const Routers = () => {
   // const classes = useStyles();
@@ -122,6 +123,7 @@ const Routers = () => {
           <Route exact path="/create_artwork" component={CreatingArtworkForm} />
           <Route exact path="/details/:id" component={DetailPage} />
           <Route exact path="/image_uploader" component={IPFSImageUploader} />
+          <Route exact path="/sign_in" component={LoginForm} />
         </Switch>
       </Suspense>
     </Container>
