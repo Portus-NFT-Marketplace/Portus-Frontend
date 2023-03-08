@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import { Link, withRouter, NavLink } from "react-router-dom";
+import { Link, withRouter, NavLink, useHistory } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import makeStyles from "@mui/styles/makeStyles";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
@@ -134,6 +134,8 @@ const Header = (props) => {
   const menuId = "primary-search-account-menu";
   const renderMenu = <></>;
 
+  const history = useHistory();
+
   return (
     <div>
       <ElevationScroll {...props}>
@@ -168,7 +170,12 @@ const Header = (props) => {
                       variant="outlined"
                       href="/image_uploader"
                       // className="partner"
-                      style={{ padding: 8, minWidth: 30, marginRight: 15, borderRadius: 10 }}
+                      style={{
+                        padding: 8,
+                        minWidth: 30,
+                        marginRight: 15,
+                        borderRadius: 10,
+                      }}
                     >
                       <Typography
                         style={{
@@ -182,10 +189,10 @@ const Header = (props) => {
                     </Button>
                     <ButtonOrange
                       variant={"outlined"}
-                      component={NavLink}
-                      to="/sign_in"
+                      href="/sign_in"
+                      // onClick={() => history.push("/sign_in")}
                       // className="partner"
-                      style={{ padding: 8, minWidth: 30, marginRight: 15, }}
+                      style={{ padding: 8, minWidth: 30, marginRight: 15 }}
                     >
                       <Typography
                         style={{
