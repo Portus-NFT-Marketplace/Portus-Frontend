@@ -1,88 +1,174 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from "react";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { styled } from "@mui/material/styles";
+import {
+  Container,
+  Typography,
+  Button,
+  Grid,
+  Divider,
+  IconButton,
+  Paper,
+  TextField,
+  MenuItem,
+  Box,
+} from "@mui/material";
+import ButtonBlue from "../shared/general/ButtonBlue";
+import ButtonOrange from "../shared/general/ButtonOrange";
+import TextFieldTheme from "../shared/general/TextFieldTheme";
+import AddIcon from "@mui/icons-material/Add";
+import * as yup from "yup";
+import YupPassword from 'yup-password'
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Stack } from "@mui/system";
 
-import "./styles.css";
+import { Link, withRouter, NavLink } from "react-router-dom";
 
-function LoginForm() {
-  // React States
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
+import axios from "axios";
 
-  // User Login info
-  const database = [
-    {
-      username: "user1",
-      password: "pass1",
+// import "./styles.css";
+
+const StyledRoot = styled("div")({
+  marginTop: 100,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  // margin: "0px",
+  // top: "50%",
+  // bottom: "50%",
+  // position: "absolute",
+  "& .register-head": {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    // marginTop: 100,
+    marginBottom: 30,
+  },
+  "& .register-body": {
+    display: "flex",
+  },
+});
+
+const StyledGrid = styled(Grid)({
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+const StyledBox = styled(Box)({
+  border: "1px solid",
+  borderColor: "#CFD3D7",
+  borderRadius: "12px",
+  padding: 35,
+  justifyContent: "center",
+  alignItems: "center",
+  display: "flex",
+  width: "500px",
+});
+
+// YupPassword(yup)
+
+const schema = yup.object().shape({
+  username: yup
+    .string()
+    .required("Please fill in your username")
+    .typeError("Invalid username"),
+  password: yup
+    .string()
+    // .password()
+    .required("Password is required")
+    .typeError("Invalid password"),
+});
+
+const LoginForm = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    setValue,
+    watch,
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      username: "",
+      password: "",
     },
-    {
-      username: "user2",
-      password: "pass2",
-    },
-  ];
+  });
 
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password",
+  const url = "https://portus-api.herokuapp.com/foundations/sign_in";
+
+  const onSubmit = (data) => {
+    const userData = { ...data };
+
+    // console.log(errors);
+    axios.post(url, userData);
+    console.log(userData);
+    // console.log(`Test ${token}`);
   };
-
-  const handleSubmit = (event) => {
-    //Prevent page reload
-    event.preventDefault();
-
-    var { uname, pass } = document.forms[0];
-
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
-
-    // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
-    }
-  };
-
-  // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
-
-  // JSX code for login form
-  const renderForm = (
-    <div className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          <label>Username </label>
-          <input type="text" name="uname" required />
-          {renderErrorMessage("uname")}
-        </div>
-        <div className="input-container">
-          <label>Password </label>
-          <input type="password" name="pass" required />
-          {renderErrorMessage("pass")}
-        </div>
-        <div className="button-container">
-          <input type="submit" value="SIGN IN" />
-        </div>
-      </form>
-    </div>
-  );
 
   return (
-    <div className="app">
-      <div className="login-form">
-        <div className="title">Sign In</div>
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
-      </div>
-    </div>
+    <StyledRoot>
+      <StyledBox>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <StyledGrid container spacing={3}>
+            <Grid item xs={12}>
+              <Typography variant="h4">Sign In</Typography>
+              <Divider style={{ marginBottom: "10px" }} />
+              <Typography variant="caption" color="text.secondary">
+                <i>Sign in with your foundation account</i>
+              </Typography>
+            </Grid>
+            <Grid item container spacing={2}>
+              <Grid item xs={12}>
+                <Controller
+                  name="username"
+                  control={control}
+                  render={({ field }) => (
+                    <TextFieldTheme
+                      {...field}
+                      label="Username"
+                      error={!!errors.username}
+                      helperText={errors.username?.message}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  name="password"
+                  control={control}
+                  render={({ field }) => (
+                    <TextFieldTheme
+                      {...field}
+                      label="Password"
+                      type="password"
+                      error={!!errors.password}
+                      helperText={errors.password?.message}
+                    />
+                  )}
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              variant="contained"
+              style={{
+                marginTop: 20,
+                borderRadius: 8,
+                backgroundColor: "#E46842",
+              }}
+              // href="/"
+            >
+              Sign In
+            </Button>
+          </StyledGrid>
+        </form>
+      </StyledBox>
+    </StyledRoot>
   );
-}
+};
 
 export default LoginForm;
