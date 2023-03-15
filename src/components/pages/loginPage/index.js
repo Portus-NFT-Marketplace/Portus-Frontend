@@ -18,7 +18,7 @@ import ButtonOrange from "../shared/general/ButtonOrange";
 import TextFieldTheme from "../shared/general/TextFieldTheme";
 import AddIcon from "@mui/icons-material/Add";
 import * as yup from "yup";
-import YupPassword from 'yup-password'
+import YupPassword from "yup-password";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -71,8 +71,9 @@ const StyledBox = styled(Box)({
 // YupPassword(yup)
 
 const schema = yup.object().shape({
-  username: yup
+  email: yup
     .string()
+    .email()
     .required("Please fill in your username")
     .typeError("Invalid username"),
   password: yup
@@ -93,7 +94,7 @@ const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
@@ -101,11 +102,19 @@ const LoginForm = () => {
   const url = "https://portus-api.herokuapp.com/foundations/sign_in";
 
   const onSubmit = (data) => {
-    const userData = { ...data };
+    const foundations = { ...data };
 
     // console.log(errors);
-    axios.post(url, userData);
-    console.log(userData);
+    // axios({
+    //   method: 'post',
+    //   url: url,
+    //   data: {
+    //     foundations: userData,
+    //   }
+    // });
+    axios.post(url, {foundations});
+    // console.log(foundations);
+    // console.log({ foundations });
     // console.log(`Test ${token}`);
   };
 
@@ -124,14 +133,14 @@ const LoginForm = () => {
             <Grid item container spacing={2}>
               <Grid item xs={12}>
                 <Controller
-                  name="username"
+                  name="email"
                   control={control}
                   render={({ field }) => (
                     <TextFieldTheme
                       {...field}
-                      label="Username"
-                      error={!!errors.username}
-                      helperText={errors.username?.message}
+                      label="E-mail"
+                      error={!!errors.email}
+                      helperText={errors.email?.message}
                     />
                   )}
                 />
