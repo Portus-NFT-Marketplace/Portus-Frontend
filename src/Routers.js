@@ -10,7 +10,21 @@ import DetailPage from "./components/pages/detailPage";
 import IPFSImageUploader from "./components/pages/NFTCreatingPage/IPFSUploader";
 import LoginForm from "./components/pages/loginPage";
 
-const Routers = () => {
+import { FastForward } from "@mui/icons-material";
+
+export default function Routers({ isSignedIn, userToken }) {
+  // const [isSignedIn, setIsSignedIn] = useState(null);
+  // const signin = () => {
+  //   if (document.cookie !== "") {
+  //     setIsSignedIn(true);
+  //   } else {
+  //     setIsSignedIn(false);
+  //   }
+  // };
+
+  // const signout = () => {
+  //   setIsSignedIn(false);
+  // };
   // const classes = useStyles();
   // const { user: currentUser } = useSelector((state) => state.auth);
 
@@ -119,15 +133,21 @@ const Routers = () => {
     <Container maxWidth={false} style={{ padding: 0 }}>
       <Suspense fallback={<div>Loading..</div>}>
         <Switch>
+          {/* <Route path="/create_artwork">
+            <Protected isSignedIn={isSignedIn}>
+              <CreatingArtworkForm />
+            </Protected>
+          </Route> */}
           <Route exact path={["/", ""]} component={HomePage} />
-          <Route exact path="/create_artwork" component={CreatingArtworkForm} />
+          {/* <Route exact path="/create_artwork" component={CreatingArtworkForm} /> */}
+          <Route exact path="/create_artwork">
+            <CreatingArtworkForm isSignedIn={isSignedIn} userToken={userToken} />
+          </Route>
           <Route exact path="/details/:id" component={DetailPage} />
-          <Route exact path="/image_uploader" component={IPFSImageUploader} />
-          <Route exact path="/sign_in" component={LoginForm} />
+          {/* <Route exact path="/image_uploader" component={IPFSImageUploader} /> */}
+          <Route exact path="/sign_in_as_foundation" component={LoginForm} />
         </Switch>
       </Suspense>
     </Container>
   );
-};
-
-export default Routers;
+}

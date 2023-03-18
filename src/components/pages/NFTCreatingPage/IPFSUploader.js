@@ -69,7 +69,7 @@ function IPFSImageUploader() {
   return (
     <StyledRoot>
       <Container maxWidth="md">
-        <Stack spacing={2}>
+        <Stack spacing={2} style={{marginBottom: "40px"}}>
           <Grid item xs={12}>
             <Typography variant="h5">Upload Your Artwork</Typography>
             <Divider />
@@ -83,8 +83,7 @@ function IPFSImageUploader() {
               URL
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              3. Copy your URL for input into create artwork form in the next
-              page
+              3. Copy your URL for input into create artwork form below
             </Typography>
             <Typography variant="caption" color="text.secondary"></Typography>
           </Stack>
@@ -107,7 +106,7 @@ function IPFSImageUploader() {
             </Stack>
           </Stack>
         </Stack>
-        <Stack style={{ alignItems: "flex-end" }}>
+        {/* <Stack style={{ alignItems: "flex-end" }}>
           <Button
             // component={NavLink}
             variant="outlined"
@@ -120,7 +119,7 @@ function IPFSImageUploader() {
           >
             Next
           </Button>
-        </Stack>
+        </Stack> */}
       </Container>
     </StyledRoot>
   );

@@ -23,11 +23,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Stack } from "@mui/system";
 
-import { Link, withRouter, NavLink } from "react-router-dom";
+import { Link, withRouter, NavLink, Redirect } from "react-router-dom";
 
 import axios from "axios";
 
 import "./styles.css";
+import IPFSImageUploader from "./IPFSUploader";
+
+import Cookies from "js-cookie";
 
 const StyledRoot = styled("div")({
   marginTop: 100,
@@ -110,7 +113,23 @@ const schema = yup.object().shape({
   // ),
 });
 
-const CreatingArtworkForm = () => {
+export default function CreatingArtworkForm({ isSignedIn, userToken }) {
+
+  // force reloading a page when user using browser back button
+  window.onpopstate = function(event) {
+    if (event && event.state && event.state.reloaded) {
+      // If the state object exists and has the "reloaded" property set to true,
+      // it means that we already reloaded the page on the previous navigation,
+      // so we don't want to reload it again.
+      return;
+    }
+  
+    // Reload the page and pass a state object to indicate that we already reloaded it.
+    window.location.reload();
+    window.history.replaceState({ reloaded: true }, "");
+    // alert("You are back!");
+  };
+
   const {
     control,
     handleSubmit,
@@ -146,6 +165,13 @@ const CreatingArtworkForm = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  isSignedIn = Cookies.get("isSignedIn");
+  if (isSignedIn != "true") {
+    return <Redirect to="/sign_in_as_foundation" replace />;
+  }
+
+  userToken = Cookies.get("userToken");
+
   const onSubmit = (data) => {
     const newData = { ...data };
 
@@ -153,6 +179,7 @@ const CreatingArtworkForm = () => {
     axios.post(url, newData, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Foundation-Identifier": `${userToken}`,
       },
     });
     // console.log(newData);
@@ -162,6 +189,7 @@ const CreatingArtworkForm = () => {
   return (
     <StyledRoot>
       <Container maxWidth="md">
+        <IPFSImageUploader />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -274,6 +302,4 @@ const CreatingArtworkForm = () => {
       </Container>
     </StyledRoot>
   );
-};
-
-export default CreatingArtworkForm;
+}

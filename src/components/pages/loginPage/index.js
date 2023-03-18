@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import {
@@ -25,9 +26,21 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Stack } from "@mui/system";
 
-import { Link, withRouter, NavLink } from "react-router-dom";
+import {
+  Link,
+  withRouter,
+  NavLink,
+  Redirect,
+  useHistory,
+} from "react-router-dom";
 
 import axios from "axios";
+
+// import { Route, Redirect, Switch } from "react-router-dom";
+// import Protected from "../../../utils/ProtectedRoute";
+// import CreatingArtworkForm from "../NFTCreatingPage";
+import Cookies from "js-cookie";
+import Routers from "../../../Routers";
 
 // import "./styles.css";
 
@@ -83,6 +96,12 @@ const schema = yup.object().shape({
     .typeError("Invalid password"),
 });
 
+// function checkFormError (res) {
+//   if (res == 422)
+
+//   return userInput === fetchInput
+// }
+
 const LoginForm = () => {
   const {
     control,
@@ -91,6 +110,7 @@ const LoginForm = () => {
     getValues,
     setValue,
     watch,
+    setError,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -99,10 +119,20 @@ const LoginForm = () => {
     },
   });
 
-  const url = "https://portus-api.herokuapp.com/foundations/sign_in";
+  // const [isSignedIn, setIsSignedIn] = useState(null);
 
-  const onSubmit = (data) => {
-    const foundations = { ...data };
+  const url = "https://portus-api.herokuapp.com/foundations/sign_in";
+  const history = useHistory();
+
+  let userToken = Cookies.set("userToken", null, { expires: 29 });
+  let isSignedIn = Cookies.set("isSignedIn", false, { expires: 29 });
+
+  Cookies.remove("userToken");
+  Cookies.remove("isSignedIn");
+
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+    const foundation = { ...data };
 
     // console.log(errors);
     // axios({
@@ -112,11 +142,68 @@ const LoginForm = () => {
     //     foundations: userData,
     //   }
     // });
-    axios.post(url, {foundations});
+
+    axios
+      .post(url, { foundation })
+      .then((response) => {
+        //get token from response
+        // document.cookie = response.data.token;
+
+        // TEST LOGOUT
+        // Cookies.remove("userToken")
+        // Cookies.remove("isSignedIn")
+
+        userToken = Cookies.set("userToken", response.data.token, {
+          expires: 29,
+        });
+
+        // Cookies.set("isSignedIn", false, { expires: 29 });
+        if (!userToken) {
+          Cookies.set("isSignedIn", false, { expires: 29 });
+          history.push("/sign_in_as_foundation");
+          window.location.reload();
+        } else {
+          // const userSignInToken = Cookies.get("userToken");
+          isSignedIn = Cookies.set("isSignedIn", true, { expires: 29 });
+          // setIsSignedIn(true);
+          <Routers isSignedIn={isSignedIn} userToken={userToken} />;
+          history.push("/create_artwork");
+          window.location.reload();
+        }
+
+        // if (document.cookie != "") {
+        //   setIsSignedIn(true);
+        //   <Routers isSignedIn={isSignedIn} />;
+        // } else {
+        //   setIsSignedIn(false);
+        //   <Routers isSignedIn={isSignedIn} />;
+        // }
+        // console.log(document.cookie);
+        // console.log(response);
+      })
+      .catch((err) => {
+        setError("email", {
+          type: err.response.status,
+          message: "Username or password is invalid!",
+        });
+        setError("password", {
+          type: err.response.status,
+          message: "Username or password is invalid!",
+        });
+        console.log(err);
+      });
     // console.log(foundations);
     // console.log({ foundations });
     // console.log(`Test ${token}`);
   };
+
+  // if (document.cookie !== "") {
+  //   console.log("yes");
+  // }
+
+  console.log(Cookies.get("userToken"));
+  console.log(Cookies.get("isSignedIn"));
+  // console.log(isSignedIn);
 
   return (
     <StyledRoot>
@@ -169,7 +256,7 @@ const LoginForm = () => {
                 borderRadius: 8,
                 backgroundColor: "#E46842",
               }}
-              // href="/"
+              // href="/create_artwork"
             >
               Sign In
             </Button>
