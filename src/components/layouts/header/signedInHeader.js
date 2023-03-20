@@ -34,8 +34,22 @@ import Logo from "../../../components/pages/assets/portus_logo.png";
 import ButtonBlue from "../../pages/shared/general/ButtonBlue";
 import ButtonOrange from "../../pages/shared/general/ButtonOrange";
 
+import LoggedOutFromFoundation from "../../pages/loginPage/loggedOut";
+
 // import { logout } from "../../../actions/auth";
 import { Box } from "@mui/system";
+
+import Cookies from "js-cookie";
+
+const StyledButtonLogOut = styled(Button)({
+  borderColor: "#E46842",
+  backgroundColor: "transparent",
+  color: "#E46842",
+  borderRadius: 8,
+  "&:hover": {
+    borderColor: "#BC6530",
+  },
+});
 
 const StyledAppBar = styled(AppBar)(({}) => ({
   backgroundColor: "transparent",
@@ -116,7 +130,7 @@ ElevationScroll.propTypes = {
   window: PropTypes.func,
 };
 
-const Header = (props) => {
+const SignedInHeader = (props) => {
   //   const { open, matchesBig, isLoggedIn } = props;
   //   const { user: currentUser } = useSelector((state) => state.auth);
   //   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -168,8 +182,7 @@ const Header = (props) => {
                   <div>
                     {/* <Button
                       variant="outlined"
-                      // href="/image_uploader"
-                      href="create_artwork"
+                      href="/image_uploader"
                       // className="partner"
                       style={{
                         padding: 8,
@@ -187,10 +200,12 @@ const Header = (props) => {
                       >
                         Create Artwork
                       </Typography>
-                    </Button>
-                    <ButtonOrange
+                    </Button> */}
+                    <StyledButtonLogOut
                       variant={"outlined"}
+                      onClick={LoggedOutFromFoundation}
                       href="/sign_in_as_foundation"
+                      //   href="/logged_out_from_foundation"
                       // onClick={() => history.push("/sign_in")}
                       // className="partner"
                       style={{ padding: 8, minWidth: 30, marginRight: 15 }}
@@ -202,9 +217,9 @@ const Header = (props) => {
                           alignItems: "center",
                         }}
                       >
-                        LOG IN AS FOUNDATION
+                        LOG OUT
                       </Typography>
-                    </ButtonOrange> */}
+                    </StyledButtonLogOut>
                     <ButtonOrange
                       variant={"contained"}
                       component={NavLink}
@@ -323,4 +338,4 @@ const Header = (props) => {
   );
 };
 
-export default withRouter(Header);
+export default withRouter(SignedInHeader);

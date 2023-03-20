@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 
-import "./style/Carousel.css";
+import "./styles/Carousel.css";
 
 export const CarouselItem = ({children, width}) => {
     return (
