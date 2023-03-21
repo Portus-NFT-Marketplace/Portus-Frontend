@@ -126,9 +126,11 @@ const LoginForm = () => {
 
   let userToken = Cookies.set("userToken", null, { expires: 29 });
   let isSignedIn = Cookies.set("isSignedIn", false, { expires: 29 });
+  let foundationName = Cookies.set("foundationName", "", { expires: 29 });
 
   Cookies.remove("userToken");
   Cookies.remove("isSignedIn");
+  Cookies.remove("foundationName");
 
   const onSubmit = (data, e) => {
     e.preventDefault();
@@ -165,6 +167,8 @@ const LoginForm = () => {
         } else {
           // const userSignInToken = Cookies.get("userToken");
           isSignedIn = Cookies.set("isSignedIn", true, { expires: 29 });
+          foundationName = Cookies.set("foundationName", response.data.foundation_name, { expires: 29 });
+
           // setIsSignedIn(true);
           <Routers isSignedIn={isSignedIn} userToken={userToken} />;
           history.push("/create_artwork");
@@ -201,8 +205,9 @@ const LoginForm = () => {
   //   console.log("yes");
   // }
 
-  console.log(Cookies.get("userToken"));
-  console.log(Cookies.get("isSignedIn"));
+  // console.log(Cookies.get("userToken"));
+  // console.log(Cookies.get("isSignedIn"));
+  // console.log(Cookies.get("foundationName"));
   // console.log(isSignedIn);
 
   return (
