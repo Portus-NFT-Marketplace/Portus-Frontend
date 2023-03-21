@@ -94,6 +94,7 @@ function HomePage(props) {
                   description={value.description}
                   img_url={value.image_url}
                   id={value.id}
+                  foundation_owner={value.foundation_name}
                 />
               );
             })}
