@@ -145,6 +145,8 @@ const SignedInHeader = (props) => {
   //     handleMenuClose();
   //   };
 
+  const foundationName = Cookies.get("foundationName");
+
   const menuId = "primary-search-account-menu";
   const renderMenu = <></>;
 
@@ -201,6 +203,26 @@ const SignedInHeader = (props) => {
                         Create Artwork
                       </Typography>
                     </Button> */}
+                    <Button
+                      disabled
+                      style={{
+                        color: "black",
+                        marginRight: "5px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography variant="caption">Logged in as</Typography>
+                      <Typography
+                        variant="body1"
+                        style={{
+                          color: "#E46842",
+                          marginLeft: "5px",
+                          fontStyle: "italic",
+                        }}
+                      >
+                        <b>{foundationName}</b>
+                      </Typography>
+                    </Button>
                     <StyledButtonLogOut
                       variant={"outlined"}
                       onClick={LoggedOutFromFoundation}
