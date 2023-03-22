@@ -109,10 +109,10 @@ function DetailPage(props) {
                     height: 35,
                     width: 250,
                   }}
-                  label="OWNER'S FOUNDATION NAME"
+                  label={artwork?.foundation_name}
                   variant="outlined"
                 />
-                <Typography variant="h4"> {artwork?.name}</Typography>
+                <Typography variant="h4">{artwork?.name}</Typography>
               </Stack>
               <Stack style={{ marginTop: 18 }} spacing={2}>
                 <StyledBox>
