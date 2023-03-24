@@ -19,6 +19,8 @@ function CheckSignedInHeader() {
 
   if (isSignedIn && userToken) {
     return <div>{<SignedInHeader />}</div>;
+  } else {
+    return <div>{<Header />}</div>;
   }
 
   // let { pathname } = useLocation();
@@ -33,9 +35,9 @@ function App() {
   return (
     <Router>
       <div>
-        <Header />
-        <Routers />
         <CheckSignedInHeader />
+        {/* <Header /> */}
+        <Routers />
       </div>
     </Router>
   );

@@ -34,7 +34,7 @@ import Logo from "../../../components/pages/assets/portus_logo.png";
 import ButtonBlue from "../../pages/shared/general/ButtonBlue";
 import ButtonOrange from "../../pages/shared/general/ButtonOrange";
 
-import LoggedOutFromFoundation from "../../pages/loginPage/loggedOut";
+import LoggedOutFromFoundation from "../../pages/loginPage/loggedOutFoundation";
 
 // import { logout } from "../../../actions/auth";
 import { Box } from "@mui/system";
@@ -242,34 +242,6 @@ const SignedInHeader = (props) => {
                         LOG OUT
                       </Typography>
                     </StyledButtonLogOut>
-                    <ButtonOrange
-                      variant={"contained"}
-                      component={NavLink}
-                      to="/"
-                      // className="partner"
-                      style={{ padding: 8, minWidth: 30, marginRight: 15 }}
-                    >
-                      <Typography
-                        style={{
-                          fontSize: 11.5,
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        CONNECT WALLET
-                      </Typography>
-                    </ButtonOrange>
-                  </div>
-                  <div>
-                    <ButtonOrange
-                      variant={"text"}
-                      component={NavLink}
-                      to="/"
-                      // className="partner"
-                      style={{ padding: 0, minWidth: 30, marginRight: 8 }}
-                    >
-                      <PersonOutlineOutlinedIcon />
-                    </ButtonOrange>
                   </div>
                   {/* <div>
                     <ButtonOrange

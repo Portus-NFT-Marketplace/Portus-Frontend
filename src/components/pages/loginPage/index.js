@@ -126,7 +126,7 @@ const LoginForm = () => {
 
   let userToken = Cookies.set("userToken", null, { expires: 29 });
   let isSignedIn = Cookies.set("isSignedIn", false, { expires: 29 });
-  let foundationName = Cookies.set("foundationName", "", { expires: 29 });
+  let foundationName = Cookies.set("foundationName", null, { expires: 29 });
 
   Cookies.remove("userToken");
   Cookies.remove("isSignedIn");
