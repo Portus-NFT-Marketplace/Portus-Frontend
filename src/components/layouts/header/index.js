@@ -91,7 +91,7 @@ ElevationScroll.propTypes = {
 
 function Header(props) {
   const renderMenu = <></>;
-
+  const userAddress = Cookies.get("userAddress");
   // const [account, setAccount] = useState(null);
   // function checkMetamaskConnection() {
   //   if (window.ethereum.selectedAddress) {
@@ -160,7 +160,7 @@ function Header(props) {
                 >
                   <div>
                     <AppProvider>
-                      <MetamaskButton />
+                      <MetamaskButton id={userAddress} />
                     </AppProvider>
 
                     {/* <Button

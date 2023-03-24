@@ -9,6 +9,7 @@ import CreatingArtworkForm from "./components/pages/NFTCreatingPage";
 import DetailPage from "./components/pages/detailPage";
 import IPFSImageUploader from "./components/pages/NFTCreatingPage/IPFSUploader";
 import LoginForm from "./components/pages/loginPage";
+import MyNFTPage from "./components/pages/myNFTPage";
 
 import { FastForward } from "@mui/icons-material";
 
@@ -146,6 +147,7 @@ export default function Routers({ isSignedIn, userToken }) {
           <Route exact path="/details/:id" component={DetailPage} />
           {/* <Route exact path="/image_uploader" component={IPFSImageUploader} /> */}
           <Route exact path="/sign_in_as_foundation" component={LoginForm} />
+          <Route exact path="/myNFT/:id" component={MyNFTPage} />
         </Switch>
       </Suspense>
     </Container>
