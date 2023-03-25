@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useParams } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
 import {
@@ -33,12 +34,21 @@ const StyledBox = styled(Box)({
   // justifyContent: "space-evenly"
 });
 
-function MyNFTPage(props) {
+function MyNFTPage() {
   const userAddress = Cookies.get("userAddress");
   const url = `https://portus-api.herokuapp.com/api/v1/artworks/by_owner/${userAddress}`;
 
   const [token, setToken] = useState({});
   const [artworks, setArtworks] = useState([{}]);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!userAddress) {
+      history.push("/");
+      window.location.reload();
+    }
+  }, [userAddress, history]);
 
   useEffect(() => {
     axios

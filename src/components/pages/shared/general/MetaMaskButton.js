@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from "react";
-import { NavLink, useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Typography, Stack } from "@mui/material";
 import { AppContext } from "../../../../utils/AppProvider";
@@ -8,7 +7,7 @@ import ButtonOrange from "./ButtonOrange";
 
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 
-export default function MetamaskButton({ id }) {
+export default function MetamaskButton() {
   const { userAddress, setUserAddress } = useContext(AppContext);
 
   useEffect(() => {
@@ -22,10 +21,14 @@ export default function MetamaskButton({ id }) {
           Cookies.set("userAddress", accounts[0]);
         } else {
           setUserAddress(null);
+          // Cookies.set("userAddress", false);
           Cookies.remove("userAddress");
+          // console.log(Cookies.get("userAddress"));
+          // console.log("not connected 1");
         }
       } else {
         setUserAddress(null);
+        Cookies.set("userAddress", false);
         Cookies.remove("userAddress");
       }
     }
@@ -33,16 +36,6 @@ export default function MetamaskButton({ id }) {
     checkMetamaskConnection();
   }, []);
 
-  let pageReloaded = false;
-  const history = useHistory();
-
-  function reloadPageOnce() {
-    if (!pageReloaded) {
-      history.push(`/myNFT/${id}`);
-      window.location.reload();
-      pageReloaded = true;
-    }
-  }
 
   const connectMetamask = async () => {
     try {
@@ -52,6 +45,7 @@ export default function MetamaskButton({ id }) {
         });
         //   Cookies.set('userAddress', accounts[0], { expires: 7, path: '/' });
         setUserAddress(accounts[0]);
+        window.location.reload();
       } else {
         // MetaMask is not installed, prompt the user to install it
         alert("Please install MetaMask to use this feature");
@@ -95,8 +89,8 @@ export default function MetamaskButton({ id }) {
           <ButtonOrange
             variant={"text"}
             // component={NavLink}
-            onClick={reloadPageOnce}
-            // to={`/myNFT/${id}`}
+            // onClick={reloadPageOnce}
+            href="/myNFT"
             style={{ padding: 0, minWidth: 30, marginRight: 8 }}
           >
             <PersonOutlineOutlinedIcon />
