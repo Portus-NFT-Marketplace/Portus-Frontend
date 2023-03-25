@@ -135,13 +135,7 @@ export default function Routers({ isSignedIn, userToken }) {
     <Container maxWidth={false} style={{ padding: 0 }}>
       <Suspense fallback={<div>Loading..</div>}>
         <Switch>
-          {/* <Route path="/create_artwork">
-            <Protected isSignedIn={isSignedIn}>
-              <CreatingArtworkForm />
-            </Protected>
-          </Route> */}
           <Route exact path={["/", ""]} component={HomePage} />
-          {/* <Route exact path="/create_artwork" component={CreatingArtworkForm} /> */}
           <Route exact path="/create_artwork">
             <CreatingArtworkForm
               isSignedIn={isSignedIn}
@@ -149,21 +143,8 @@ export default function Routers({ isSignedIn, userToken }) {
             />
           </Route>
           <Route exact path="/details/:id" component={DetailPage} />
-          {/* <Route exact path="/image_uploader" component={IPFSImageUploader} /> */}
           <Route exact path="/sign_in_as_foundation" component={LoginForm} />
-          {/* <ProtectedRoute
-            exact
-            path="/myNFT/:userAddress"
-            render={(props) => (
-              <MyNFTPage userAddress={props.match.params.userAddress} />
-            )}
-          /> */}
-          {/* <ProtectedRoute exact path="/myNFT/:userAddress" component={MyNFTPage} /> */}
           <ProtectedRoute exact path="/myNFT" component={MyNFTPage} />
-          {/* <Route exact path="/myNFT/:id">
-            <MyNFTPage userAddress={userAddress} />
-          </Route> */}
-          {/* <Route exact path="/myNFT/:id" component={MyNFTPage} /> */}
         </Switch>
       </Suspense>
     </Container>
