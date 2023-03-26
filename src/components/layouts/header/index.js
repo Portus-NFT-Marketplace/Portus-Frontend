@@ -135,11 +135,22 @@ function Header(props) {
         <StyledAppBar>
           <Toolbar>
             <Container maxWidth="lg">
-              {" "}
-              <a href="/">
+              <a
+                href="/"
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  display: "flex",
+                }}
+              >
                 <img src={Logo} alt="logo" width={190} />
               </a>
-              <Stack direction="row" spacing={2}>
+              <Stack
+                direction="row"
+                spacing={2}
+                style={{ alignItems: "center", justifyContent: "center" }}
+              >
                 <Divider orientation="vertical" />
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
                   มูลนิธิ
@@ -160,7 +171,7 @@ function Header(props) {
                 >
                   <div>
                     <AppProvider>
-                      <MetamaskButton/>
+                      <MetamaskButton />
                     </AppProvider>
 
                     {/* <Button
