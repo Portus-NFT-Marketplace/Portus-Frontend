@@ -135,22 +135,28 @@ function Header(props) {
         <StyledAppBar>
           <Toolbar>
             <Container maxWidth="lg">
-              <a
-                href="/"
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  textAlign: "center",
-                  display: "flex",
-                }}
-              >
-                <img src={Logo} alt="logo" width={190} />
-              </a>
               <Stack
                 direction="row"
                 spacing={2}
-                style={{ alignItems: "center", justifyContent: "center" }}
+                style={{
+                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
+                {" "}
+                <a
+                  href="/"
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    display: "flex",
+                  }}
+                >
+                  <img src={Logo} alt="logo" width={130} />
+                </a>
                 <Divider orientation="vertical" />
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
                   มูลนิธิ
