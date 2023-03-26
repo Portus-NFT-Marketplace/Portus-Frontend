@@ -48,7 +48,7 @@ export default function MetamaskButton() {
         window.location.reload();
       } else {
         // MetaMask is not installed, prompt the user to install it
-        alert("Please install MetaMask to use this feature");
+        alert("โปรดติดตั้ง MetaMask เพื่อใช้ feature นี้");
       }
     } catch (err) {
       console.error(err);
@@ -73,7 +73,7 @@ export default function MetamaskButton() {
               alignItems: "center",
             }}
           >
-            <Typography variant="caption">You are connected as</Typography>
+            <Typography variant="caption">คุณกำลังเชื่อมต่อ โดย</Typography>
             <Typography
               variant="body1"
               style={{
@@ -116,7 +116,7 @@ export default function MetamaskButton() {
           },
         }}
       >
-        Connect to Metamask
+        เชื่อมต่อกับ Metamask
       </Button>
     </>
   );

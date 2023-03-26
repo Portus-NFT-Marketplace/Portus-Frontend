@@ -69,21 +69,20 @@ function IPFSImageUploader() {
   return (
     <StyledRoot>
       <Container maxWidth="md">
-        <Stack spacing={2} style={{marginBottom: "40px"}}>
+        <Stack spacing={2} style={{ marginBottom: "40px" }}>
           <Grid item xs={12}>
-            <Typography variant="h5">Upload Your Artwork</Typography>
+            <Typography variant="h5">อัปโหลดงานศิลปะของคุณ</Typography>
             <Divider />
           </Grid>
           <Stack>
             <Typography variant="caption" color="text.secondary">
-              1. Upload your artwork click "Choose File"
+              1. อัปโหลดงานศิลปะของคุณ คลิก "Choose File"
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              2. Click "Create Your Artwork URL" to convert your artwork into
-              URL
+              2. คลิก "สร้าง URL งานศิลปะของคุณ" เพื่อแปลงงานศิลปะของคุณเป็น URL
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              3. Copy your URL for input into create artwork form below
+              3. คัดลอก URL ของคุณเพื่อป้อนลงในแบบฟอร์มสร้างงานศิลป์ด้านล่าง
             </Typography>
             <Typography variant="caption" color="text.secondary"></Typography>
           </Stack>
@@ -96,12 +95,12 @@ function IPFSImageUploader() {
                   required
                 />
                 <ButtonOrange variant="contained" type="submit">
-                  Create Your Artwork URL
+                  สร้าง URL งานศิลปะของคุณ
                 </ButtonOrange>
               </Stack>
             </form>
             <Stack spacing={1} style={{ marginTop: 15 }}>
-              <Typography variant="h6">Your Artwork URL:</Typography>
+              <Typography variant="h6">URL งานศิลปะของคุณ:</Typography>
               <Chip label={ImgHash} style={{ height: 45 }} />
             </Stack>
           </Stack>

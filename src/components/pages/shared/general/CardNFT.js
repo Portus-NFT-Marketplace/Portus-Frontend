@@ -36,7 +36,7 @@ export default function NFTCard({
       </CardContent>
       <CardActions style={{ justifyContent: "flex-end" }}>
         <Button size="small" href={`/details/${id}`}>
-          VIEW
+          ชมผลงานศิลปะ
         </Button>
       </CardActions>
     </Card>

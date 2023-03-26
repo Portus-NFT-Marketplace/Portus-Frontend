@@ -100,7 +100,7 @@ function DetailPage(props) {
                     height: 35,
                     width: 350,
                   }}
-                  label="NAME OF THE NFT OWNER"
+                  label="ชื่อเจ้าของผลงานศิลปะ"
                 />
                 <Chip
                   icon={<FoundationIcon />}

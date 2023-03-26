@@ -193,7 +193,7 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Typography variant="h5">Create Artwork</Typography>
+              <Typography variant="h5">สร้างงานศิลปะ</Typography>
               <Divider />
             </Grid>
             <Grid item container spacing={2}>
@@ -204,7 +204,7 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
                   render={({ field }) => (
                     <TextFieldTheme
                       {...field}
-                      label="NFT Name"
+                      label="ชื่อผลงานศิลปะ"
                       error={!!errors.name}
                       helperText={errors.name?.message}
                     />
@@ -232,7 +232,7 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
                   render={({ field }) => (
                     <TextFieldTheme
                       {...field}
-                      label="Description"
+                      label="คำอธิบาย"
                       multiline={true}
                       rows={4}
                       error={!!errors.description}
@@ -248,7 +248,7 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
                   render={({ field }) => (
                     <TextFieldTheme
                       {...field}
-                      label="Image URL"
+                      label="URL ของภาพงานศิลปะ"
                       error={!!errors.image_url}
                       helperText={errors.image_url?.message}
                     />
@@ -262,7 +262,7 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
                   render={({ field }) => (
                     <TextFieldTheme
                       {...field}
-                      label="Price"
+                      label="ราคา"
                       error={!!errors.price}
                       helperText={errors.price?.message}
                     />
@@ -296,7 +296,7 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
             style={{ marginTop: 20, borderRadius: 8 }}
             // href="/"
           >
-            Create Artwork
+            สร้างงานศิลปะ
           </Button>
         </form>
       </Container>
