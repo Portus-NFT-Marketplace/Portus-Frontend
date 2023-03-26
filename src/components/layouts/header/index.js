@@ -160,7 +160,7 @@ function Header(props) {
                 >
                   <div>
                     <AppProvider>
-                      <MetamaskButton id={userAddress} />
+                      <MetamaskButton/>
                     </AppProvider>
 
                     {/* <Button
