@@ -9,6 +9,8 @@ import FoundationIcon from "@mui/icons-material/Foundation";
 
 import NFTImage from "../shared/general/ImageNFT";
 import ButtonOrange from "../shared/general/ButtonOrange";
+import BuyButton from "../shared/general/BuyButton";
+import AppProvider from "../../../utils/AppProvider";
 
 const StyledRoot = styled("div")({
   minWidth: 350,
@@ -25,7 +27,6 @@ const StyledBox = styled(Box)({
   borderRadius: "12px",
   padding: 35,
   wordWrap: "break-word",
-
 });
 
 function DetailPage(props) {
@@ -121,12 +122,9 @@ function DetailPage(props) {
               </Stack>
             </Stack>
             <Stack style={{ alignItems: "center" }}>
-              <ButtonOrange
-                style={{ marginTop: 50, width: 150 }}
-                variant="contained"
-              >
-                Buy
-              </ButtonOrange>
+              <AppProvider>
+                <BuyButton />
+              </AppProvider>
             </Stack>
           </Stack>
         </Stack>

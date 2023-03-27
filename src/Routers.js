@@ -3,12 +3,14 @@ import makeStyles from "@mui/styles/makeStyles";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Container from "@mui/material/Container";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 import HomePage from "./components/pages/homePage";
 import CreatingArtworkForm from "./components/pages/NFTCreatingPage";
 import DetailPage from "./components/pages/detailPage";
 import IPFSImageUploader from "./components/pages/NFTCreatingPage/IPFSUploader";
 import LoginForm from "./components/pages/loginPage";
+import MyNFTPage from "./components/pages/myNFTPage";
 
 import { FastForward } from "@mui/icons-material";
 
@@ -133,19 +135,16 @@ export default function Routers({ isSignedIn, userToken }) {
     <Container maxWidth={false} style={{ padding: 0 }}>
       <Suspense fallback={<div>Loading..</div>}>
         <Switch>
-          {/* <Route path="/create_artwork">
-            <Protected isSignedIn={isSignedIn}>
-              <CreatingArtworkForm />
-            </Protected>
-          </Route> */}
           <Route exact path={["/", ""]} component={HomePage} />
-          {/* <Route exact path="/create_artwork" component={CreatingArtworkForm} /> */}
           <Route exact path="/create_artwork">
-            <CreatingArtworkForm isSignedIn={isSignedIn} userToken={userToken} />
+            <CreatingArtworkForm
+              isSignedIn={isSignedIn}
+              userToken={userToken}
+            />
           </Route>
           <Route exact path="/details/:id" component={DetailPage} />
-          {/* <Route exact path="/image_uploader" component={IPFSImageUploader} /> */}
           <Route exact path="/sign_in_as_foundation" component={LoginForm} />
+          <ProtectedRoute exact path="/myNFT" component={MyNFTPage} />
         </Switch>
       </Suspense>
     </Container>
