@@ -1,0 +1,79 @@
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+  }
+  
+  .carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .carousel-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  .carousel-pagination {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
+  
+  .carousel-pagination button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    margin: 0 5px;
+    background-color: #aaa;
+    cursor: pointer;
+    transition: background-color 0.5s ease-in-out;
+  }
+  
+  .carousel-pagination button.active {
+    background-color: #333;
+  }
+  
+  .carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .carousel-controls button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: #aaa;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.5s ease-in-out;
+  }
+  
+  .carousel-controls button:hover {
+    background-color: #333;
+  }
+  
+  .carousel-controls button.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  
