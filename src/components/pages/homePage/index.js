@@ -3,7 +3,7 @@ import axios from "axios";
 import { styled } from "@mui/material/styles";
 import { Grid, Container, Stack, Box } from "@mui/material";
 
-import CarouselAds from "./carousel";
+import Carousel from "./carousel";
 import NFTCard from "../shared/general/CardNFT";
 import ButtonFilter from "../shared/general/ButtonFilter";
 
@@ -60,28 +60,17 @@ function HomePage(props) {
   return (
     <StyledRoot className={`page`}>
       <Container style={{ justifyContent: "center" }} maxWidth="lg">
-        <Stack
-          spacing={1}
-          justifyContent="center"
-          alignItems="center"
-          style={{ marginBottom: 20, marginTop: 20 }}
-        >
-          <Stack
-            style={{
-              width: "100%",
-              height: "100%",
-              marginTop: 15,
-              maxWidth: "1400px",
-              maxHeight: "500px",
-              overflow: "hidden",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <CarouselAds />
-          </Stack>
-        </Stack>
         <Stack style={{ justifyContent: "center" }}>
+          <Stack style={{ alignItems: "center" }}>
+            <div
+              style={{
+                marginTop: 10,
+                justifyContent: "center",
+              }}
+            >
+              <Carousel />
+            </div>
+          </Stack>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <ButtonFilter />
           </div>

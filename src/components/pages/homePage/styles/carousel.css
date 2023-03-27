@@ -1,0 +1,113 @@
+.carousel-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.carousel-image {
+    width: calc(100% - 8px);
+    height: 345px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-in-out;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 16px 4px 16px 4px;
+}
+
+.carousel-image:last-child {
+    margin-right: 0;
+}
+
+.carousel-image:hover {
+    transform: scale(1.05);
+    margin-top: 16px;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.carousel-prev {
+    position: absolute;
+    top: 50%;
+    left: -75px;
+    transform: translateY(-50%);
+    z-index: 2;
+    margin: 0 10px;
+}
+
+.carousel-next {
+    position: absolute;
+    top: 50%;
+    right: -75px;
+    transform: translateY(-50%);
+    z-index: 2;
+    margin: 0 10px;
+}
+
+@media (max-width: 768px) {
+    .carousel-image {
+        height: 250px;
+    }
+
+    .carousel-prev,
+    .carousel-next {
+        margin: 0;
+    }
+}
+
+.carousel-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.carousel-nav-button:hover {
+    background-color: rgba(240, 110, 77, 0.2);
+}
+
+.carousel-nav-button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.carousel-prev:before {
+    content: "<";
+    color: #E46842;
+}
+
+.carousel-next:before {
+    content: ">";
+    color: #E46842;
+}
+
+.slick-arrow,
+.slick-prev {
+  display: none !important;
+}
