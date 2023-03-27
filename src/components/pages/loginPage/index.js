@@ -219,7 +219,7 @@ const LoginForm = () => {
               <Typography variant="h4">Sign In</Typography>
               <Divider style={{ marginBottom: "10px" }} />
               <Typography variant="caption" color="text.secondary">
-                <i>Sign in with your foundation account</i>
+                <i>เข้าสู่ระบบด้วยบัญชีมูลนิธิของคุณ</i>
               </Typography>
             </Grid>
             <Grid item container spacing={2}>
@@ -230,7 +230,7 @@ const LoginForm = () => {
                   render={({ field }) => (
                     <TextFieldTheme
                       {...field}
-                      label="E-mail"
+                      label="อีเมล"
                       error={!!errors.email}
                       helperText={errors.email?.message}
                     />
@@ -244,7 +244,7 @@ const LoginForm = () => {
                   render={({ field }) => (
                     <TextFieldTheme
                       {...field}
-                      label="Password"
+                      label="รหัสผ่าน"
                       type="password"
                       error={!!errors.password}
                       helperText={errors.password?.message}
@@ -263,7 +263,7 @@ const LoginForm = () => {
               }}
               // href="/create_artwork"
             >
-              Sign In
+              เข้าสู่ระบบ
             </Button>
           </StyledGrid>
         </form>

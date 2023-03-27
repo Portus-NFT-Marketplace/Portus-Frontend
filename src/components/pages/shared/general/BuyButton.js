@@ -68,7 +68,7 @@ export default function BuyButton() {
         <StyledBuyButton
         //   onClick={buyNFT}
         >
-          Buy
+          ซื้อผลงานชิ้นนี้
         </StyledBuyButton>
       </div>
     );
@@ -76,7 +76,7 @@ export default function BuyButton() {
 
   return (
     <>
-      <StyledBuyButton onClick={connectMetamask}>Buy</StyledBuyButton>
+      <StyledBuyButton onClick={connectMetamask}>ซื้อผลงานชิ้นนี้</StyledBuyButton>
     </>
   );
 }

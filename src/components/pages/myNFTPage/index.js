@@ -79,7 +79,7 @@ function MyNFTPage() {
     <StyledRoot className={`page`}>
       <Container style={{ justifyContent: "center" }} maxWidth="lg">
         <Typography variant="h2" style={{ marginTop: "50px" }}>
-          My NFT
+          NFT ของฉัน
         </Typography>
         <Divider style={{ marginTop: "10px", marginBottom: "15px" }} />
         <Stack style={{ justifyContent: "center" }}>

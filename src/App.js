@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import Routers from "./Routers";
+import Fonts from "./utils/fonts";
 import { Header, SignedInHeader } from "./components/layouts";
 
 import Cookies from "js-cookie";
@@ -35,6 +36,7 @@ function App() {
   return (
     <Router>
       <div>
+        <Fonts />
         <CheckSignedInHeader />
         {/* <Header /> */}
         <Routers />

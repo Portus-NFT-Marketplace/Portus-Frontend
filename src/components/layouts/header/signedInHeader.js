@@ -165,13 +165,13 @@ const SignedInHeader = (props) => {
               <Stack direction="row" spacing={2}>
                 <Divider orientation="vertical" />
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
-                  FOUNDATION
+                  มูลนิธิ
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
                   RESOURCES
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
-                  ABOUT US
+                  เกี่ยวกับเรา
                 </ButtonOrange>
               </Stack>
               <div style={{ flexGrow: 1 }}></div>
@@ -239,7 +239,7 @@ const SignedInHeader = (props) => {
                           alignItems: "center",
                         }}
                       >
-                        LOG OUT
+                        ออกจากระบบ
                       </Typography>
                     </StyledButtonLogOut>
                   </div>
