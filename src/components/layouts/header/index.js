@@ -161,8 +161,9 @@ function Header(props) {
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
                   มูลนิธิ
                 </ButtonOrange>
-                <ButtonOrange variant={"text"} component={NavLink} to="/">
-                  RESOURCES
+                <AppProvider></AppProvider>
+                <ButtonOrange variant={"text"} href="/myNFT">
+                  NFT ของฉัน
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
                   เกี่ยวกับเรา
