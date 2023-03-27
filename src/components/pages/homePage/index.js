@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { Grid, Container, Stack, Box } from "@mui/material";
+import { Grid, Container, Stack, Box, Typography } from "@mui/material";
 
 import Carousel from "./carousel";
+import CarouselAds from "./carouselAds";
 import NFTCard from "../shared/general/CardNFT";
 import ButtonFilter from "../shared/general/ButtonFilter";
 
 const StyledRoot = styled("div")({
   minWidth: 350,
   width: "100%",
-  // backgroundColor: "#f1f4f9",
   paddingTop: 40,
   paddingBottom: 36,
   justifyContent: "center",
@@ -23,7 +23,6 @@ const StyledBox = styled(Box)({
   padding: 35,
   display: "grid",
   gridTemplateColumns: "repeat(3, 1fr)",
-  // justifyContent: "space-evenly"
 });
 
 function HomePage(props) {
@@ -68,7 +67,11 @@ function HomePage(props) {
                 justifyContent: "center",
               }}
             >
-              <Carousel />
+              <CarouselAds />
+              <Stack spacing={2} style={{ padding: "20px" }}>
+                <Typography variant="h3" style={{ paddingLeft: "20px" }}>ผลงานศิลปะยอดนิยม</Typography>
+                <Carousel />
+              </Stack>
             </div>
           </Stack>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
