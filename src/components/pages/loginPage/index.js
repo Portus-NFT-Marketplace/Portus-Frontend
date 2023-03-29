@@ -216,10 +216,10 @@ const LoginForm = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <StyledGrid container spacing={3}>
             <Grid item xs={12}>
-              <Typography variant="h4">Sign In</Typography>
+              <Typography variant="h4">ลงชื่อเข้าใช้งาน</Typography>
               <Divider style={{ marginBottom: "10px" }} />
               <Typography variant="caption" color="text.secondary">
-                <i>เข้าสู่ระบบด้วยบัญชีมูลนิธิของคุณ</i>
+                <i>ลงชื่อเข้าใช้งานด้วยบัญชีมูลนิธิของคุณ</i>
               </Typography>
             </Grid>
             <Grid item container spacing={2}>

@@ -11,6 +11,8 @@ import {
   Paper,
   TextField,
   MenuItem,
+  Box,
+  Stack,
 } from "@mui/material";
 import ButtonBlue from "../shared/general/ButtonBlue";
 import ButtonOrange from "../shared/general/ButtonOrange";
@@ -21,7 +23,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { Stack } from "@mui/system";
 
 import { Link, withRouter, NavLink, Redirect } from "react-router-dom";
 
@@ -90,6 +91,14 @@ const StyledSpanErrorMessage = styled("span")({
   marginLeft: "14px",
 });
 
+const StyledBox = styled(Box)({
+  border: "1px solid",
+  borderColor: "#CFD3D7",
+  borderRadius: "12px",
+  padding: 35,
+  marginTop: "80px",
+});
+
 const schema = yup.object().shape({
   name: yup.string().required("This field is required."),
   description: yup.string(),
@@ -114,16 +123,15 @@ const schema = yup.object().shape({
 });
 
 export default function CreatingArtworkForm({ isSignedIn, userToken }) {
-
   // force reloading a page when user using browser back button
-  window.onpopstate = function(event) {
+  window.onpopstate = function (event) {
     if (event && event.state && event.state.reloaded) {
       // If the state object exists and has the "reloaded" property set to true,
       // it means that we already reloaded the page on the previous navigation,
       // so we don't want to reload it again.
       return;
     }
-  
+
     // Reload the page and pass a state object to indicate that we already reloaded it.
     window.location.reload();
     window.history.replaceState({ reloaded: true }, "");
@@ -189,29 +197,31 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
   return (
     <StyledRoot>
       <Container maxWidth="md">
-        <IPFSImageUploader />
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h5">สร้างงานศิลปะ</Typography>
-              <Divider />
-            </Grid>
-            <Grid item container spacing={2}>
+        <StyledBox>
+          {" "}
+          <IPFSImageUploader />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Controller
-                  name="name"
-                  control={control}
-                  render={({ field }) => (
-                    <TextFieldTheme
-                      {...field}
-                      label="ชื่อผลงานศิลปะ"
-                      error={!!errors.name}
-                      helperText={errors.name?.message}
-                    />
-                  )}
-                />
+                <Typography variant="h5">สร้างงานศิลปะ</Typography>
+                <Divider />
               </Grid>
-              {/* <Grid item xs={12}>
+              <Grid item container spacing={2}>
+                <Grid item xs={12}>
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field }) => (
+                      <TextFieldTheme
+                        {...field}
+                        label="ชื่อผลงานศิลปะ"
+                        error={!!errors.name}
+                        helperText={errors.name?.message}
+                      />
+                    )}
+                  />
+                </Grid>
+                {/* <Grid item xs={12}>
                 <Controller
                   name="ownerName"
                   control={control}
@@ -225,50 +235,50 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
                   )}
                 />
               </Grid> */}
-              <Grid item xs={12}>
-                <Controller
-                  name="description"
-                  control={control}
-                  render={({ field }) => (
-                    <TextFieldTheme
-                      {...field}
-                      label="คำอธิบาย"
-                      multiline={true}
-                      rows={4}
-                      error={!!errors.description}
-                      helperText={errors.description?.message}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Controller
-                  name="image_url"
-                  control={control}
-                  render={({ field }) => (
-                    <TextFieldTheme
-                      {...field}
-                      label="URL ของภาพงานศิลปะ"
-                      error={!!errors.image_url}
-                      helperText={errors.image_url?.message}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name="price"
-                  control={control}
-                  render={({ field }) => (
-                    <TextFieldTheme
-                      {...field}
-                      label="ราคา"
-                      error={!!errors.price}
-                      helperText={errors.price?.message}
-                    />
-                  )}
-                />
-                {/* <Stack style={{ marginTop: "16px" }}>
+                <Grid item xs={12}>
+                  <Controller
+                    name="description"
+                    control={control}
+                    render={({ field }) => (
+                      <TextFieldTheme
+                        {...field}
+                        label="คำอธิบาย"
+                        multiline={true}
+                        rows={4}
+                        error={!!errors.description}
+                        helperText={errors.description?.message}
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Controller
+                    name="image_url"
+                    control={control}
+                    render={({ field }) => (
+                      <TextFieldTheme
+                        {...field}
+                        label="URL ของภาพงานศิลปะ"
+                        error={!!errors.image_url}
+                        helperText={errors.image_url?.message}
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Controller
+                    name="price"
+                    control={control}
+                    render={({ field }) => (
+                      <TextFieldTheme
+                        {...field}
+                        label="ราคา"
+                        error={!!errors.price}
+                        helperText={errors.price?.message}
+                      />
+                    )}
+                  />
+                  {/* <Stack style={{ marginTop: "16px" }}>
                   <Controller
                     name="image_url"
                     control={control}
@@ -286,19 +296,20 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
                     {errors.image_url?.message}
                   </StyledSpanErrorMessage>
                 </Stack> */}
+                </Grid>
+                {/* <input type="file" name="picture" /> */}
               </Grid>
-              {/* <input type="file" name="picture" /> */}
             </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            style={{ marginTop: 20, borderRadius: 8 }}
-            // href="/"
-          >
-            สร้างงานศิลปะ
-          </Button>
-        </form>
+            <Button
+              type="submit"
+              variant="contained"
+              style={{ marginTop: 20, borderRadius: 8 }}
+              // href="/"
+            >
+              สร้างงานศิลปะ
+            </Button>
+          </form>
+        </StyledBox>
       </Container>
     </StyledRoot>
   );

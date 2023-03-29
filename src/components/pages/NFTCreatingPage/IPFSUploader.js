@@ -67,45 +67,43 @@ function IPFSImageUploader() {
   };
 
   return (
-    <StyledRoot>
-      <Container maxWidth="md">
-        <Stack spacing={2} style={{ marginBottom: "40px" }}>
-          <Grid item xs={12}>
-            <Typography variant="h5">อัปโหลดงานศิลปะของคุณ</Typography>
-            <Divider />
-          </Grid>
-          <Stack>
-            <Typography variant="caption" color="text.secondary">
-              1. อัปโหลดงานศิลปะของคุณ คลิก "Choose File"
-            </Typography>
-            <Typography variant="caption" color="text.secondary">
-              2. คลิก "สร้าง URL งานศิลปะของคุณ" เพื่อแปลงงานศิลปะของคุณเป็น URL
-            </Typography>
-            <Typography variant="caption" color="text.secondary">
-              3. คัดลอก URL ของคุณเพื่อป้อนลงในแบบฟอร์มสร้างงานศิลป์ด้านล่าง
-            </Typography>
-            <Typography variant="caption" color="text.secondary"></Typography>
+    <Stack spacing={2} style={{ marginBottom: "40px" }}>
+      <Grid item xs={12}>
+        <Typography variant="h5">อัปโหลดงานศิลปะของคุณ</Typography>
+        <Divider />
+      </Grid>
+      <Stack>
+        <Typography variant="caption" color="text.secondary">
+          1. อัปโหลดงานศิลปะของคุณ คลิก "Choose File"
+        </Typography>
+        <Typography variant="caption" color="text.secondary">
+          2. คลิก "สร้าง URL งานศิลปะของคุณ" เพื่อแปลงงานศิลปะของคุณเป็น URL
+        </Typography>
+        <Typography variant="caption" color="text.secondary">
+          3. คัดลอก URL ของคุณเพื่อป้อนลงในแบบฟอร์มสร้างงานศิลปะด้านล่าง
+        </Typography>
+        <Typography variant="caption" color="text.secondary"></Typography>
+      </Stack>
+      <Stack style={{ marginTop: 40 }}>
+        <form onSubmit={sendFileToIPFS}>
+          <Stack direction="row" style={{ alignItems: "center" }}>
+            <input
+              type="file"
+              onChange={(e) => setFileImg(e.target.files[0])}
+              required
+            />
+            <ButtonOrange variant="contained" type="submit">
+              สร้าง URL งานศิลปะของคุณ
+            </ButtonOrange>
           </Stack>
-          <Stack style={{ marginTop: 40 }}>
-            <form onSubmit={sendFileToIPFS}>
-              <Stack direction="row" style={{ alignItems: "center" }}>
-                <input
-                  type="file"
-                  onChange={(e) => setFileImg(e.target.files[0])}
-                  required
-                />
-                <ButtonOrange variant="contained" type="submit">
-                  สร้าง URL งานศิลปะของคุณ
-                </ButtonOrange>
-              </Stack>
-            </form>
-            <Stack spacing={1} style={{ marginTop: 15 }}>
-              <Typography variant="h6">URL งานศิลปะของคุณ:</Typography>
-              <Chip label={ImgHash} style={{ height: 45 }} />
-            </Stack>
-          </Stack>
+        </form>
+        <Stack spacing={1} style={{ marginTop: 15 }}>
+          <Typography variant="h6">URL งานศิลปะของคุณ:</Typography>
+          <Chip label={ImgHash} style={{ height: 45 }} />
         </Stack>
-        {/* <Stack style={{ alignItems: "flex-end" }}>
+      </Stack>
+    </Stack>
+    /* <Stack style={{ alignItems: "flex-end" }}>
           <Button
             // component={NavLink}
             variant="outlined"
@@ -118,9 +116,7 @@ function IPFSImageUploader() {
           >
             Next
           </Button>
-        </Stack> */}
-      </Container>
-    </StyledRoot>
+        </Stack> */
   );
 }
 
