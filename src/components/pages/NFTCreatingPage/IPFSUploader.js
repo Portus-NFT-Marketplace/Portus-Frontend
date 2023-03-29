@@ -103,20 +103,6 @@ function IPFSImageUploader() {
         </Stack>
       </Stack>
     </Stack>
-    /* <Stack style={{ alignItems: "flex-end" }}>
-          <Button
-            // component={NavLink}
-            variant="outlined"
-            // to="/create_artwork"
-            href="/create_artwork"
-            style={{
-              borderRadius: 8,
-              marginTop: 20,
-            }}
-          >
-            Next
-          </Button>
-        </Stack> */
   );
 }
 
