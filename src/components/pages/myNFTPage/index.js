@@ -10,6 +10,7 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
+import { Pagination } from "@mui/material";
 
 import NFTCard from "../shared/general/CardNFT";
 import Cookies from "js-cookie";
@@ -40,6 +41,9 @@ function MyNFTPage() {
 
   const history = useHistory();
 
+  const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
+
   useEffect(() => {
     if (!userAddress) {
       history.push("/");
@@ -60,14 +64,18 @@ function MyNFTPage() {
 
   useEffect(() => {
     axios
-      .get(url, {
+      .get(`${url}?page=${page}&limit=${itemsPerPage}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => setArtworks(res.data.data))
       .catch((err) => console.log(err));
-  }, [token]);
+  }, [url, token, page, itemsPerPage]);
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
 
   console.log(token);
   console.log(artworks);
@@ -78,10 +86,11 @@ function MyNFTPage() {
         <Typography variant="h3" style={{ marginTop: "50px" }}>
           NFT ของฉัน
         </Typography>
-        <Divider style={{ marginTop: "10px", marginBottom: "15px" }} />
-        <Stack style={{ justifyContent: "center" }}>
-          <StyledBox>
-            {artworks.map((value, index) => {
+        <Divider style={{ marginTop: "10px", marginBottom: "15px" }} />{" "}
+        <StyledBox>
+          {artworks
+            .slice((page - 1) * itemsPerPage, page * itemsPerPage)
+            .map((value, index) => {
               return (
                 <NFTCard
                   name={value.name}
@@ -93,7 +102,14 @@ function MyNFTPage() {
                 />
               );
             })}
-          </StyledBox>
+        </StyledBox>
+        <Stack style={{ alignItems: "center" }}>
+          <Pagination
+            count={Math.ceil(artworks.length / itemsPerPage)}
+            page={page}
+            onChange={handlePageChange}
+            style={{ marginTop: "16px" }}
+          />
         </Stack>
       </Container>
     </StyledRoot>
