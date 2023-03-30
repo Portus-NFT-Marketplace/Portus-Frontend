@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { Grid, Container, Stack, Box, Typography, Chip } from "@mui/material";
+import { Container, Stack, Box, Typography, Chip } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import FaceIcon from "@mui/icons-material/Face";
 import FoundationIcon from "@mui/icons-material/Foundation";
 
 import NFTImage from "../shared/general/ImageNFT";
-import ButtonOrange from "../shared/general/ButtonOrange";
 import BuyButton from "../shared/general/BuyButton";
 import AppProvider from "../../../utils/AppProvider";
-import { weiToEthRound3 } from "../../../utils/convertWeiToEth";
 
 const StyledRoot = styled("div")({
   minWidth: 350,
