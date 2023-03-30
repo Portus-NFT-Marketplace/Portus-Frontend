@@ -145,7 +145,7 @@ function HomePage(props) {
                 style={{ marginTop: "20px" }}
                 color="text.secondary"
               >
-                มูลนิธินี้ไม่มีผลงานศิลปะที่คุณสามารถซื้อได้ในขณะนี้
+                ไม่มีผลงานศิลปะที่คุณสามารถซื้อได้ในขณะนี้
               </Typography>
             </StyledBoxForNoti>
           )}
