@@ -68,10 +68,14 @@ function HomePage(props) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params: {
+          page: page,
+          per_page: ROWS_PER_PAGE,
+        },
       })
       .then((res) => setArtworks(res.data.data))
       .catch((err) => console.log(err));
-  }, [token, selectedFoundation]);
+  }, [token, selectedFoundation, page]);
 
   const startIdx = (page - 1) * ROWS_PER_PAGE;
   const endIdx = Math.min(page * ROWS_PER_PAGE, artworks.length);
