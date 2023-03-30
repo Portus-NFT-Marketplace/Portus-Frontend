@@ -92,7 +92,7 @@ function DetailPage(props) {
                 >
                   <Typography variant="h3">{artwork?.price}</Typography>
                   <Typography variant="h5" style={{ color: "#E46842" }}>
-                    ETH
+                    WEI
                   </Typography>
                 </Stack>
               </Stack>

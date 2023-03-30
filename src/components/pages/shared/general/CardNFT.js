@@ -66,7 +66,7 @@ export default function NFTCard({
               {price}
             </Typography>
             <Typography variant="body1" style={{ color: "#E46842" }}>
-              GWEI
+              WEI
             </Typography>
           </Stack>
         </Stack>
