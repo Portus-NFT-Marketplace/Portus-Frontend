@@ -12,13 +12,11 @@ import {
 } from "@mui/material";
 
 import NFTCard from "../shared/general/CardNFT";
-import ButtonFilter from "../shared/general/ButtonFilter";
 import Cookies from "js-cookie";
 
 const StyledRoot = styled("div")({
   minWidth: 350,
   width: "100%",
-  // backgroundColor: "#f1f4f9",
   paddingTop: 40,
   paddingBottom: 36,
   justifyContent: "center",
@@ -30,8 +28,7 @@ const StyledBox = styled(Box)({
   borderRadius: "12px",
   padding: 35,
   display: "grid",
-  gridTemplateColumns: "repeat(4, 1fr)",
-  // justifyContent: "space-evenly"
+  gridTemplateColumns: "repeat(3, 1fr)",
 });
 
 function MyNFTPage() {
@@ -78,7 +75,7 @@ function MyNFTPage() {
   return (
     <StyledRoot className={`page`}>
       <Container style={{ justifyContent: "center" }} maxWidth="lg">
-        <Typography variant="h2" style={{ marginTop: "50px" }}>
+        <Typography variant="h3" style={{ marginTop: "50px" }}>
           NFT ของฉัน
         </Typography>
         <Divider style={{ marginTop: "10px", marginBottom: "15px" }} />
