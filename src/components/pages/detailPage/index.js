@@ -77,16 +77,6 @@ function DetailPage(props) {
                 }}
                 spacing={5}
               >
-                <Stack
-                  direction="row"
-                  style={{ alignItems: "center" }}
-                  spacing={2}
-                >
-                  <Typography variant="h5" style={{ color: "#E46842" }}>
-                    GWEI
-                  </Typography>
-                  <Typography variant="h3">{artwork?.price}</Typography>
-                </Stack>
                 <Chip
                   style={{
                     width: 90,
@@ -95,7 +85,17 @@ function DetailPage(props) {
                     color: "white",
                   }}
                   label={artwork?.status}
-                />
+                />{" "}
+                <Stack
+                  direction="row"
+                  style={{ alignItems: "center" }}
+                  spacing={2}
+                >
+                  <Typography variant="h3">{artwork?.price}</Typography>
+                  <Typography variant="h5" style={{ color: "#E46842" }}>
+                    GWEI
+                  </Typography>
+                </Stack>
               </Stack>
               <Stack
                 style={{ alignItems: "center", marginTop: 20 }}
