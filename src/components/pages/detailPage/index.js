@@ -56,8 +56,6 @@ function DetailPage(props) {
       .catch((err) => console.log(err));
   }, [token]);
 
-  console.log(artwork?.price);
-
   return (
     <StyledRoot className={`page`}>
       <Container style={{ justifyContent: "center" }} maxWidth="lg">
