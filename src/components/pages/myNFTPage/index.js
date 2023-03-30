@@ -32,6 +32,13 @@ const StyledBox = styled(Box)({
   gridTemplateColumns: "repeat(3, 1fr)",
 });
 
+const StyledBoxForNoti = styled(Box)({
+  border: "1px solid",
+  borderColor: "#CFD3D7",
+  borderRadius: "12px",
+  padding: 35,
+});
+
 function MyNFTPage() {
   const userAddress = Cookies.get("userAddress");
   const url = `https://portus-api.herokuapp.com/api/v1/artworks/by_owner/${userAddress}`;
@@ -86,31 +93,42 @@ function MyNFTPage() {
         <Typography variant="h3" style={{ marginTop: "50px" }}>
           NFT ของฉัน
         </Typography>
-        <Divider style={{ marginTop: "10px", marginBottom: "15px" }} />{" "}
-        <StyledBox>
-          {artworks
-            .slice((page - 1) * itemsPerPage, page * itemsPerPage)
-            .map((value, index) => {
-              return (
-                <NFTCard
-                  name={value.name}
-                  price={value.price}
-                  description={value.description}
-                  img_url={value.image_url}
-                  id={value.id}
-                  foundation_owner={value.foundation_name}
-                />
-              );
-            })}
-        </StyledBox>
-        <Stack style={{ alignItems: "center" }}>
-          <Pagination
-            count={Math.ceil(artworks.length / itemsPerPage)}
-            page={page}
-            onChange={handlePageChange}
-            style={{ marginTop: "16px" }}
-          />
-        </Stack>
+        <Divider style={{ marginTop: "10px", marginBottom: "15px" }} />
+        {artworks.length === 0 ? (
+          <StyledBoxForNoti>
+            <Typography variant="h4" align="center" color="text.secondary">
+              คุณไม่มีผลงานศิลปะ
+            </Typography>
+          </StyledBoxForNoti>
+        ) : (
+          <>
+            <StyledBox>
+              {artworks
+                .slice((page - 1) * itemsPerPage, page * itemsPerPage)
+                .map((value, index) => {
+                  return (
+                    <NFTCard
+                      name={value.name}
+                      price={value.price}
+                      description={value.description}
+                      img_url={value.image_url}
+                      id={value.id}
+                      foundation_owner={value.foundation_name}
+                    />
+                  );
+                })}
+            </StyledBox>{" "}
+            <Stack style={{ alignItems: "center" }}>
+              <Pagination
+                count={Math.ceil(artworks.length / itemsPerPage)}
+                page={page}
+                onChange={handlePageChange}
+                style={{ marginTop: "16px" }}
+                disabled={artworks.length === 0}
+              />
+            </Stack>
+          </>
+        )}
       </Container>
     </StyledRoot>
   );
