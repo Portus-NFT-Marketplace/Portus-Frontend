@@ -32,6 +32,7 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.9",
     "web-vitals": "^2.1.4",
+    "web3": "^1.9.0",
     "yup": "^0.32.11",
     "yup-password": "^0.2.2"
   },

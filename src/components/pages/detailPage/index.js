@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { Grid, Container, Stack, Box, Typography, Chip } from "@mui/material";
+import { Container, Stack, Box, Typography, Chip } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import FaceIcon from "@mui/icons-material/Face";
 import FoundationIcon from "@mui/icons-material/Foundation";
 
 import NFTImage from "../shared/general/ImageNFT";
-import ButtonOrange from "../shared/general/ButtonOrange";
 import BuyButton from "../shared/general/BuyButton";
 import AppProvider from "../../../utils/AppProvider";
 
@@ -93,7 +92,7 @@ function DetailPage(props) {
                 >
                   <Typography variant="h3">{artwork?.price}</Typography>
                   <Typography variant="h5" style={{ color: "#E46842" }}>
-                    GWEI
+                    WEI
                   </Typography>
                 </Stack>
               </Stack>
@@ -132,7 +131,10 @@ function DetailPage(props) {
             </Stack>
             <Stack style={{ alignItems: "center" }}>
               <AppProvider>
-                <BuyButton />
+                <BuyButton
+                  artworkPrice={artwork?.price}
+                  artworkId={artwork?.id}
+                />
               </AppProvider>
             </Stack>
           </Stack>
