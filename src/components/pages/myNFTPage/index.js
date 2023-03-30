@@ -83,9 +83,6 @@ function MyNFTPage() {
         </Typography>
         <Divider style={{ marginTop: "10px", marginBottom: "15px" }} />
         <Stack style={{ justifyContent: "center" }}>
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <ButtonFilter />
-          </div>
           <StyledBox>
             {artworks.map((value, index) => {
               return (
