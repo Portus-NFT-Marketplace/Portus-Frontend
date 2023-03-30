@@ -2,14 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import {
-  Grid,
-  Container,
-  Stack,
-  Box,
-  Typography,
-  Divider,
-} from "@mui/material";
+import { Container, Stack, Box, Typography, Divider } from "@mui/material";
 import { Pagination } from "@mui/material";
 
 import NFTCard from "../shared/general/CardNFT";
@@ -84,9 +77,6 @@ function MyNFTPage() {
     setPage(value);
   };
 
-  console.log(token);
-  console.log(artworks);
-
   return (
     <StyledRoot className={`page`}>
       <Container style={{ justifyContent: "center" }} maxWidth="lg">
@@ -117,7 +107,7 @@ function MyNFTPage() {
                     />
                   );
                 })}
-            </StyledBox>{" "}
+            </StyledBox>
             <Stack style={{ alignItems: "center" }}>
               <Pagination
                 count={Math.ceil(artworks.length / itemsPerPage)}
