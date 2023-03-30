@@ -11,6 +11,7 @@ import NFTImage from "../shared/general/ImageNFT";
 import ButtonOrange from "../shared/general/ButtonOrange";
 import BuyButton from "../shared/general/BuyButton";
 import AppProvider from "../../../utils/AppProvider";
+import { weiToEthRound3 } from "../../../utils/convertWeiToEth";
 
 const StyledRoot = styled("div")({
   minWidth: 350,
@@ -57,6 +58,8 @@ function DetailPage(props) {
       .catch((err) => console.log(err));
   }, [token]);
 
+  console.log(artwork?.price);
+
   return (
     <StyledRoot className={`page`}>
       <Container style={{ justifyContent: "center" }} maxWidth="lg">
@@ -93,7 +96,7 @@ function DetailPage(props) {
                 >
                   <Typography variant="h3">{artwork?.price}</Typography>
                   <Typography variant="h5" style={{ color: "#E46842" }}>
-                    GWEI
+                    ETH
                   </Typography>
                 </Stack>
               </Stack>
@@ -132,7 +135,10 @@ function DetailPage(props) {
             </Stack>
             <Stack style={{ alignItems: "center" }}>
               <AppProvider>
-                <BuyButton />
+                <BuyButton
+                  artworkPrice={artwork?.price}
+                  artworkId={artwork?.id}
+                />
               </AppProvider>
             </Stack>
           </Stack>

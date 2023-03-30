@@ -4,6 +4,8 @@ import { Button, Typography, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { AppContext } from "../../../../utils/AppProvider";
 
+import Web3 from "web3";
+
 const StyledBuyButton = styled(Button)({
   marginTop: 50,
   width: 150,
@@ -17,8 +19,34 @@ const StyledBuyButton = styled(Button)({
   },
 });
 
-export default function BuyButton() {
+export default function BuyButton(artwork) {
   const { userAddress, setUserAddress } = useContext(AppContext);
+
+  const web3 = new Web3(window.ethereum);
+  const contractAbi = JSON.parse(process.env.REACT_APP_CONTRACT_ABI);
+  const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+  const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+  const buyNFT = async (price, tokenId) => {
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+
+      // Check if price is a valid number
+      if (typeof price !== "number" || isNaN(price)) {
+        throw new Error(`Invalid price: ${price}`);
+      }
+
+      const result = await contract.methods.buyNFT(tokenId).send({
+        from: accounts[0],
+        value: price,
+      });
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     async function checkMetamaskConnection() {
@@ -31,7 +59,6 @@ export default function BuyButton() {
           Cookies.set("userAddress", accounts[0]);
         } else {
           setUserAddress(null);
-
           Cookies.remove("userAddress");
         }
       } else {
@@ -63,10 +90,9 @@ export default function BuyButton() {
 
   if (userAddress) {
     return (
-      // if user already connected navigate to function buyNFT (TBA)
       <div>
         <StyledBuyButton
-        //   onClick={buyNFT}
+          onClick={() => buyNFT(artwork.artworkPrice, artwork.artworkId)}
         >
           ซื้อผลงานชิ้นนี้
         </StyledBuyButton>
@@ -76,7 +102,9 @@ export default function BuyButton() {
 
   return (
     <>
-      <StyledBuyButton onClick={connectMetamask}>ซื้อผลงานชิ้นนี้</StyledBuyButton>
+      <StyledBuyButton onClick={connectMetamask}>
+        ซื้อผลงานชิ้นนี้
+      </StyledBuyButton>
     </>
   );
 }
