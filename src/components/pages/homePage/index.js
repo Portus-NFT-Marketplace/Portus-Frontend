@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
 import { Grid, Container, Stack, Box, Typography } from "@mui/material";
+import Pagination from "@mui/material/Pagination";
 
 import Carousel from "./carousel";
 import CarouselAds from "./carouselAds";
@@ -37,6 +38,15 @@ function HomePage(props) {
   const [artworks, setArtworks] = useState([{}]);
   const [selectedFoundation, setSelectedFoundation] = useState(null);
 
+  const [page, setPage] = useState(1);
+  const ROWS_PER_PAGE = 12;
+
+  const pageCount = Math.ceil(artworks.length / ROWS_PER_PAGE);
+
+  const handleClick = (event, newPage) => {
+    setPage(newPage);
+  };
+
   useEffect(() => {
     axios
       .post("https://portus-api.herokuapp.com/oauth/token", {
@@ -62,6 +72,9 @@ function HomePage(props) {
       .then((res) => setArtworks(res.data.data))
       .catch((err) => console.log(err));
   }, [token, selectedFoundation]);
+
+  const startIdx = (page - 1) * ROWS_PER_PAGE;
+  const endIdx = Math.min(page * ROWS_PER_PAGE, artworks.length);
 
   return (
     <StyledRoot className={`page`}>
@@ -93,20 +106,37 @@ function HomePage(props) {
             <ButtonFilter setSelectedFoundation={setSelectedFoundation} />
           </div>
           {artworks.length > 0 ? (
-            <StyledBox>
-              {artworks.map((value, index) => {
-                return (
+            <>
+              <StyledBox>
+                {artworks.slice(startIdx, endIdx).map((value, index) => (
                   <NFTCard
+                    key={index}
                     name={value.name}
                     price={value.price}
                     description={value.description}
                     img_url={value.image_url}
                     id={value.id}
-                    foundation_owner={value.foundation_name}
+                    foundation_owner={
+                      value.foundation_name || "No foundation owner"
+                    }
                   />
-                );
-              })}
-            </StyledBox>
+                ))}
+              </StyledBox>
+              <Box
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Pagination
+                  count={pageCount}
+                  page={page}
+                  onChange={handleClick}
+                  disabled={artworks.length === 0}
+                />
+              </Box>
+            </>
           ) : (
             <StyledBoxForNoti>
               <Typography
