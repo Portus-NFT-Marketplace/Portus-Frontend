@@ -100,15 +100,15 @@ const StyledBox = styled(Box)({
 });
 
 const schema = yup.object().shape({
-  name: yup.string().required("This field is required."),
+  name: yup.string().max(15).required("กรุณากรอกชื่อผลงานศิลปะ"),
   description: yup.string(),
   // ownerName: yup.string().required("This field is required."),
   price: yup
     .number()
-    .typeError("Price should be a number.")
-    .positive("Price should be greater than 0.")
+    .typeError("ราคาต้องเป็นตัวเลขเท่านั้น")
+    .positive("ราคาต้องมากกว่า 0 GWEI")
     .required(),
-  image_url: yup.string().required("This field is required."),
+  image_url: yup.string().required("กรุณากรอก URL ของภาพงานศิลปะ"),
   // image_url: yup.mixed().required("A file is required"),
   // .test(
   //   "Fichier taille",
@@ -198,7 +198,6 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
     <StyledRoot>
       <Container maxWidth="md">
         <StyledBox>
-          {" "}
           <IPFSImageUploader />
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={3}>
@@ -214,7 +213,7 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
                     render={({ field }) => (
                       <TextFieldTheme
                         {...field}
-                        label="ชื่อผลงานศิลปะ"
+                        label="ชื่อผลงานศิลปะ (ไม่เกิน 15 ตัวอักษร)"
                         error={!!errors.name}
                         helperText={errors.name?.message}
                       />
@@ -272,12 +271,13 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
                     render={({ field }) => (
                       <TextFieldTheme
                         {...field}
-                        label="ราคา"
+                        label="ราคา (GWEI)"
                         error={!!errors.price}
                         helperText={errors.price?.message}
                       />
                     )}
                   />
+
                   {/* <Stack style={{ marginTop: "16px" }}>
                   <Controller
                     name="image_url"
