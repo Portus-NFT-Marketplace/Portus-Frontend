@@ -63,10 +63,10 @@ export default function NFTCard({
               component="div"
               style={{ color: "#E46842" }}
             >
-              {price}
+              {price / 10 ** 18}
             </Typography>
             <Typography variant="body1" style={{ color: "#E46842" }}>
-              WEI
+              SepoliaETH
             </Typography>
           </Stack>
         </Stack>
