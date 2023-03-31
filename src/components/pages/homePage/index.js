@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
 import { Grid, Container, Stack, Box, Typography } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 
 import Carousel from "./carousel";
@@ -36,6 +37,7 @@ const StyledBoxForNoti = styled(Box)({
 function HomePage({ oauthToken }) {
   const [artworks, setArtworks] = useState([{}]);
   const [selectedFoundation, setSelectedFoundation] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [page, setPage] = useState(1);
   const ROWS_PER_PAGE = 12;
@@ -47,6 +49,7 @@ function HomePage({ oauthToken }) {
   };
 
   useEffect(() => {
+    setLoading(true); // Set loading state to true before making API call
     const url = selectedFoundation
       ? `https://portus-api.herokuapp.com/api/v1/artworks/by_foundation/${selectedFoundation}`
       : "https://portus-api.herokuapp.com/api/v1/artworks";
@@ -61,11 +64,17 @@ function HomePage({ oauthToken }) {
           per_page: ROWS_PER_PAGE,
         },
       })
-      .then((res) => setArtworks(res.data.data))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        setArtworks(res.data.data);
+        setLoading(false); // Set loading state to false when API call succeeds
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false); // Set loading state to false when API call fails
+      });
   }, [oauthToken, selectedFoundation, page]);
 
-  console.log(oauthToken)
+  console.log(oauthToken);
 
   const startIdx = (page - 1) * ROWS_PER_PAGE;
   const endIdx = Math.min(page * ROWS_PER_PAGE, artworks.length);
@@ -97,9 +106,16 @@ function HomePage({ oauthToken }) {
               marginBottom: "20px",
             }}
           >
-            <ButtonFilter setSelectedFoundation={setSelectedFoundation} oauthToken={oauthToken} />
+            <ButtonFilter
+              setSelectedFoundation={setSelectedFoundation}
+              oauthToken={oauthToken}
+            />
           </div>
-          {artworks.length > 0 ? (
+          {loading ? (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <CircularProgress />
+            </div>
+          ) : artworks.length > 0 ? (
             <>
               <StyledBox>
                 {artworks.slice(startIdx, endIdx).map((value, index) => (

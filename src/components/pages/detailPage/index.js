@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { Container, Stack, Box, Typography, Chip } from "@mui/material";
+import { Container, Stack, Box, Typography, Chip, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import FaceIcon from "@mui/icons-material/Face";
@@ -32,18 +32,17 @@ function DetailPage({ oauthToken }) {
   const { id } = useParams();
   const url = `https://portus-api.herokuapp.com/api/v1/artworks/${id}`;
 
-  // const [token, setToken] = useState({});
   const [artwork, setArtwork] = useState({});
-  // useEffect(() => {
-  //   axios
-  //     .post("https://portus-api.herokuapp.com/oauth/token", {
-  //       grant_type: "client_credentials",
-  //       client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-  //       client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
-  //     })
-  //     .then((res) => setToken(res.data.access_token))
-  //     .catch((err) => console.log(err));
-  // }, []);
+
+  let chipColor = "#5EDF3E"; // default color for available artwork
+  let chipLabel = artwork?.status; // default label
+
+  if (artwork?.status === "unavailable") {
+    chipColor = "grey";
+    chipLabel = "ขายแล้ว"; // change label to "ขายแล้ว"
+  } else if (artwork?.status === "available") {
+    chipLabel = "พร้อมขาย"; // change label to "พร้อมขาย"
+  }
 
   useEffect(() => {
     axios
@@ -80,11 +79,11 @@ function DetailPage({ oauthToken }) {
                   style={{
                     width: 90,
                     height: 25,
-                    backgroundColor: "#5EDF3E",
+                    backgroundColor: chipColor, // use dynamic color
                     color: "white",
                   }}
-                  label={artwork?.status}
-                />{" "}
+                  label={chipLabel} // use dynamic label
+                />
                 <Stack
                   direction="row"
                   style={{ alignItems: "center" }}
@@ -133,10 +132,21 @@ function DetailPage({ oauthToken }) {
             </Stack>
             <Stack style={{ alignItems: "center" }}>
               <AppProvider>
-                <BuyButton
-                  artworkPrice={artwork?.price}
-                  artworkId={artwork?.id}
-                />
+                {artwork?.status === "available" ? (
+                  <BuyButton
+                    artworkPrice={artwork?.price}
+                    artworkId={artwork?.id}
+                    oauthToken={oauthToken}
+                  />
+                ) : (
+                  <Button
+                    style={{ borderRadius: 8 }}
+                    variant="contained"
+                    disabled
+                  >
+                    ไม่สามารถซื้อได้
+                  </Button>
+                )}
               </AppProvider>
             </Stack>
           </Stack>
