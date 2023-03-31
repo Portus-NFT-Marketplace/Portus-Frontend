@@ -102,13 +102,20 @@ const StyledBox = styled(Box)({
 const schema = yup.object().shape({
   name: yup
     .string()
-    .max(15, "ชื่อผลงานศิลปะต้องมีไม่เกิน 15 ตัวอักษร")
+    .max(12, "ชื่อผลงานศิลปะต้องมีไม่เกิน 12 ตัวอักษร")
     .required("กรุณากรอกชื่อผลงานศิลปะ"),
   description: yup.string(),
   price: yup
     .number()
     .typeError("ราคาต้องเป็นตัวเลขเท่านั้น")
-    .positive("ราคาต้องมากกว่า 0 GWEI")
+    .positive("ราคาต้องมากกว่า 0 SepoliaETH")
+    .test('maxDecimalPlaces', 'ราคาต้องไม่เกิน 4 ตำแหน่งทศนิยม', function(value) {
+      if (value) {
+        const pattern = /^\d+(\.\d{1,4})?$/;
+        return pattern.test(value.toString());
+      }
+      return true;
+    })
     .required(),
   image_url: yup.string().required("กรุณากรอก URL ของภาพงานศิลปะ"),
 });
@@ -163,7 +170,7 @@ export default function CreatingArtworkForm({
 
     // Convert price to wei (10^18)
     newData.price = parseInt(parseFloat(newData.price) * 10 ** 18);
-    console.log(newData)
+    console.log(newData);
 
     axios.post(url, newData, {
       headers: {
