@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import {
   Container,
@@ -7,24 +7,17 @@ import {
   Button,
   Grid,
   Divider,
-  IconButton,
-  Paper,
-  TextField,
-  MenuItem,
   Box,
   Stack,
 } from "@mui/material";
-import ButtonBlue from "../shared/general/ButtonBlue";
-import ButtonOrange from "../shared/general/ButtonOrange";
 import TextFieldTheme from "../shared/general/TextFieldTheme";
-import AddIcon from "@mui/icons-material/Add";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import LinearProgress from "@mui/material/LinearProgress";
 
-import { Link, withRouter, NavLink, Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 import axios from "axios";
 
@@ -47,50 +40,6 @@ const StyledRoot = styled("div")({
   },
 });
 
-const StyledPaper = styled(Paper)({
-  height: 96,
-  borderRadius: 16,
-  position: "relative",
-  padding: 16,
-  boxSizing: "border-box",
-  cursor: "pointer",
-  "&:hover": {
-    color: "#1976d2",
-  },
-
-  "& .wrap-name": {
-    width: 160,
-    "& .MuiTypography-root": {
-      fontSize: 20,
-    },
-  },
-  "& .wrap-icon": {
-    position: "absolute",
-    fontSize: 35,
-    color: "#919eab",
-    right: 16,
-    bottom: 8,
-  },
-});
-
-const StyledRootPaper = styled("div")({
-  "& .selected": {
-    color: "#1976d2",
-    border: "1px solid #1976D2",
-    background: "#1976d20d",
-  },
-});
-
-const StyledSpanErrorMessage = styled("span")({
-  color: "#d32f2f",
-  fontFamily: "Roboto,Helvetica,Arial,sans-serif",
-  fontWeight: 400,
-  fontSize: "0.75rem",
-  marginTop: "10px",
-  marginRight: "14px",
-  marginLeft: "14px",
-});
-
 const StyledBox = styled(Box)({
   border: "1px solid",
   borderColor: "#CFD3D7",
@@ -109,22 +58,36 @@ const schema = yup.object().shape({
     .number()
     .typeError("ราคาต้องเป็นตัวเลขเท่านั้น")
     .positive("ราคาต้องมากกว่า 0 SepoliaETH")
-    .test('maxDecimalPlaces', 'ราคาต้องไม่เกิน 4 ตำแหน่งทศนิยม', function(value) {
-      if (value) {
-        const pattern = /^\d+(\.\d{1,4})?$/;
-        return pattern.test(value.toString());
+    .test(
+      "maxDecimalPlaces",
+      "ราคาต้องไม่เกิน 4 ตำแหน่งทศนิยม",
+      function (value) {
+        if (value) {
+          const pattern = /^\d+(\.\d{1,4})?$/;
+          return pattern.test(value.toString());
+        }
+        return true;
       }
-      return true;
-    })
+    )
     .required(),
   image_url: yup.string().required("กรุณากรอก URL ของภาพงานศิลปะ"),
 });
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default function CreatingArtworkForm({
   isSignedIn,
   userToken,
   oauthToken,
 }) {
+  const history = useHistory();
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("success");
+  const [isLoading, setIsLoading] = useState(false);
+
   // force reloading a page when user using browser back button
   window.onpopstate = function (event) {
     if (event && event.state && event.state.reloaded) {
@@ -166,24 +129,85 @@ export default function CreatingArtworkForm({
   userToken = Cookies.get("userToken");
 
   const onSubmit = (data) => {
+    setIsLoading(true);
     const newData = { ...data };
 
     // Convert price to wei (10^18)
     newData.price = parseInt(parseFloat(newData.price) * 10 ** 18);
     console.log(newData);
 
-    axios.post(url, newData, {
-      headers: {
-        Authorization: `Bearer ${oauthToken}`,
-        "Foundation-Identifier": `${userToken}`,
-      },
-    });
+    axios
+      .post(url, newData, {
+        headers: {
+          Authorization: `Bearer ${oauthToken}`,
+          "Foundation-Identifier": `${userToken}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          setAlertSeverity("success");
+          setAlertMessage("สร้างผลงานศิลปะสำเร็จ");
+          history.push("/");
+          window.location.reload();
+          // setTimeout(() => {
+          //   window.location.href = "/";
+          // }, 3000);
+        } else {
+          setAlertSeverity("error");
+          setAlertMessage("ไม่สามารถสร้างผลงานศิลปะได้ กรุณาลองใหม่อีกครั้ง");
+          clearForm();
+        }
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          setAlertSeverity("success");
+          setAlertMessage("สร้างผลงานศิลปะสำเร็จ");
+          history.push("/");
+          window.location.reload();
+        } else {
+          setAlertSeverity("error");
+          setAlertMessage("ไม่สามารถสร้างผลงานศิลปะได้ กรุณาลองใหม่อีกครั้ง");
+          clearForm();
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const clearForm = () => {
+    setValue("name", "");
+    setValue("description", "");
+    setValue("price", "");
+    setValue("image_url", "");
+  };
+
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAlertMessage("");
+    setAlertSeverity("success");
   };
 
   return (
     <StyledRoot>
       <Container maxWidth="md">
         <StyledBox>
+          <Stack style={{ justifyContent: "center", marginBottom: "10px" }}>
+            {isLoading && <LinearProgress />}
+          </Stack>
+          <Snackbar
+            open={!!alertMessage}
+            autoHideDuration={6000}
+            onClose={handleCloseAlert}
+          >
+            <Alert onClose={handleCloseAlert} severity={alertSeverity}>
+              {alertMessage}
+            </Alert>
+          </Snackbar>
           <IPFSImageUploader />
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={3}>
@@ -199,7 +223,7 @@ export default function CreatingArtworkForm({
                     render={({ field }) => (
                       <TextFieldTheme
                         {...field}
-                        label="ชื่อผลงานศิลปะ (ไม่เกิน 15 ตัวอักษร)"
+                        label="ชื่อผลงานศิลปะ (ไม่เกิน 12 ตัวอักษร)"
                         error={!!errors.name}
                         helperText={errors.name?.message}
                       />
@@ -256,7 +280,6 @@ export default function CreatingArtworkForm({
               type="submit"
               variant="contained"
               style={{ marginTop: 20, borderRadius: 8 }}
-              // href="/"
             >
               สร้างงานศิลปะ
             </Button>
