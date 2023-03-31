@@ -228,7 +228,7 @@ const SignedInHeader = (props) => {
                         alignItems: "center",
                       }}
                     >
-                      <Typography variant="caption">Logged in as</Typography>
+                      <Typography variant="caption">คุณกำลังเข้าสู่ระบบ โดย</Typography>
                       <Typography
                         variant="body1"
                         style={{
