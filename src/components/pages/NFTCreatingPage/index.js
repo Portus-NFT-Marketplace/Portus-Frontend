@@ -195,19 +195,19 @@ export default function CreatingArtworkForm({
   return (
     <StyledRoot>
       <Container maxWidth="md">
+        <Snackbar
+          open={!!alertMessage}
+          autoHideDuration={6000}
+          onClose={handleCloseAlert}
+        >
+          <Alert onClose={handleCloseAlert} severity={alertSeverity}>
+            {alertMessage}
+          </Alert>
+        </Snackbar>
         <StyledBox>
-          <Stack style={{ justifyContent: "center", marginBottom: "10px" }}>
+          <Stack style={{ justifyContent: "center", marginBottom: "12px" }}>
             {isLoading && <LinearProgress />}
           </Stack>
-          <Snackbar
-            open={!!alertMessage}
-            autoHideDuration={6000}
-            onClose={handleCloseAlert}
-          >
-            <Alert onClose={handleCloseAlert} severity={alertSeverity}>
-              {alertMessage}
-            </Alert>
-          </Snackbar>
           <IPFSImageUploader />
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={3}>
