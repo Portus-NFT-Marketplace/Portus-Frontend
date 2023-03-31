@@ -199,7 +199,7 @@ export default function CreatingArtworkForm({
                     render={({ field }) => (
                       <TextFieldTheme
                         {...field}
-                        label="ชื่อผลงานศิลปะ (ไม่เกิน 15 ตัวอักษร)"
+                        label="ชื่อผลงานศิลปะ (ไม่เกิน 12 ตัวอักษร)"
                         error={!!errors.name}
                         helperText={errors.name?.message}
                       />
