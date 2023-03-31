@@ -90,9 +90,11 @@ function DetailPage({ oauthToken }) {
                   style={{ alignItems: "center" }}
                   spacing={2}
                 >
-                  <Typography variant="h3">{artwork?.price}</Typography>
+                  <Typography variant="h3">
+                    {artwork?.price / 10 ** 18}
+                  </Typography>
                   <Typography variant="h5" style={{ color: "#E46842" }}>
-                    WEI
+                    SepoliaETH
                   </Typography>
                 </Stack>
               </Stack>

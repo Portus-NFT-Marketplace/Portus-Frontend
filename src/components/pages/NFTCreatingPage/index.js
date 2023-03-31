@@ -102,30 +102,29 @@ const StyledBox = styled(Box)({
 const schema = yup.object().shape({
   name: yup
     .string()
-    .max(15, "ชื่อผลงานศิลปะต้องมีไม่เกิน 15 ตัวอักษร")
+    .max(12, "ชื่อผลงานศิลปะต้องมีไม่เกิน 12 ตัวอักษร")
     .required("กรุณากรอกชื่อผลงานศิลปะ"),
   description: yup.string(),
-  // ownerName: yup.string().required("This field is required."),
   price: yup
     .number()
     .typeError("ราคาต้องเป็นตัวเลขเท่านั้น")
-    .positive("ราคาต้องมากกว่า 0 GWEI")
+    .positive("ราคาต้องมากกว่า 0 SepoliaETH")
+    .test('maxDecimalPlaces', 'ราคาต้องไม่เกิน 4 ตำแหน่งทศนิยม', function(value) {
+      if (value) {
+        const pattern = /^\d+(\.\d{1,4})?$/;
+        return pattern.test(value.toString());
+      }
+      return true;
+    })
     .required(),
   image_url: yup.string().required("กรุณากรอก URL ของภาพงานศิลปะ"),
-  // image_url: yup.mixed().required("A file is required"),
-  // .test(
-  //   "Fichier taille",
-  //   "upload file",
-  //   (value) => !value || (value && value.size <= 1024 * 1024)
-  // )
-  // .test(
-  //   "format",
-  //   "upload file",
-  //   (value) => !value || (value && SUPPORTED_FORMATS.includes(value.type))
-  // ),
 });
 
-export default function CreatingArtworkForm({ isSignedIn, userToken, oauthToken }) {
+export default function CreatingArtworkForm({
+  isSignedIn,
+  userToken,
+  oauthToken,
+}) {
   // force reloading a page when user using browser back button
   window.onpopstate = function (event) {
     if (event && event.state && event.state.reloaded) {
@@ -152,7 +151,6 @@ export default function CreatingArtworkForm({ isSignedIn, userToken, oauthToken 
     resolver: yupResolver(schema),
     defaultValues: {
       name: "",
-      // ownerName: "",
       description: "",
       price: "",
     },
@@ -170,15 +168,16 @@ export default function CreatingArtworkForm({ isSignedIn, userToken, oauthToken 
   const onSubmit = (data) => {
     const newData = { ...data };
 
-    // console.log(errors);
+    // Convert price to wei (10^18)
+    newData.price = parseInt(parseFloat(newData.price) * 10 ** 18);
+    console.log(newData);
+
     axios.post(url, newData, {
       headers: {
         Authorization: `Bearer ${oauthToken}`,
         "Foundation-Identifier": `${userToken}`,
       },
     });
-    // console.log(newData);
-    // console.log(`Test ${token}`);
   };
 
   return (
@@ -207,20 +206,6 @@ export default function CreatingArtworkForm({ isSignedIn, userToken, oauthToken 
                     )}
                   />
                 </Grid>
-                {/* <Grid item xs={12}>
-                <Controller
-                  name="ownerName"
-                  control={control}
-                  render={({ field }) => (
-                    <TextFieldTheme
-                      {...field}
-                      label="Owner Name"
-                      error={!!errors.ownerName}
-                      helperText={errors.ownerName?.message}
-                    />
-                  )}
-                />
-              </Grid> */}
                 <Grid item xs={12}>
                   <Controller
                     name="description"
@@ -258,33 +243,13 @@ export default function CreatingArtworkForm({ isSignedIn, userToken, oauthToken 
                     render={({ field }) => (
                       <TextFieldTheme
                         {...field}
-                        label="ราคา (GWEI)"
+                        label="ราคา (SepoliaETH)"
                         error={!!errors.price}
                         helperText={errors.price?.message}
                       />
                     )}
                   />
-
-                  {/* <Stack style={{ marginTop: "16px" }}>
-                  <Controller
-                    name="image_url"
-                    control={control}
-                    render={({ field }) => (
-                      <input
-                        //   {...field}
-                        type="file"
-                        onChange={(e) => {
-                          field.onChange(e.target.files);
-                        }}
-                      />
-                    )}
-                  />
-                  <StyledSpanErrorMessage>
-                    {errors.image_url?.message}
-                  </StyledSpanErrorMessage>
-                </Stack> */}
                 </Grid>
-                {/* <input type="file" name="picture" /> */}
               </Grid>
             </Grid>
             <Button
