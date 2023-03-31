@@ -28,33 +28,33 @@ const StyledBox = styled(Box)({
   wordWrap: "break-word",
 });
 
-function DetailPage(props) {
+function DetailPage({ oauthToken }) {
   const { id } = useParams();
   const url = `https://portus-api.herokuapp.com/api/v1/artworks/${id}`;
 
-  const [token, setToken] = useState({});
+  // const [token, setToken] = useState({});
   const [artwork, setArtwork] = useState({});
-  useEffect(() => {
-    axios
-      .post("https://portus-api.herokuapp.com/oauth/token", {
-        grant_type: "client_credentials",
-        client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-        client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
-      })
-      .then((res) => setToken(res.data.access_token))
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post("https://portus-api.herokuapp.com/oauth/token", {
+  //       grant_type: "client_credentials",
+  //       client_id: `${process.env.REACT_APP_CLIENT_ID}`,
+  //       client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
+  //     })
+  //     .then((res) => setToken(res.data.access_token))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   useEffect(() => {
     axios
       .get(url, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${oauthToken}`,
         },
       })
       .then((res) => setArtwork(res.data))
       .catch((err) => console.log(err));
-  }, [token]);
+  }, [oauthToken]);
 
   return (
     <StyledRoot className={`page`}>

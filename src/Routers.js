@@ -16,7 +16,7 @@ import NotiNotConnectedMetamask from "./components/pages/myNFTPage/notConnectedM
 
 import { FastForward } from "@mui/icons-material";
 
-export default function Routers({ isSignedIn, userToken }) {
+export default function Routers({ isSignedIn, userToken, oauthToken }) {
   // const [isSignedIn, setIsSignedIn] = useState(null);
   // const signin = () => {
   //   if (document.cookie !== "") {
@@ -137,16 +137,34 @@ export default function Routers({ isSignedIn, userToken }) {
     <Container maxWidth={false} style={{ padding: 0 }}>
       <Suspense fallback={<div>Loading..</div>}>
         <Switch>
-          <Route exact path={["/", ""]} component={HomePage} />
+          {/* <Route exact path={["/", ""]} component={HomePage} /> */}
+          <Route
+            exact
+            path={["/", ""]}
+            render={(props) => <HomePage {...props} oauthToken={oauthToken} />}
+          />
           <Route exact path="/create_artwork">
             <CreatingArtworkForm
               isSignedIn={isSignedIn}
               userToken={userToken}
+              oauthToken={oauthToken}
             />
           </Route>
-          <Route exact path="/details/:id" component={DetailPage} />
+          {/* <Route exact path="/details/:id" component={DetailPage} /> */}
+          <Route
+            exact
+            path="/details/:id"
+            render={(props) => (
+              <DetailPage {...props} oauthToken={oauthToken} />
+            )}
+          />
+          <ProtectedRoute
+            exact
+            path="/myNFT"
+            render={(props) => <MyNFTPage {...props} oauthToken={oauthToken} />}
+          />
           <Route exact path="/sign_in_as_foundation" component={LoginForm} />
-          <ProtectedRoute exact path="/myNFT" component={MyNFTPage} />
+          {/* <ProtectedRoute exact path="/myNFT" component={MyNFTPage} /> */}
           <AppProvider>
             <Route
               exact

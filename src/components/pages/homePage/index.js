@@ -33,8 +33,7 @@ const StyledBoxForNoti = styled(Box)({
   padding: 35,
 });
 
-function HomePage(props) {
-  const [token, setToken] = useState({});
+function HomePage({ oauthToken }) {
   const [artworks, setArtworks] = useState([{}]);
   const [selectedFoundation, setSelectedFoundation] = useState(null);
 
@@ -48,17 +47,6 @@ function HomePage(props) {
   };
 
   useEffect(() => {
-    axios
-      .post("https://portus-api.herokuapp.com/oauth/token", {
-        grant_type: "client_credentials",
-        client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-        client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
-      })
-      .then((res) => setToken(res.data.access_token))
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
     const url = selectedFoundation
       ? `https://portus-api.herokuapp.com/api/v1/artworks/by_foundation/${selectedFoundation}`
       : "https://portus-api.herokuapp.com/api/v1/artworks";
@@ -66,7 +54,7 @@ function HomePage(props) {
     axios
       .get(url, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${oauthToken}`,
         },
         params: {
           page: page,
@@ -75,7 +63,9 @@ function HomePage(props) {
       })
       .then((res) => setArtworks(res.data.data))
       .catch((err) => console.log(err));
-  }, [token, selectedFoundation, page]);
+  }, [oauthToken, selectedFoundation, page]);
+
+  console.log(oauthToken)
 
   const startIdx = (page - 1) * ROWS_PER_PAGE;
   const endIdx = Math.min(page * ROWS_PER_PAGE, artworks.length);
