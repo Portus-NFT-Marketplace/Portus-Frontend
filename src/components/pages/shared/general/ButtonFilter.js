@@ -4,7 +4,6 @@ import { Select, MenuItem, Button } from "@mui/material";
 
 export default function ButtonFilter(props) {
   const [foundations, setFoundations] = useState([]);
-  const [token, setToken] = useState({});
   const [selectedFoundation, setSelectedFoundation] = useState(null);
   const [filteredFoundations, setFilteredFoundations] = useState(foundations);
 
@@ -15,20 +14,9 @@ export default function ButtonFilter(props) {
 
   useEffect(() => {
     axios
-      .post("https://portus-api.herokuapp.com/oauth/token", {
-        grant_type: "client_credentials",
-        client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-        client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
-      })
-      .then((res) => setToken(res.data.access_token))
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    axios
       .get("https://portus-api.herokuapp.com/api/v1/foundations", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${props.oauthToken}`,
         },
       })
       .then((response) => {
@@ -37,7 +25,7 @@ export default function ButtonFilter(props) {
       .catch((error) => {
         console.error(error);
       });
-  }, [token]);
+  }, [props.oauthToken]);
 
   const handleFoundationSelect = (event) => {
     const foundationId = event.target.value;

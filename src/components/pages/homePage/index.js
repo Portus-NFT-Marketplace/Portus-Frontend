@@ -97,7 +97,7 @@ function HomePage({ oauthToken }) {
               marginBottom: "20px",
             }}
           >
-            <ButtonFilter setSelectedFoundation={setSelectedFoundation} />
+            <ButtonFilter setSelectedFoundation={setSelectedFoundation} oauthToken={oauthToken} />
           </div>
           {artworks.length > 0 ? (
             <>
