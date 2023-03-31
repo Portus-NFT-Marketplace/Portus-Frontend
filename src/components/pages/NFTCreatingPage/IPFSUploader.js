@@ -86,7 +86,7 @@ function IPFSImageUploader() {
       </Stack>
       <Stack style={{ marginTop: 40 }}>
         <form onSubmit={sendFileToIPFS}>
-          <Stack direction="row" style={{ alignItems: "center" }}>
+          <Stack direction="row" style={{ alignItems: "center", justifyContent: "space-between" }}>
             <input
               type="file"
               onChange={(e) => setFileImg(e.target.files[0])}

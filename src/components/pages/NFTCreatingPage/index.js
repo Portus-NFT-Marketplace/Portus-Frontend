@@ -205,9 +205,6 @@ export default function CreatingArtworkForm({
           </Alert>
         </Snackbar>
         <StyledBox>
-          <Stack style={{ justifyContent: "center", marginBottom: "12px" }}>
-            {isLoading && <LinearProgress />}
-          </Stack>
           <IPFSImageUploader />
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={3}>
@@ -283,6 +280,9 @@ export default function CreatingArtworkForm({
             >
               สร้างงานศิลปะ
             </Button>
+            <Stack style={{ justifyContent: "center", marginTop: "20px" }}>
+              {isLoading && <LinearProgress />}
+            </Stack>
           </form>
         </StyledBox>
       </Container>
