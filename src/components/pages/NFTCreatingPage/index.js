@@ -100,7 +100,10 @@ const StyledBox = styled(Box)({
 });
 
 const schema = yup.object().shape({
-  name: yup.string().max(15).required("กรุณากรอกชื่อผลงานศิลปะ"),
+  name: yup
+    .string()
+    .max(15, "ชื่อผลงานศิลปะต้องมีไม่เกิน 15 ตัวอักษร")
+    .required("กรุณากรอกชื่อผลงานศิลปะ"),
   description: yup.string(),
   // ownerName: yup.string().required("This field is required."),
   price: yup
