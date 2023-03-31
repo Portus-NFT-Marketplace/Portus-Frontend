@@ -47,40 +47,6 @@ const StyledRoot = styled("div")({
   },
 });
 
-const StyledPaper = styled(Paper)({
-  height: 96,
-  borderRadius: 16,
-  position: "relative",
-  padding: 16,
-  boxSizing: "border-box",
-  cursor: "pointer",
-  "&:hover": {
-    color: "#1976d2",
-  },
-
-  "& .wrap-name": {
-    width: 160,
-    "& .MuiTypography-root": {
-      fontSize: 20,
-    },
-  },
-  "& .wrap-icon": {
-    position: "absolute",
-    fontSize: 35,
-    color: "#919eab",
-    right: 16,
-    bottom: 8,
-  },
-});
-
-const StyledRootPaper = styled("div")({
-  "& .selected": {
-    color: "#1976d2",
-    border: "1px solid #1976D2",
-    background: "#1976d20d",
-  },
-});
-
 const StyledSpanErrorMessage = styled("span")({
   color: "#d32f2f",
   fontFamily: "Roboto,Helvetica,Arial,sans-serif",
