@@ -136,6 +136,7 @@ function DetailPage({ oauthToken }) {
                 <BuyButton
                   artworkPrice={artwork?.price}
                   artworkId={artwork?.id}
+                  oauthToken={oauthToken}
                 />
               </AppProvider>
             </Stack>
