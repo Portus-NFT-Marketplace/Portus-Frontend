@@ -87,13 +87,13 @@ const schema = yup.object().shape({
   email: yup
     .string()
     .email()
-    .required("Please fill in your username")
-    .typeError("Invalid username"),
+    .required("กรุณากรอกชื่อผู้ใช้ของคุณ")
+    .typeError("ชื่อผู้ใช้ไม่ถูกต้อง"),
   password: yup
     .string()
     // .password()
-    .required("Password is required")
-    .typeError("Invalid password"),
+    .required("กรุณากรอกรหัสผ่านของคุณ")
+    .typeError("รหัสผ่านไม่ถูกต้อง"),
 });
 
 // function checkFormError (res) {
@@ -188,11 +188,11 @@ const LoginForm = () => {
       .catch((err) => {
         setError("email", {
           type: err.response.status,
-          message: "Username or password is invalid!",
+          message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
         });
         setError("password", {
           type: err.response.status,
-          message: "Username or password is invalid!",
+          message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
         });
         console.log(err);
       });

@@ -158,13 +158,13 @@ export default function Routers({ isSignedIn, userToken, oauthToken }) {
               <DetailPage {...props} oauthToken={oauthToken} />
             )}
           />
-          <ProtectedRoute
+          {/* <ProtectedRoute
             exact
             path="/myNFT"
             render={(props) => <MyNFTPage {...props} oauthToken={oauthToken} />}
-          />
+          /> */}
           <Route exact path="/sign_in_as_foundation" component={LoginForm} />
-          {/* <ProtectedRoute exact path="/myNFT" component={MyNFTPage} /> */}
+          <ProtectedRoute exact path="/myNFT" component={MyNFTPage} />
           <AppProvider>
             <Route
               exact
