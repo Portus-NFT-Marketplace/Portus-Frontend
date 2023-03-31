@@ -161,15 +161,16 @@ export default function CreatingArtworkForm({
   const onSubmit = (data) => {
     const newData = { ...data };
 
-    // console.log(errors);
+    // Convert price to wei (10^18)
+    newData.price = parseInt(parseFloat(newData.price) * 10 ** 18);
+    console.log(newData)
+
     axios.post(url, newData, {
       headers: {
         Authorization: `Bearer ${oauthToken}`,
         "Foundation-Identifier": `${userToken}`,
       },
     });
-    // console.log(newData);
-    // console.log(`Test ${token}`);
   };
 
   return (
