@@ -32,11 +32,11 @@ const StyledBoxForNoti = styled(Box)({
   padding: 35,
 });
 
-function MyNFTPage() {
+function MyNFTPage({ oauthToken }) {
   const userAddress = Cookies.get("userAddress");
   const url = `https://portus-api.herokuapp.com/api/v1/artworks/by_owner/${userAddress}`;
 
-  const [token, setToken] = useState({});
+  // const [token, setToken] = useState({});
   const [artworks, setArtworks] = useState([{}]);
 
   const history = useHistory();
@@ -51,27 +51,27 @@ function MyNFTPage() {
     }
   }, [userAddress, history]);
 
-  useEffect(() => {
-    axios
-      .post("https://portus-api.herokuapp.com/oauth/token", {
-        grant_type: "client_credentials",
-        client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-        client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
-      })
-      .then((res) => setToken(res.data.access_token))
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post("https://portus-api.herokuapp.com/oauth/token", {
+  //       grant_type: "client_credentials",
+  //       client_id: `${process.env.REACT_APP_CLIENT_ID}`,
+  //       client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
+  //     })
+  //     .then((res) => setToken(res.data.access_token))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   useEffect(() => {
     axios
       .get(`${url}?page=${page}&limit=${itemsPerPage}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${oauthToken}`,
         },
       })
       .then((res) => setArtworks(res.data.data))
       .catch((err) => console.log(err));
-  }, [url, token, page, itemsPerPage]);
+  }, [url, oauthToken, page, itemsPerPage]);
 
   const handlePageChange = (event, value) => {
     setPage(value);

@@ -125,7 +125,7 @@ const schema = yup.object().shape({
   // ),
 });
 
-export default function CreatingArtworkForm({ isSignedIn, userToken }) {
+export default function CreatingArtworkForm({ isSignedIn, userToken, oauthToken }) {
   // force reloading a page when user using browser back button
   window.onpopstate = function (event) {
     if (event && event.state && event.state.reloaded) {
@@ -159,22 +159,6 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
   });
 
   const url = "https://portus-api.herokuapp.com/api/v1/artworks";
-  const [token, setToken] = useState({});
-  useEffect(() => {
-    axios
-      .post("https://portus-api.herokuapp.com/oauth/token", {
-        grant_type: "client_credentials",
-        client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-        client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
-      })
-      .then((response) => {
-        //get token from response
-        console.log(response);
-        setToken(response.data.access_token);
-        console.log(token);
-      })
-      .catch((err) => console.log(err));
-  }, []);
 
   isSignedIn = Cookies.get("isSignedIn");
   if (isSignedIn != "true") {
@@ -189,7 +173,7 @@ export default function CreatingArtworkForm({ isSignedIn, userToken }) {
     // console.log(errors);
     axios.post(url, newData, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${oauthToken}`,
         "Foundation-Identifier": `${userToken}`,
       },
     });
