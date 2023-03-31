@@ -1,7 +1,8 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router";
 import Cookies from "js-cookie";
 import { Button, Typography, Stack } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import { styled } from "@mui/material/styles";
 import { AppContext } from "../../../../utils/AppProvider";
 
@@ -22,6 +23,7 @@ const StyledBuyButton = styled(Button)({
 });
 
 export default function BuyButton(artwork, oauthToken) {
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const { userAddress, setUserAddress } = useContext(AppContext);
 
@@ -30,7 +32,7 @@ export default function BuyButton(artwork, oauthToken) {
   const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
   const contract = new web3.eth.Contract(contractAbi, contractAddress);
 
-  const buyNFT = async (price, tokenId) => {
+  const buyNFT = async (price, tokenId, setIsLoading) => {
     try {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -40,6 +42,8 @@ export default function BuyButton(artwork, oauthToken) {
       if (typeof price !== "number" || isNaN(price)) {
         throw new Error(`Invalid price: ${price}`);
       }
+
+      setIsLoading(true);
 
       const result = await contract.methods.buyNFT(tokenId).send({
         from: accounts[0],
@@ -59,7 +63,8 @@ export default function BuyButton(artwork, oauthToken) {
             },
           }
         );
-        history.push("/");
+        setIsLoading(false);
+        history.push("/myNFT");
         window.location.reload();
       }
     } catch (err) {
@@ -110,8 +115,19 @@ export default function BuyButton(artwork, oauthToken) {
   if (userAddress) {
     return (
       <div>
+        <Stack
+          style={{
+            justifyContent: "center",
+            marginBottom: "12px",
+            alignItems: "center",
+          }}
+        >
+          {isLoading && <CircularProgress />}
+        </Stack>
         <StyledBuyButton
-          onClick={() => buyNFT(artwork.artworkPrice, artwork.artworkId)}
+          onClick={() =>
+            buyNFT(artwork.artworkPrice, artwork.artworkId, setIsLoading)
+          }
         >
           ซื้อผลงานชิ้นนี้
         </StyledBuyButton>
