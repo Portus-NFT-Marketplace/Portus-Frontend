@@ -188,6 +188,9 @@ const SignedInHeader = (props) => {
                   NFT ของฉัน
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
+                  วิธีใช้
+                </ButtonOrange>
+                <ButtonOrange variant={"text"} component={NavLink} to="/">
                   เกี่ยวกับเรา
                 </ButtonOrange>
               </Stack>
@@ -199,27 +202,6 @@ const SignedInHeader = (props) => {
                   style={{ alignItems: "center" }}
                 >
                   <div>
-                    {/* <Button
-                      variant="outlined"
-                      href="/image_uploader"
-                      // className="partner"
-                      style={{
-                        padding: 8,
-                        minWidth: 30,
-                        marginRight: 15,
-                        borderRadius: 10,
-                      }}
-                    >
-                      <Typography
-                        style={{
-                          fontSize: 11.5,
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        Create Artwork
-                      </Typography>
-                    </Button> */}
                     <Button
                       disabled
                       style={{
