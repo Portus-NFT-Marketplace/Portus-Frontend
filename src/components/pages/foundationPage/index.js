@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
 import {
-  Grid,
   Container,
   Stack,
   Box,
@@ -73,6 +72,10 @@ function FoundationPage({ oauthToken }) {
   const [foundations, setFoundations] = useState([]);
   const [imgFoundations, setImgFoundations] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // set initial state to true to show the loading progress
+  const [page, setPage] = useState(1);
+  const FOUNDATIONS_PER_PAGE = 5;
+  const startIndex = (page - 1) * FOUNDATIONS_PER_PAGE;
+  const endIndex = startIndex + FOUNDATIONS_PER_PAGE;
 
   useEffect(() => {
     axios
@@ -123,31 +126,40 @@ function FoundationPage({ oauthToken }) {
             </Stack>
           ) : foundations.length > 0 ? (
             <StyledBox>
-              {foundations.map((foundation, index) => (
-                <a
-                  href={`/foundations/${foundation.id}`}
-                  style={{ color: "white", textDecoration: "none" }}
-                >
-                  <div
+              {foundations
+                .slice(startIndex, endIndex)
+                .map((foundation, index) => (
+                  <a
+                    href={`/foundations/${foundation.id}`}
+                    style={{ color: "white", textDecoration: "none" }}
                     key={foundation.id}
-                    style={{
-                      position: "relative",
-                      display: "inline-block",
-                      width: "100%",
-                      height: 345,
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                      marginBottom: 10,
-                    }}
                   >
-                    <StyledImage
-                      src={imgFoundations[index]}
-                      alt={`${foundation.name} logo`}
-                    />
-                    <ImageOverlay>{foundation.name}</ImageOverlay>
-                  </div>
-                </a>
-              ))}
+                    <div
+                      style={{
+                        position: "relative",
+                        display: "inline-block",
+                        width: "100%",
+                        height: 345,
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        marginBottom: 10,
+                      }}
+                    >
+                      <StyledImage
+                        src={imgFoundations[index]}
+                        alt={`${foundation.name} logo`}
+                      />
+                      <ImageOverlay>{foundation.name}</ImageOverlay>
+                    </div>
+                  </a>
+                ))}
+              <Stack style={{ alignItems: "center", marginTop: 10 }}>
+                <Pagination
+                  count={Math.ceil(foundations.length / FOUNDATIONS_PER_PAGE)}
+                  page={page}
+                  onChange={(event, value) => setPage(value)}
+                />
+              </Stack>
             </StyledBox>
           ) : (
             <StyledBoxForNoti>
