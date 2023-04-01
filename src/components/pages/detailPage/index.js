@@ -18,6 +18,7 @@ import FoundationIcon from "@mui/icons-material/Foundation";
 import NFTImage from "../shared/general/ImageNFT";
 import BuyButton from "../shared/general/BuyButton";
 import AppProvider from "../../../utils/AppProvider";
+import "./style.css";
 
 const StyledRoot = styled("div")({
   minWidth: 350,
