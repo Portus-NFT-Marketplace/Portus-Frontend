@@ -158,7 +158,7 @@ function Header(props) {
                   <img src={Logo} alt="logo" width={130} />
                 </a>
                 <Divider orientation="vertical" />
-                <ButtonOrange variant={"text"} component={NavLink} to="/">
+                <ButtonOrange variant={"text"} href="/foundations">
                   มูลนิธิ
                 </ButtonOrange>
                 <AppProvider></AppProvider>

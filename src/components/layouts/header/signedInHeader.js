@@ -179,9 +179,8 @@ const SignedInHeader = (props) => {
                 >
                   <img src={Logo} alt="logo" width={130} />
                 </a>
-
                 <Divider orientation="vertical" />
-                <ButtonOrange variant={"text"} component={NavLink} to="/">
+                <ButtonOrange variant={"text"} href="/foundations">
                   มูลนิธิ
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} href="/myNFT">
@@ -210,7 +209,9 @@ const SignedInHeader = (props) => {
                         alignItems: "center",
                       }}
                     >
-                      <Typography variant="caption">คุณกำลังเข้าสู่ระบบ โดย</Typography>
+                      <Typography variant="caption">
+                        คุณกำลังเข้าสู่ระบบ โดย
+                      </Typography>
                       <Typography
                         variant="body1"
                         style={{

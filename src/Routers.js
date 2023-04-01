@@ -10,6 +10,8 @@ import DetailPage from "./components/pages/detailPage";
 import LoginForm from "./components/pages/loginPage";
 import MyNFTPage from "./components/pages/myNFTPage";
 import NotiNotConnectedMetamask from "./components/pages/myNFTPage/notConnectedMetamask";
+import FoundationPage from "./components/pages/foundationPage";
+import DetailFoundationPage from "./components/pages/foundationPage/detailFoundation";
 
 export default function Routers({ isSignedIn, userToken, oauthToken }) {
   return (
@@ -37,6 +39,20 @@ export default function Routers({ isSignedIn, userToken, oauthToken }) {
           />
           <Route exact path="/sign_in_as_foundation" component={LoginForm} />
           <ProtectedRoute exact path="/myNFT" component={MyNFTPage} />
+          <Route
+            exact
+            path="/foundations"
+            render={(props) => (
+              <FoundationPage {...props} oauthToken={oauthToken} />
+            )}
+          />
+          <Route
+            exact
+            path="/foundations/:id"
+            render={(props) => (
+              <DetailFoundationPage {...props} oauthToken={oauthToken} />
+            )}
+          />
           <AppProvider>
             <Route
               exact
