@@ -166,7 +166,7 @@ function Header(props) {
                   NFT ของฉัน
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
-                  วิธีใช้
+                  คู่มือการใช้งาน
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
                   เกี่ยวกับเรา
