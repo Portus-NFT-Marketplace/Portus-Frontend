@@ -158,7 +158,7 @@ function Header(props) {
                   <img src={Logo} alt="logo" width={130} />
                 </a>
                 <Divider orientation="vertical" />
-                <ButtonOrange variant={"text"} component={NavLink} to="/">
+                <ButtonOrange variant={"text"} href="/foundations">
                   มูลนิธิ
                 </ButtonOrange>
                 <AppProvider></AppProvider>
@@ -166,7 +166,7 @@ function Header(props) {
                   NFT ของฉัน
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
-                  วิธีใช้
+                  คู่มือการใช้งาน
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
                   เกี่ยวกับเรา
