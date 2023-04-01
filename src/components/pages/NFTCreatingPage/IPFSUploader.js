@@ -1,43 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { styled } from "@mui/material/styles";
-import {
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Divider,
-  IconButton,
-  Paper,
-  TextField,
-  MenuItem,
-  Chip,
-} from "@mui/material";
-import { Stack } from "@mui/system";
+import { Typography, Grid, Divider, Stack, Chip } from "@mui/material";
+import DeleteIcon from "@material-ui/icons/Delete";
+import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import ButtonOrange from "../shared/general/ButtonOrange";
 
-const StyledRoot = styled("div")({
-  marginTop: 100,
-  "& .register-head": {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    // marginTop: 100,
-    marginBottom: 30,
-  },
-  "& .register-body": {
-    // display: "flex"
-  },
-});
-
 function IPFSImageUploader() {
   const [fileImg, setFileImg] = useState(null);
-  const [ImgHash, setImgHash] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+
+  useEffect(() => {
+    const imgURLCookie = Cookies.get("imgURL");
+    setImageUrl(imgURLCookie || "");
+  }, []);
+
   const sendFileToIPFS = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (fileImg) {
       try {
         const formData = new FormData();
@@ -53,11 +38,12 @@ function IPFSImageUploader() {
             "Content-Type": "multipart/form-data",
           },
         });
-        setImgHash(
+        Cookies.set(
+          "imgURL",
           `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`
         );
-        // ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-        console.log(ImgHash);
+        setLoading(false);
+        window.location.reload();
         //Take a look at your Pinata Pinned section, you will see a new file added to you list.
       } catch (error) {
         console.log("Error sending File to IPFS: ");
@@ -69,38 +55,62 @@ function IPFSImageUploader() {
   return (
     <Stack spacing={2} style={{ marginBottom: "40px" }}>
       <Grid item xs={12}>
-        <Typography variant="h5">อัปโหลดงานศิลปะของคุณ</Typography>
+        {imageUrl ? (
+          <Stack direction="row" spacing={2} style={{ alignItems: "center" }}>
+            <Typography variant="h5">1. อัปโหลดงานศิลปะของคุณ</Typography>
+
+            <CheckCircleOutlinedIcon />
+          </Stack>
+        ) : (
+          <Stack direction="row" spacing={2} style={{ alignItems: "center" }}>
+            <Typography variant="h5">1. อัปโหลดงานศิลปะของคุณ</Typography>
+          </Stack>
+        )}
         <Divider />
       </Grid>
       <Stack>
         <Typography variant="caption" color="text.secondary">
-          1. อัปโหลดงานศิลปะของคุณ คลิก "Choose File"
+          - อัปโหลดงานศิลปะของคุณ คลิก "Choose File (เลือกไฟล์)"
         </Typography>
         <Typography variant="caption" color="text.secondary">
-          2. คลิก "สร้าง URL งานศิลปะของคุณ" เพื่อแปลงงานศิลปะของคุณเป็น URL
+          - คลิก "สร้าง URL งานศิลปะของคุณ" เพื่อแปลงงานศิลปะของคุณเป็น URL
         </Typography>
         <Typography variant="caption" color="text.secondary">
-          3. คัดลอก URL ของคุณเพื่อป้อนลงในแบบฟอร์มสร้างงานศิลปะด้านล่าง
+          - URL งานศิลปะของคุณจะปรากฎข้างล่าง
         </Typography>
-        <Typography variant="caption" color="text.secondary"></Typography>
       </Stack>
       <Stack style={{ marginTop: 40 }}>
         <form onSubmit={sendFileToIPFS}>
-          <Stack direction="row" style={{ alignItems: "center", justifyContent: "space-between" }}>
-            <input
-              type="file"
-              onChange={(e) => setFileImg(e.target.files[0])}
-              required
-            />
+          <Stack
+            direction="row"
+            style={{ alignItems: "center", justifyContent: "space-between" }}
+          >
+            <Stack direction="row" spacing={2} style={{ alignItems: "center" }}>
+              <input
+                type="file"
+                onChange={(e) => setFileImg(e.target.files[0])}
+                required
+              />
+              {loading && <CircularProgress size={30} />}
+            </Stack>
             <ButtonOrange variant="contained" type="submit">
               สร้าง URL งานศิลปะของคุณ
             </ButtonOrange>
           </Stack>
         </form>
-        <Stack spacing={1} style={{ marginTop: 15 }}>
-          <Typography variant="h6">URL งานศิลปะของคุณ:</Typography>
-          <Chip label={ImgHash} style={{ height: 45 }} />
-        </Stack>
+        <Chip
+          style={{ height: 45, width: "100%", marginTop: "20px" }}
+          label={imageUrl || "URL งานศิลปะของคุณจะปรากฎที่นี่"}
+          onDelete={
+            imageUrl
+              ? () => {
+                  Cookies.remove("imgURL");
+                  setImageUrl("");
+                }
+              : undefined
+          }
+          deleteIcon={imageUrl ? <DeleteIcon /> : null}
+        />
       </Stack>
     </Stack>
   );

@@ -65,6 +65,7 @@ function HomePage({ oauthToken }) {
         },
       })
       .then((res) => {
+        console.log(res.data.data);
         setArtworks(res.data.data);
         setLoading(false); // Set loading state to false when API call succeeds
       })
@@ -73,8 +74,6 @@ function HomePage({ oauthToken }) {
         setLoading(false); // Set loading state to false when API call fails
       });
   }, [oauthToken, selectedFoundation, page]);
-
-  console.log(oauthToken);
 
   const startIdx = (page - 1) * ROWS_PER_PAGE;
   const endIdx = Math.min(page * ROWS_PER_PAGE, artworks.length);
@@ -115,7 +114,7 @@ function HomePage({ oauthToken }) {
             <div style={{ display: "flex", justifyContent: "center" }}>
               <CircularProgress />
             </div>
-          ) : artworks.length > 0 ? (
+          ) : artworks.length > 0 && Object.keys(artworks[0]).length > 0 ? (
             <>
               <StyledBox>
                 {artworks.slice(startIdx, endIdx).map((value, index) => (
@@ -126,9 +125,7 @@ function HomePage({ oauthToken }) {
                     description={value.description}
                     img_url={value.image_url}
                     id={value.id}
-                    foundation_owner={
-                      value.foundation_name || "No foundation owner"
-                    }
+                    foundation_owner={value.foundation_name}
                   />
                 ))}
               </StyledBox>

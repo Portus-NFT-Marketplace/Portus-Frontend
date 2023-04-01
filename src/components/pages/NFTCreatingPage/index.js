@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import {
@@ -9,7 +9,9 @@ import {
   Divider,
   Box,
   Stack,
+  Chip,
 } from "@mui/material";
+import DeleteIcon from "@material-ui/icons/Delete";
 import TextFieldTheme from "../shared/general/TextFieldTheme";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -32,12 +34,9 @@ const StyledRoot = styled("div")({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    // marginTop: 100,
     marginBottom: 30,
   },
-  "& .register-body": {
-    // display: "flex"
-  },
+  "& .register-body": {},
 });
 
 const StyledBox = styled(Box)({
@@ -70,7 +69,6 @@ const schema = yup.object().shape({
       }
     )
     .required(),
-  image_url: yup.string().required("กรุณากรอก URL ของภาพงานศิลปะ"),
 });
 
 function Alert(props) {
@@ -85,8 +83,15 @@ export default function CreatingArtworkForm({
   const history = useHistory();
 
   const [alertMessage, setAlertMessage] = useState("");
-  const [alertSeverity, setAlertSeverity] = useState("success");
+  const [alertSeverity, setAlertSeverity] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [imageUrl, setImageUrl] = useState("");
+
+  useEffect(() => {
+    const imgURLCookie = Cookies.get("imgURL");
+    setImageUrl(imgURLCookie || "");
+  }, []);
 
   // force reloading a page when user using browser back button
   window.onpopstate = function (event) {
@@ -107,9 +112,7 @@ export default function CreatingArtworkForm({
     control,
     handleSubmit,
     formState: { errors },
-    getValues,
     setValue,
-    watch,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -134,10 +137,23 @@ export default function CreatingArtworkForm({
 
     // Convert price to wei (10^18)
     newData.price = parseInt(parseFloat(newData.price) * 10 ** 18);
-    console.log(newData);
+
+    if (imageUrl === "") {
+      setAlertSeverity("warning");
+      setAlertMessage("กรุณาสร้าง URL ของงานศิลปะของคุณ");
+      setIsLoading(false);
+      return;
+    }
+
+    const sentData = {
+      name: newData.name,
+      description: newData.description,
+      price: newData.price,
+      image_url: imageUrl,
+    };
 
     axios
-      .post(url, newData, {
+      .post(url, sentData, {
         headers: {
           Authorization: `Bearer ${oauthToken}`,
           "Foundation-Identifier": `${userToken}`,
@@ -148,11 +164,9 @@ export default function CreatingArtworkForm({
         if (response.status === 200) {
           setAlertSeverity("success");
           setAlertMessage("สร้างผลงานศิลปะสำเร็จ");
+          Cookies.remove("imgURL");
           history.push("/");
           window.location.reload();
-          // setTimeout(() => {
-          //   window.location.href = "/";
-          // }, 3000);
         } else {
           setAlertSeverity("error");
           setAlertMessage("ไม่สามารถสร้างผลงานศิลปะได้ กรุณาลองใหม่อีกครั้ง");
@@ -189,7 +203,6 @@ export default function CreatingArtworkForm({
       return;
     }
     setAlertMessage("");
-    setAlertSeverity("success");
   };
 
   return (
@@ -209,7 +222,7 @@ export default function CreatingArtworkForm({
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Typography variant="h5">สร้างงานศิลปะ</Typography>
+                <Typography variant="h5">2. สร้างงานศิลปะของคุณ</Typography>
                 <Divider />
               </Grid>
               <Grid item container spacing={2}>
@@ -239,20 +252,6 @@ export default function CreatingArtworkForm({
                         rows={4}
                         error={!!errors.description}
                         helperText={errors.description?.message}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Controller
-                    name="image_url"
-                    control={control}
-                    render={({ field }) => (
-                      <TextFieldTheme
-                        {...field}
-                        label="URL ของภาพงานศิลปะ"
-                        error={!!errors.image_url}
-                        helperText={errors.image_url?.message}
                       />
                     )}
                   />

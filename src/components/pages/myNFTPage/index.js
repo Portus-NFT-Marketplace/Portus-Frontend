@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { Container, Stack, Box, Typography, Divider } from "@mui/material";
+import {
+  Container,
+  Stack,
+  Box,
+  Typography,
+  Divider,
+  CircularProgress,
+} from "@mui/material";
 import { Pagination } from "@mui/material";
 
 import NFTCard from "../shared/general/CardNFT";
@@ -38,6 +45,7 @@ function MyNFTPage({ oauthToken }) {
 
   // const [token, setToken] = useState({});
   const [artworks, setArtworks] = useState([{}]);
+  const [isLoading, setIsLoading] = useState(true); // set initial state to true to show the loading progress
 
   const history = useHistory();
 
@@ -51,25 +59,18 @@ function MyNFTPage({ oauthToken }) {
     }
   }, [userAddress, history]);
 
-  // useEffect(() => {
-  //   axios
-  //     .post("https://portus-api.herokuapp.com/oauth/token", {
-  //       grant_type: "client_credentials",
-  //       client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-  //       client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
-  //     })
-  //     .then((res) => setToken(res.data.access_token))
-  //     .catch((err) => console.log(err));
-  // }, []);
-
   useEffect(() => {
+    setIsLoading(true); // set isLoading to true before making the API call
     axios
       .get(`${url}?page=${page}&limit=${itemsPerPage}`, {
         headers: {
           Authorization: `Bearer ${oauthToken}`,
         },
       })
-      .then((res) => setArtworks(res.data.data))
+      .then((res) => {
+        setArtworks(res.data.data);
+        setIsLoading(false); // set isLoading to false after the API call is complete
+      })
       .catch((err) => console.log(err));
   }, [url, oauthToken, page, itemsPerPage]);
 
@@ -84,7 +85,11 @@ function MyNFTPage({ oauthToken }) {
           NFT ของฉัน
         </Typography>
         <Divider style={{ marginTop: "10px", marginBottom: "15px" }} />
-        {artworks.length === 0 ? (
+        {isLoading ? (
+          <Stack style={{ justifyContent: "center", alignItems: "center" }}>
+            <CircularProgress style={{ marginTop: "50px" }} />
+          </Stack>
+        ) : artworks.length === 0 ? (
           <StyledBoxForNoti>
             <Typography variant="h4" align="center" color="text.secondary">
               คุณไม่มีผลงานศิลปะ
