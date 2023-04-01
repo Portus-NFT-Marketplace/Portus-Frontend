@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Grid, Divider, Stack, Chip } from "@mui/material";
 import DeleteIcon from "@material-ui/icons/Delete";
+import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import axios from "axios";
@@ -53,7 +55,17 @@ function IPFSImageUploader() {
   return (
     <Stack spacing={2} style={{ marginBottom: "40px" }}>
       <Grid item xs={12}>
-        <Typography variant="h5">1. อัปโหลดงานศิลปะของคุณ</Typography>
+        {imageUrl ? (
+          <Stack direction="row" spacing={2} style={{ alignItems: "center" }}>
+            <Typography variant="h5">1. อัปโหลดงานศิลปะของคุณ</Typography>
+
+            <CheckCircleOutlinedIcon />
+          </Stack>
+        ) : (
+          <Stack direction="row" spacing={2} style={{ alignItems: "center" }}>
+            <Typography variant="h5">1. อัปโหลดงานศิลปะของคุณ</Typography>
+          </Stack>
+        )}
         <Divider />
       </Grid>
       <Stack>
