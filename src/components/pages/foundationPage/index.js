@@ -23,7 +23,7 @@ const StyledBox = styled(Box)({
   borderColor: "#CFD3D7",
   borderRadius: "12px",
   padding: 35,
-  marginTop: 40,
+  marginTop: 50,
 });
 
 const StyledBoxForNoti = styled(Box)({
@@ -66,6 +66,9 @@ const ImageOverlay = styled("div")({
   textAlign: "center",
   maxWidth: "100%",
   maxHeight: "100%",
+  "&:hover": {
+    fontSize: 50,
+  },
 });
 
 function FoundationPage({ oauthToken }) {
