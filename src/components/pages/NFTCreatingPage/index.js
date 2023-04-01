@@ -222,7 +222,7 @@ export default function CreatingArtworkForm({
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Typography variant="h5">สร้างงานศิลปะ</Typography>
+                <Typography variant="h5">2. สร้างงานศิลปะของคุณ</Typography>
                 <Divider />
               </Grid>
               <Grid item container spacing={2}>
@@ -254,21 +254,6 @@ export default function CreatingArtworkForm({
                         helperText={errors.description?.message}
                       />
                     )}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Chip
-                    style={{ height: 45, width: "100%" }}
-                    label={imageUrl}
-                    onDelete={
-                      imageUrl
-                        ? () => {
-                            Cookies.remove("imgURL");
-                            setImageUrl("");
-                          }
-                        : undefined
-                    }
-                    deleteIcon={imageUrl ? <DeleteIcon /> : null}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Grid, Divider, Stack } from "@mui/material";
+import { Typography, Grid, Divider, Stack, Chip } from "@mui/material";
+import DeleteIcon from "@material-ui/icons/Delete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import axios from "axios";
@@ -10,6 +11,12 @@ import ButtonOrange from "../shared/general/ButtonOrange";
 function IPFSImageUploader() {
   const [fileImg, setFileImg] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+
+  useEffect(() => {
+    const imgURLCookie = Cookies.get("imgURL");
+    setImageUrl(imgURLCookie || "");
+  }, []);
 
   const sendFileToIPFS = async (e) => {
     e.preventDefault();
@@ -46,20 +53,19 @@ function IPFSImageUploader() {
   return (
     <Stack spacing={2} style={{ marginBottom: "40px" }}>
       <Grid item xs={12}>
-        <Typography variant="h5">อัปโหลดงานศิลปะของคุณ</Typography>
+        <Typography variant="h5">1. อัปโหลดงานศิลปะของคุณ</Typography>
         <Divider />
       </Grid>
       <Stack>
         <Typography variant="caption" color="text.secondary">
-          1. อัปโหลดงานศิลปะของคุณ คลิก "Choose File (เลือกไฟล์)"
+          - อัปโหลดงานศิลปะของคุณ คลิก "Choose File (เลือกไฟล์)"
         </Typography>
         <Typography variant="caption" color="text.secondary">
-          2. คลิก "สร้าง URL งานศิลปะของคุณ" เพื่อแปลงงานศิลปะของคุณเป็น URL
+          - คลิก "สร้าง URL งานศิลปะของคุณ" เพื่อแปลงงานศิลปะของคุณเป็น URL
         </Typography>
         <Typography variant="caption" color="text.secondary">
-          3. URL งานศิลปะของคุณจะปรากฎข้างล่าง
+          - URL งานศิลปะของคุณจะปรากฎข้างล่าง
         </Typography>
-        <Typography variant="caption" color="text.secondary"></Typography>
       </Stack>
       <Stack style={{ marginTop: 40 }}>
         <form onSubmit={sendFileToIPFS}>
@@ -80,6 +86,19 @@ function IPFSImageUploader() {
             </ButtonOrange>
           </Stack>
         </form>
+        <Chip
+          style={{ height: 45, width: "100%", marginTop: "20px" }}
+          label={imageUrl || "URL งานศิลปะของคุณจะปรากฎที่นี่"}
+          onDelete={
+            imageUrl
+              ? () => {
+                  Cookies.remove("imgURL");
+                  setImageUrl("");
+                }
+              : undefined
+          }
+          deleteIcon={imageUrl ? <DeleteIcon /> : null}
+        />
       </Stack>
     </Stack>
   );
