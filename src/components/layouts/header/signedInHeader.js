@@ -1,43 +1,19 @@
 import React, { Fragment } from "react";
-import clsx from "clsx";
 import PropTypes from "prop-types";
-import { Link, withRouter, NavLink, useHistory } from "react-router-dom";
+import {  withRouter, NavLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import makeStyles from "@mui/styles/makeStyles";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import Avatar from "@mui/material/Avatar";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useDispatch, useSelector } from "react-redux";
-import EmailIcon from "@mui/icons-material/Email";
-import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
-import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { Stack, Button } from "@mui/material";
 
-import TranslateIcon from "@mui/icons-material/Translate";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import LogoutIcon from "@mui/icons-material/Logout";
-
 import Logo from "../../../components/pages/assets/portus_logo.png";
-import ButtonBlue from "../../pages/shared/general/ButtonBlue";
 import ButtonOrange from "../../pages/shared/general/ButtonOrange";
 
 import LoggedOutFromFoundation from "../../pages/loginPage/loggedOutFoundation";
-
-// import { logout } from "../../../actions/auth";
-import { Box } from "@mui/system";
 
 import Cookies from "js-cookie";
 
@@ -93,18 +69,6 @@ const StyledAppBar = styled(AppBar)(({}) => ({
   },
 }));
 
-// const StyledIconButtonTranslate = styled(IconButton)(({}) => ({
-//   border: "1px solid #00000030",
-//   borderRadius: 8,
-//   marginLeft: 8,
-//   "&:hover": {
-//     transform: "scale(1.09) translateZ(0px)",
-//   },
-//   ["@media only screen and (max-width: 600px)"]: {
-//     display: "none",
-//   },
-// }));
-
 function ElevationScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -131,26 +95,9 @@ ElevationScroll.propTypes = {
 };
 
 const SignedInHeader = (props) => {
-  //   const { open, matchesBig, isLoggedIn } = props;
-  //   const { user: currentUser } = useSelector((state) => state.auth);
-  //   const [anchorEl, setAnchorEl] = React.useState(null);
-  //   const dispatch = useDispatch();
-  //   const isMenuOpen = Boolean(anchorEl);
-  //   const handleMenuClose = () => {
-  //     setAnchorEl(null);
-  //   };
-
-  //   const logOut = () => {
-  //     dispatch(logout());
-  //     handleMenuClose();
-  //   };
-
   const foundationName = Cookies.get("foundationName");
 
-  const menuId = "primary-search-account-menu";
   const renderMenu = <></>;
-
-  const history = useHistory();
 
   return (
     <div>
@@ -179,15 +126,12 @@ const SignedInHeader = (props) => {
                 >
                   <img src={Logo} alt="logo" width={130} />
                 </a>
-                <Divider orientation="vertical" />
-                <ButtonOrange variant={"text"} href="/foundations">
-                  มูลนิธิ
-                </ButtonOrange>
+                <Divider orientation="vertical" />{" "}
                 <ButtonOrange variant={"text"} href="/myNFT">
                   NFT ของฉัน
                 </ButtonOrange>
-                <ButtonOrange variant={"text"} component={NavLink} to="/">
-                  คู่มือการใช้งาน
+                <ButtonOrange variant={"text"} href="/foundations">
+                  มูลนิธิ
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
                   เกี่ยวกับเรา
@@ -227,9 +171,6 @@ const SignedInHeader = (props) => {
                       variant={"outlined"}
                       onClick={LoggedOutFromFoundation}
                       href="/sign_in_as_foundation"
-                      //   href="/logged_out_from_foundation"
-                      // onClick={() => history.push("/sign_in")}
-                      // className="partner"
                       style={{ padding: 8, minWidth: 30, marginRight: 15 }}
                     >
                       <Typography
@@ -243,85 +184,7 @@ const SignedInHeader = (props) => {
                       </Typography>
                     </StyledButtonLogOut>
                   </div>
-                  {/* <div>
-                    <ButtonOrange
-                      variant={"text"}
-                      component={NavLink}
-                        to="/"
-                      className="partner"
-                    >
-                      Orders
-                    </ButtonOrange>
-                  </div> */}
-                  {/* <div>
-                    <ButtonBlue
-                      variant={"text"}
-                      component={NavLink}
-                      to="/register"
-                      className="partner"
-                    >
-                      Explore
-                    </ButtonBlue>
-                  </div> */}
                 </Stack>
-
-                {/* <Divider className="divider" orientation="vertical" /> */}
-
-                {/* <div style={{ display: "flex", alignItems: "center" }}>
-                  {isLoggedIn ? (
-                    <div>
-                      <IconButton
-                        edge="end"
-                        aria-label="account of current user"
-                        aria-controls={menuId}
-                        aria-haspopup="true"
-                        color="inherit"
-                        onClick={(event) => setAnchorEl(event.currentTarget)}
-                        size="large"
-                        style={{ marginRight: 8 }}
-                      >
-                        <Avatar
-                          alt={currentUser.username}
-                          src={`${process.env.REACT_APP_API_URL}image/profile/${currentUser.image}`}
-                        />
-                      </IconButton>
-                    </div>
-                  ) : (
-                    <Fragment>
-                      <ButtonBlue
-                        style={{ marginRight: 8 }}
-                        to="/seller_dashboard"
-                        variant={"outlined"}
-                        className="seller-dashboard"
-                        component={NavLink}
-                      >
-                        Switch to Selling
-                      </ButtonBlue>
-                      <ButtonBlue
-                        to="/seller_homepage"
-                        variant={"outlined"}
-                        className="join-as-a-seller"
-                        component={NavLink}
-                      >
-                        Join as a seller
-                      </ButtonBlue>
-                      <ButtonBlue
-                        variant={"contained"}
-                        style={{ marginLeft: 8 }}
-                        component={NavLink}
-                        to="/login"
-                      >
-                        Sign in
-                      </ButtonBlue>
-                    </Fragment>
-                  )}
-
-                  <div>
-                    <StyledIconButtonTranslate aria-label="translate">
-                      <TranslateIcon fontSize="small" />
-                    </StyledIconButtonTranslate>
-                  </div>
-                </div> */}
               </div>
             </Container>
           </Toolbar>

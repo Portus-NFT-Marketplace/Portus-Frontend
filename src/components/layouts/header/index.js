@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 
 import PropTypes from "prop-types";
-import { Link, withRouter, NavLink, useHistory } from "react-router-dom";
+import { Link, withRouter, NavLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
 import useScrollTrigger from "@mui/material/useScrollTrigger";
@@ -9,15 +9,12 @@ import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 
 import { Stack, Button } from "@mui/material";
 
 import Logo from "../../../components/pages/assets/portus_logo.png";
 
 import ButtonOrange from "../../pages/shared/general/ButtonOrange";
-
-import Cookies from "js-cookie";
 
 import MetamaskButton from "../../pages/shared/general/MetaMaskButton";
 import AppProvider from "../../../utils/AppProvider";
@@ -91,43 +88,6 @@ ElevationScroll.propTypes = {
 
 function Header(props) {
   const renderMenu = <></>;
-  const userAddress = Cookies.get("userAddress");
-  // const [account, setAccount] = useState(null);
-  // function checkMetamaskConnection() {
-  //   if (window.ethereum.selectedAddress) {
-  //     console.log("Metamask is connected");
-  //     setAccount(window.ethereum.selectedAddress);
-  //     console.log(window.ethereum.selectedAddress);
-  //   } else {
-  //     console.log("Metamask is not connected");
-  //     console.log(window.ethereum.selectedAddress);
-  //   }
-  // }
-  // checkMetamaskConnection();
-
-  // console.log(window.ethereum.selectedAddress)
-  // console.log(Cookies.get("userAddress"));
-  // if (!window.ethereum.selectedAddress) {
-  //   Cookies.remove("userAddress");
-  // }
-
-  // function connectMetamask() {
-  //   // Check if Metamask is installed and enabled
-  //   if (typeof window.ethereum !== "undefined" && window.ethereum.isMetaMask) {
-  //     // Connect to Metamask
-  //     window.ethereum.request({ method: "eth_requestAccounts" });
-
-  //     // Check Metamask connection status periodically
-  //     const checkMetamask = setInterval(() => {
-  //       if (!window.ethereum.isConnected()) {
-  //         // Remove the userAddress cookie
-  //         Cookies.remove("userAddress");
-  //         // Stop checking Metamask connection status
-  //         clearInterval(checkMetamask);
-  //       }
-  //     }, 1000);
-  //   }
-  // }
 
   return (
     <div>
@@ -158,15 +118,11 @@ function Header(props) {
                   <img src={Logo} alt="logo" width={130} />
                 </a>
                 <Divider orientation="vertical" />
-                <ButtonOrange variant={"text"} href="/foundations">
-                  มูลนิธิ
-                </ButtonOrange>
-                <AppProvider></AppProvider>
                 <ButtonOrange variant={"text"} href="/myNFT">
                   NFT ของฉัน
                 </ButtonOrange>
-                <ButtonOrange variant={"text"} component={NavLink} to="/">
-                  คู่มือการใช้งาน
+                <ButtonOrange variant={"text"} href="/foundations">
+                  มูลนิธิ
                 </ButtonOrange>
                 <ButtonOrange variant={"text"} component={NavLink} to="/">
                   เกี่ยวกับเรา
@@ -183,23 +139,6 @@ function Header(props) {
                     <AppProvider>
                       <MetamaskButton />
                     </AppProvider>
-
-                    {/* <Button
-                      variant="outlined"
-                      onClick={connectMetamask}
-                      style={{
-                        borderColor: "#E46842",
-                        color: "#ffffff",
-                        backgroundColor: "#E46842",
-                        borderRadius: 8,
-                        "&:hover": {
-                          borderColor: "#BC6530",
-                          backgroundColor: "#BC6530",
-                        },
-                      }}
-                    >
-                      Connect Wallet
-                    </Button> */}
                   </div>
                 </Stack>
               </div>

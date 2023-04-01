@@ -1,0 +1,4 @@
+.css-1ws8119-MuiDivider-root::before,
+.css-1ws8119-MuiDivider-root::after {
+    position: static !important;
+}
