@@ -73,7 +73,6 @@ const ImageOverlay = styled("div")({
 
 function FoundationPage({ oauthToken }) {
   const [foundations, setFoundations] = useState([]);
-  const [imgFoundations, setImgFoundations] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // set initial state to true to show the loading progress
   const [page, setPage] = useState(1);
   const FOUNDATIONS_PER_PAGE = 5;
@@ -81,6 +80,7 @@ function FoundationPage({ oauthToken }) {
   const endIndex = startIndex + FOUNDATIONS_PER_PAGE;
 
   useEffect(() => {
+    setIsLoading(true); // set isLoading to true before making the API call
     axios
       .get("https://portus-api.herokuapp.com/api/v1/foundations", {
         headers: {
@@ -89,35 +89,12 @@ function FoundationPage({ oauthToken }) {
       })
       .then((response) => {
         setFoundations(response.data.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [oauthToken]);
-
-  useEffect(() => {
-    setIsLoading(true); // set isLoading to true before making the API call
-    const imgRequests = foundations.map((foundation) =>
-      axios.get(
-        `https://portus-api.herokuapp.com/api/v1/foundations/${foundation.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${oauthToken}`,
-          },
-        }
-      )
-    );
-
-    Promise.all(imgRequests)
-      .then((responses) => {
-        const imgData = responses.map((response) => response.data.first_image);
-        setImgFoundations(imgData);
         setIsLoading(false); // set isLoading to false after the API call is complete
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [foundations, oauthToken]);
+  }, [oauthToken]);
 
   return (
     <StyledRoot className={`page`}>
@@ -129,33 +106,28 @@ function FoundationPage({ oauthToken }) {
             </Stack>
           ) : foundations.length > 0 ? (
             <StyledBox>
-              {foundations
-                .slice(startIndex, endIndex)
-                .map((foundation, index) => (
-                  <a
-                    href={`/foundations/${foundation.id}`}
-                    style={{ color: "white", textDecoration: "none" }}
-                    key={foundation.id}
+              {foundations.slice(startIndex, endIndex).map((foundation) => (
+                <a
+                  href={`/foundations/${foundation.id}`}
+                  style={{ color: "white", textDecoration: "none" }}
+                  key={foundation.id}
+                >
+                  <div
+                    style={{
+                      position: "relative",
+                      display: "inline-block",
+                      width: "100%",
+                      height: 345,
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      marginBottom: 10,
+                    }}
                   >
-                    <div
-                      style={{
-                        position: "relative",
-                        display: "inline-block",
-                        width: "100%",
-                        height: 345,
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                        marginBottom: 10,
-                      }}
-                    >
-                      <StyledImage
-                        src={imgFoundations[index]}
-                        alt={`${foundation.name} logo`}
-                      />
-                      <ImageOverlay>{foundation.name}</ImageOverlay>
-                    </div>
-                  </a>
-                ))}
+                    <StyledImage src={foundation.first_image} />
+                    <ImageOverlay>{foundation.name}</ImageOverlay>
+                  </div>
+                </a>
+              ))}
               <Stack style={{ alignItems: "center", marginTop: 10 }}>
                 <Pagination
                   count={Math.ceil(foundations.length / FOUNDATIONS_PER_PAGE)}
