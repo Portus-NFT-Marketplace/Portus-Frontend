@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { Container, Stack, Box, Typography, Chip, Button } from "@mui/material";
+import {
+  Container,
+  Stack,
+  Box,
+  Typography,
+  Chip,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import FaceIcon from "@mui/icons-material/Face";
@@ -29,6 +37,7 @@ const StyledBox = styled(Box)({
 });
 
 function DetailPage({ oauthToken }) {
+  const [isLoading, setIsLoading] = useState(true); // set initial state to true to show the loading progress
   const { id } = useParams();
   const url = `https://portus-api.herokuapp.com/api/v1/artworks/${id}`;
 
@@ -45,112 +54,128 @@ function DetailPage({ oauthToken }) {
   }
 
   useEffect(() => {
+    setIsLoading(true); // set isLoading to true before making the API call
     axios
       .get(url, {
         headers: {
           Authorization: `Bearer ${oauthToken}`,
         },
       })
-      .then((res) => setArtwork(res.data))
+      .then((res) => {
+        setArtwork(res.data);
+        setIsLoading(false); // set isLoading to false after the API call is complete
+      })
       .catch((err) => console.log(err));
   }, [oauthToken]);
 
   return (
     <StyledRoot className={`page`}>
       <Container style={{ justifyContent: "center" }} maxWidth="lg">
-        <Stack
-          style={{ marginTop: 60, justifyContent: "space-between" }}
-          spacing={5}
-          direction="row"
-        >
-          <NFTImage img_url={artwork?.image_url} />
-          <Stack style={{ justifyContent: "space-between", width: "55%" }}>
-            <Stack>
-              <Stack
-                direction="row"
-                style={{
-                  justifyContent: "space-between",
-                  width: "100%",
-                  alignItems: "center",
-                }}
-                spacing={5}
-              >
-                <Chip
-                  style={{
-                    width: 90,
-                    height: 25,
-                    backgroundColor: chipColor, // use dynamic color
-                    color: "white",
-                  }}
-                  label={chipLabel} // use dynamic label
-                />
+        {isLoading ? (
+          <Stack
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "50px",
+            }}
+          >
+            <CircularProgress style={{ marginTop: "50px" }} />
+          </Stack>
+        ) : (
+          <Stack
+            style={{ marginTop: 60, justifyContent: "space-between" }}
+            spacing={5}
+            direction="row"
+          >
+            <NFTImage img_url={artwork?.image_url} />
+            <Stack style={{ justifyContent: "space-between", width: "55%" }}>
+              <Stack>
                 <Stack
                   direction="row"
-                  style={{ alignItems: "center" }}
+                  style={{
+                    justifyContent: "space-between",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                  spacing={5}
+                >
+                  <Chip
+                    style={{
+                      width: 90,
+                      height: 25,
+                      backgroundColor: chipColor, // use dynamic color
+                      color: "white",
+                    }}
+                    label={chipLabel} // use dynamic label
+                  />
+                  <Stack
+                    direction="row"
+                    style={{ alignItems: "center" }}
+                    spacing={2}
+                  >
+                    <Typography variant="h3">
+                      {artwork?.price / 10 ** 18 || ""}
+                    </Typography>
+                    <Typography variant="h5" style={{ color: "#E46842" }}>
+                      SepoliaETH
+                    </Typography>
+                  </Stack>
+                </Stack>
+                <Stack
+                  style={{ alignItems: "center", marginTop: 20 }}
                   spacing={2}
                 >
-                  <Typography variant="h3">
-                    {artwork?.price / 10 ** 18 || ""}
-                  </Typography>
-                  <Typography variant="h5" style={{ color: "#E46842" }}>
-                    SepoliaETH
-                  </Typography>
+                  <Chip
+                    icon={<FaceIcon />}
+                    style={{
+                      fontSize: "15px",
+                      padding: "10px",
+                      height: 35,
+                      width: 350,
+                    }}
+                    label="ชื่อเจ้าของผลงานศิลปะ"
+                  />
+                  <Chip
+                    icon={<FoundationIcon />}
+                    style={{
+                      fontSize: "10px",
+                      padding: "10px",
+                      height: 35,
+                      width: 250,
+                    }}
+                    label={artwork?.foundation_name}
+                    variant="outlined"
+                  />
+                  <Typography variant="h4">{artwork?.name}</Typography>
+                </Stack>
+                <Stack style={{ marginTop: 18 }} spacing={2}>
+                  <StyledBox>
+                    <Typography>{artwork?.description}</Typography>
+                  </StyledBox>
                 </Stack>
               </Stack>
-              <Stack
-                style={{ alignItems: "center", marginTop: 20 }}
-                spacing={2}
-              >
-                <Chip
-                  icon={<FaceIcon />}
-                  style={{
-                    fontSize: "15px",
-                    padding: "10px",
-                    height: 35,
-                    width: 350,
-                  }}
-                  label="ชื่อเจ้าของผลงานศิลปะ"
-                />
-                <Chip
-                  icon={<FoundationIcon />}
-                  style={{
-                    fontSize: "10px",
-                    padding: "10px",
-                    height: 35,
-                    width: 250,
-                  }}
-                  label={artwork?.foundation_name}
-                  variant="outlined"
-                />
-                <Typography variant="h4">{artwork?.name}</Typography>
+              <Stack style={{ alignItems: "center" }}>
+                <AppProvider>
+                  {artwork?.status === "available" ? (
+                    <BuyButton
+                      artworkPrice={artwork?.price}
+                      artworkId={artwork?.id}
+                      oauthToken={oauthToken}
+                    />
+                  ) : (
+                    <Button
+                      style={{ borderRadius: 8 }}
+                      variant="contained"
+                      disabled
+                    >
+                      ไม่สามารถซื้อได้
+                    </Button>
+                  )}
+                </AppProvider>
               </Stack>
-              <Stack style={{ marginTop: 18 }} spacing={2}>
-                <StyledBox>
-                  <Typography>{artwork?.description}</Typography>
-                </StyledBox>
-              </Stack>
-            </Stack>
-            <Stack style={{ alignItems: "center" }}>
-              <AppProvider>
-                {artwork?.status === "available" ? (
-                  <BuyButton
-                    artworkPrice={artwork?.price}
-                    artworkId={artwork?.id}
-                    oauthToken={oauthToken}
-                  />
-                ) : (
-                  <Button
-                    style={{ borderRadius: 8 }}
-                    variant="contained"
-                    disabled
-                  >
-                    ไม่สามารถซื้อได้
-                  </Button>
-                )}
-              </AppProvider>
             </Stack>
           </Stack>
-        </Stack>
+        )}
       </Container>
     </StyledRoot>
   );
