@@ -90,7 +90,7 @@ function DetailPage({ oauthToken }) {
                   spacing={2}
                 >
                   <Typography variant="h3">
-                    {artwork?.price / 10 ** 18}
+                    {artwork?.price / 10 ** 18 || ""}
                   </Typography>
                   <Typography variant="h5" style={{ color: "#E46842" }}>
                     SepoliaETH

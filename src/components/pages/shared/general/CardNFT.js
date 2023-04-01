@@ -63,7 +63,7 @@ export default function NFTCard({
               component="div"
               style={{ color: "#E46842" }}
             >
-              {price / 10 ** 18}
+              {price / 10 ** 18 || ""}
             </Typography>
             <Typography variant="body1" style={{ color: "#E46842" }}>
               SepoliaETH
@@ -71,7 +71,7 @@ export default function NFTCard({
           </Stack>
         </Stack>
         <Typography variant="caption" color="text.secondary">
-          <i>{foundation_owner ? foundation_owner : "No foundation owner"}</i>
+          <i>{foundation_owner || ""}</i>
         </Typography>
         <Typography
           variant="body2"
