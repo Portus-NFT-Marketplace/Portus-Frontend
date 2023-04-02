@@ -68,6 +68,8 @@ const ImageOverlay = styled("div")({
   maxHeight: "100%",
   "&:hover": {
     fontSize: 50,
+    textDecoration: "wavy underline #FF701F",
+    textUnderlineOffset: "20px"
   },
 });
 
@@ -102,7 +104,7 @@ function FoundationPage({ oauthToken }) {
         <Stack style={{ justifyContent: "center" }}>
           {isLoading ? (
             <Stack style={{ justifyContent: "center", alignItems: "center" }}>
-              <CircularProgress style={{ marginTop: "50px" }} />
+              <CircularProgress style={{ marginTop: "150px" }} />
             </Stack>
           ) : foundations.length > 0 ? (
             <StyledBox>
