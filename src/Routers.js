@@ -12,6 +12,7 @@ import MyNFTPage from "./components/pages/myNFTPage";
 import NotiNotConnectedMetamask from "./components/pages/myNFTPage/notConnectedMetamask";
 import FoundationPage from "./components/pages/foundationPage";
 import DetailFoundationPage from "./components/pages/foundationPage/detailFoundation";
+import AboutUsPage from "./components/pages/aboutUsPage";
 
 export default function Routers({ isSignedIn, userToken, oauthToken }) {
   return (
@@ -53,6 +54,7 @@ export default function Routers({ isSignedIn, userToken, oauthToken }) {
               <DetailFoundationPage {...props} oauthToken={oauthToken} />
             )}
           />
+          <Route exact path="/about_us" component={AboutUsPage} />
           <AppProvider>
             <Route
               exact
