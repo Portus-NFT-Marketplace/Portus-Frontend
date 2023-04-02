@@ -65,11 +65,7 @@ function AboutUsPage() {
               โจ๋พฤหัสคอนเฟิร์มอุปการคุณ เซ็นทรัลโครนาซูเปอร์ตุ๋ยมอบตัว
               สันทนาการแรลลี่แชมพู เลดี้ไทเฮา ทัวร์จิตเภทดีพาร์ทเมนต์
               สะเด่าอิสรชนทัวร์นาเมนท์กระดี๊กระด๊า เพนตากอนโจ๋โดมิโนแอปเปิ้ล
-              กรรมาชนจูเนียร์รีดไถเฮีย อิเหนา ซาตานอมาตยาธิปไตย
-              โทรดราม่าแทงกั๊กกับดัก ศิลปากรมินต์แรงดูด ไหร่คอลัมนิสต์
-              วาริชศาสตร์ ไฮไลต์เยอร์บีราแตงกวา เซาท์เฟรมโมเต็ลสเปค
-              คีตปฏิภาณจัมโบ้คอนแท็คคองเกรสใช้งาน
-              ศิลปวัฒนธรรมหลินจือภควัทคีตาเชอร์รี่แจ๊กเก็ต`}
+              กรรมาชนจูเนียร์รีดไถเฮีย`}
     </div>
   );
 
@@ -96,16 +92,7 @@ function AboutUsPage() {
               หมั่นโถวโฮสเตส แคปฟยอร์ดแมกกาซีนเยลลี่โปรเจกต์ เซ็กซ์
               ดิสเครดิตเทเลกราฟสไตล์เจ๊าะแจ๊ะไทเฮา
               แมมโบ้โอ้ยพลาซ่าวอฟเฟิลวอร์รูม ช็อคช็อปแอพพริคอทสามแยก
-              เบอร์เกอร์ฮีโร่คอรัปชันโฮมเมาท์ ชาร์ปรูบิกเอฟเฟ็กต์ว้อดก้า
-              ตรวจสอบเมจิคดีไซน์ วันเวย์วอลนัตศิลปวัฒนธรรม
-              นิวส์บอมบ์จ๊อกกี้สเกตช์ ช็อปซิตี คณาญาติพาเหรดมอลล์
-              โปรเจกเตอร์พุทธศตวรรษโง่เขลาพาร์ตเนอร์ธัมโม
-              วอร์รูมโทรมาร์จินศิรินทร์เอฟเฟ็กต์ นพมาศ เพลซโคโยตี
-              เปโซตัวเองโปรดักชั่น ตรวจสอบวีซ่าศิรินทร์
-              เพียวโพลล์ติ่มซำดีลเลอร์ฮิ บาลานซ์ ปักขคณนาโพลล์คอนเฟิร์มปาสกาล
-              เสกสรรค์ว้อดก้าไลท์ เทอร์โบดิสเครดิต สลัมคอลเล็กชั่นหล่อฮังก้วย
-              เรตติ้ง บูติคอัตลักษณ์เยอบีร่าวีนแชมปิยอง
-              อิสรชนโพลล์พาสตาคอลัมน์ออโต้ หลินจือ ซิตี ออโต้เคอร์ฟิว`}
+              เบอร์เกอร์ฮีโร่คอรัปชันโฮมเมาท์`}
     </div>
   );
 
@@ -126,9 +113,15 @@ function AboutUsPage() {
         <StyledBox>
           <Grid container spacing={3}>
             <Grid item xs>
-              <Typography variant="h4" gutterBottom>
-                เกี่ยวกับ Portus
-              </Typography>
+              <Stack style={{ marginBottom: "20px" }} spacing={1}>
+                <Typography variant="h4">เกี่ยวกับ Portus</Typography>
+                <Typography variant="caption" color="text.secondary">
+                  <i>
+                    โครงการนี้เป็นส่วนหนึ่งของคณะวิศวกรรมศาสตร์
+                    สาขาวิศวกรรมซอฟต์แวร์และความรู้ มหาวิทยาลัยเกษตรศาสตร์
+                  </i>
+                </Typography>
+              </Stack>
               <StyledTypography variant="body1" gutterBottom>
                 {aboutPortus}
               </StyledTypography>
@@ -145,6 +138,48 @@ function AboutUsPage() {
               <StyledTypography variant="body1" gutterBottom>
                 {fromUs}
               </StyledTypography>
+              <Stack
+                direction="row"
+                style={{ justifyContent: "space-evenly", marginTop: "20px" }}
+              >
+                <Stack
+                  spacing={0.1}
+                  style={{ justifyContent: "center", alignItems: "center" }}
+                >
+                  <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                    <i>สรุจ สัตยานุรักษ์</i>
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    Backend and Blockchain Developer
+                  </Typography>
+                </Stack>
+                <Stack
+                  spacing={0.1}
+                  style={{ justifyContent: "center", alignItems: "center" }}
+                >
+                  <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                    <i>พิชชาภา แซ่ลิ้ม</i>
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    Frontend Developer
+                  </Typography>
+                </Stack>
+              </Stack>
+              <Stack
+                spacing={0.1}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: "20px",
+                }}
+              >
+                <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                  <i>ผศ. ภารุจ รัตนวรพันธุ์</i>
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  Project Consultant
+                </Typography>
+              </Stack>
             </Grid>
           </Grid>
         </StyledBox>
