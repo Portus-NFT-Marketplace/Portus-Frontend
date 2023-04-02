@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { Grid, Container, Stack, Box, Typography } from "@mui/material";
+import { Container, Stack, Box, Typography } from "@mui/material";
 import { CircularProgress } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 
@@ -91,7 +91,10 @@ function HomePage({ oauthToken }) {
             >
               <CarouselAds />
               <Stack spacing={2} style={{ padding: "20px" }}>
-                <Typography variant="h3" style={{ paddingLeft: "20px", marginTop: "30px" }}>
+                <Typography
+                  variant="h3"
+                  style={{ paddingLeft: "20px", marginTop: "30px" }}
+                >
                   ผลงานศิลปะยอดนิยม
                 </Typography>
                 <Carousel />

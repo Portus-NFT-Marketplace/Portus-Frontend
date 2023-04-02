@@ -64,12 +64,10 @@ const Carousel = () => {
           <button
             className="carousel-nav-button carousel-prev"
             onClick={handlePrevClick}
-            // disabled={currentSlide === 0}
           ></button>
           <button
             className="carousel-nav-button carousel-next"
             onClick={handleNextClick}
-            // disabled={currentSlide === images.length - 4}
           ></button>
         </div>
       </div>

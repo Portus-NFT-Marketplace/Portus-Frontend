@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Select, MenuItem, Button } from "@mui/material";
+import { Select, MenuItem } from "@mui/material";
 
 export default function ButtonFilter(props) {
   const [foundations, setFoundations] = useState([]);

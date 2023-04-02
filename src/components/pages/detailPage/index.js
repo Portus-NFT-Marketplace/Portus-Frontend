@@ -23,7 +23,6 @@ import "./style.css";
 const StyledRoot = styled("div")({
   minWidth: 350,
   width: "100%",
-  // backgroundColor: "#f1f4f9",
   paddingTop: 40,
   paddingBottom: 36,
   justifyContent: "center",

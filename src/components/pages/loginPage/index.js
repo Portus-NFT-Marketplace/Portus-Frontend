@@ -1,63 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { styled } from "@mui/material/styles";
-import {
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Divider,
-  IconButton,
-  Paper,
-  TextField,
-  MenuItem,
-  Box,
-} from "@mui/material";
-import ButtonBlue from "../shared/general/ButtonBlue";
-import ButtonOrange from "../shared/general/ButtonOrange";
-import TextFieldTheme from "../shared/general/TextFieldTheme";
-import AddIcon from "@mui/icons-material/Add";
-import * as yup from "yup";
-import YupPassword from "yup-password";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { Stack } from "@mui/system";
+import { Typography, Button, Grid, Divider, Box } from "@mui/material";
 
-import {
-  Link,
-  withRouter,
-  NavLink,
-  Redirect,
-  useHistory,
-} from "react-router-dom";
+import TextFieldTheme from "../shared/general/TextFieldTheme";
+
+import * as yup from "yup";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { useHistory } from "react-router-dom";
 
 import axios from "axios";
 
-// import { Route, Redirect, Switch } from "react-router-dom";
-// import Protected from "../../../utils/ProtectedRoute";
-// import CreatingArtworkForm from "../NFTCreatingPage";
 import Cookies from "js-cookie";
 import Routers from "../../../Routers";
-
-// import "./styles.css";
 
 const StyledRoot = styled("div")({
   marginTop: 100,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  // margin: "0px",
-  // top: "50%",
-  // bottom: "50%",
-  // position: "absolute",
   "& .register-head": {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    // marginTop: 100,
     marginBottom: 30,
   },
   "& .register-body": {
@@ -81,8 +49,6 @@ const StyledBox = styled(Box)({
   width: "500px",
 });
 
-// YupPassword(yup)
-
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -91,25 +57,15 @@ const schema = yup.object().shape({
     .typeError("ชื่อผู้ใช้ไม่ถูกต้อง"),
   password: yup
     .string()
-    // .password()
     .required("กรุณากรอกรหัสผ่านของคุณ")
     .typeError("รหัสผ่านไม่ถูกต้อง"),
 });
-
-// function checkFormError (res) {
-//   if (res == 422)
-
-//   return userInput === fetchInput
-// }
 
 const LoginForm = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-    getValues,
-    setValue,
-    watch,
     setError,
   } = useForm({
     resolver: yupResolver(schema),
@@ -118,8 +74,6 @@ const LoginForm = () => {
       password: "",
     },
   });
-
-  // const [isSignedIn, setIsSignedIn] = useState(null);
 
   const url = "https://portus-api.herokuapp.com/foundations/sign_in";
   const history = useHistory();
@@ -136,30 +90,13 @@ const LoginForm = () => {
     e.preventDefault();
     const foundation = { ...data };
 
-    // console.log(errors);
-    // axios({
-    //   method: 'post',
-    //   url: url,
-    //   data: {
-    //     foundations: userData,
-    //   }
-    // });
-
     axios
       .post(url, { foundation })
       .then((response) => {
-        //get token from response
-        // document.cookie = response.data.token;
-
-        // TEST LOGOUT
-        // Cookies.remove("userToken")
-        // Cookies.remove("isSignedIn")
-
         userToken = Cookies.set("userToken", response.data.token, {
           expires: 29,
         });
 
-        // Cookies.set("isSignedIn", false, { expires: 29 });
         if (!userToken) {
           Cookies.set("isSignedIn", false, { expires: 29 });
           history.push("/sign_in_as_foundation");
@@ -167,23 +104,16 @@ const LoginForm = () => {
         } else {
           // const userSignInToken = Cookies.get("userToken");
           isSignedIn = Cookies.set("isSignedIn", true, { expires: 29 });
-          foundationName = Cookies.set("foundationName", response.data.foundation_name, { expires: 29 });
+          foundationName = Cookies.set(
+            "foundationName",
+            response.data.foundation_name,
+            { expires: 29 }
+          );
 
-          // setIsSignedIn(true);
           <Routers isSignedIn={isSignedIn} userToken={userToken} />;
           history.push("/create_artwork");
           window.location.reload();
         }
-
-        // if (document.cookie != "") {
-        //   setIsSignedIn(true);
-        //   <Routers isSignedIn={isSignedIn} />;
-        // } else {
-        //   setIsSignedIn(false);
-        //   <Routers isSignedIn={isSignedIn} />;
-        // }
-        // console.log(document.cookie);
-        // console.log(response);
       })
       .catch((err) => {
         setError("email", {
@@ -196,19 +126,7 @@ const LoginForm = () => {
         });
         console.log(err);
       });
-    // console.log(foundations);
-    // console.log({ foundations });
-    // console.log(`Test ${token}`);
   };
-
-  // if (document.cookie !== "") {
-  //   console.log("yes");
-  // }
-
-  // console.log(Cookies.get("userToken"));
-  // console.log(Cookies.get("isSignedIn"));
-  // console.log(Cookies.get("foundationName"));
-  // console.log(isSignedIn);
 
   return (
     <StyledRoot>
@@ -261,7 +179,6 @@ const LoginForm = () => {
                 borderRadius: 8,
                 backgroundColor: "#E46842",
               }}
-              // href="/create_artwork"
             >
               เข้าสู่ระบบ
             </Button>

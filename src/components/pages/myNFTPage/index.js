@@ -43,7 +43,6 @@ function MyNFTPage({ oauthToken }) {
   const userAddress = Cookies.get("userAddress");
   const url = `https://portus-api.herokuapp.com/api/v1/artworks/by_owner/${userAddress}`;
 
-  // const [token, setToken] = useState({});
   const [artworks, setArtworks] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true); // set initial state to true to show the loading progress
 
