@@ -16,7 +16,7 @@ import AboutUsPage from "./components/pages/aboutUsPage";
 
 export default function Routers({ isSignedIn, userToken, oauthToken }) {
   return (
-    <Container maxWidth={false} style={{ padding: 0 }}>
+    <Container maxWidth={false} style={{ padding: 0, minHeight: "100vh" }}>
       <Suspense fallback={<div>Loading..</div>}>
         <Switch>
           <Route

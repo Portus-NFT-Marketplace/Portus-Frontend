@@ -10,7 +10,7 @@ import {
 
 import Routers from "./Routers";
 import Fonts from "./utils/fonts";
-import { Header, SignedInHeader } from "./components/layouts";
+import { Footer, Header, SignedInHeader } from "./components/layouts";
 
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -101,11 +101,13 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div
+      >
         <Fonts />
         <CheckSignedInHeader />
         {/* <Header /> */}
         <Routers oauthToken={token} />
+        <Footer />
       </div>
     </Router>
   );
