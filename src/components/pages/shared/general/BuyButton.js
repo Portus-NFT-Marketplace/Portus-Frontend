@@ -3,7 +3,6 @@ import { useHistory } from "react-router";
 import Cookies from "js-cookie";
 import {
   Button,
-  Typography,
   Stack,
   Alert,
   AlertTitle,

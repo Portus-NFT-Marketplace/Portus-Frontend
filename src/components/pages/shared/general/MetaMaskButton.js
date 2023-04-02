@@ -21,10 +21,7 @@ export default function MetamaskButton() {
           Cookies.set("userAddress", accounts[0]);
         } else {
           setUserAddress(null);
-          // Cookies.set("userAddress", false);
           Cookies.remove("userAddress");
-          // console.log(Cookies.get("userAddress"));
-          // console.log("not connected 1");
         }
       } else {
         setUserAddress(null);
@@ -36,14 +33,12 @@ export default function MetamaskButton() {
     checkMetamaskConnection();
   }, []);
 
-
   const connectMetamask = async () => {
     try {
       if (typeof window.ethereum !== "undefined") {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        //   Cookies.set('userAddress', accounts[0], { expires: 7, path: '/' });
         setUserAddress(accounts[0]);
         window.location.reload();
       } else {
@@ -63,7 +58,6 @@ export default function MetamaskButton() {
           spacing={1}
           style={{ justifyContent: "center", alignItems: "center" }}
         >
-          {" "}
           <Stack direction="row"></Stack>
           <Button
             disabled
@@ -88,8 +82,6 @@ export default function MetamaskButton() {
           </Button>
           <ButtonOrange
             variant={"text"}
-            // component={NavLink}
-            // onClick={reloadPageOnce}
             href="/myNFT"
             style={{ padding: 0, minWidth: 30, marginRight: 8 }}
           >

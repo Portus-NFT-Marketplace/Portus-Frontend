@@ -9,9 +9,7 @@ import {
   Divider,
   Box,
   Stack,
-  Chip,
 } from "@mui/material";
-import DeleteIcon from "@material-ui/icons/Delete";
 import TextFieldTheme from "../shared/general/TextFieldTheme";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -105,7 +103,6 @@ export default function CreatingArtworkForm({
     // Reload the page and pass a state object to indicate that we already reloaded it.
     window.location.reload();
     window.history.replaceState({ reloaded: true }, "");
-    // alert("You are back!");
   };
 
   const {
