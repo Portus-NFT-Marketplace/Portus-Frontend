@@ -1,8 +1,14 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router";
 import Cookies from "js-cookie";
-import { Button, Typography, Stack } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
+import {
+  Button,
+  Typography,
+  Stack,
+  Alert,
+  AlertTitle,
+  CircularProgress,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { AppContext } from "../../../../utils/AppProvider";
 
@@ -23,6 +29,7 @@ const StyledBuyButton = styled(Button)({
 });
 
 export default function BuyButton(artwork, oauthToken) {
+  const [alert, setAlert] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const { userAddress, setUserAddress } = useContext(AppContext);
@@ -33,6 +40,19 @@ export default function BuyButton(artwork, oauthToken) {
   const contract = new web3.eth.Contract(contractAbi, contractAddress);
 
   const buyNFT = async (price, tokenId, setIsLoading) => {
+    const chainId = await window.ethereum.request({
+      method: "eth_chainId",
+    });
+
+    if (chainId !== "0xaa36a7") {
+      setAlert(
+        <Alert severity="warning">
+          <AlertTitle>คำเตือน</AlertTitle>
+          กรุณาเลือก Blockchain เป็น SepoliaETH ก่อนทำการซื้อผลงานศิลปะ
+        </Alert>
+      );
+      return;
+    }
     try {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -112,25 +132,37 @@ export default function BuyButton(artwork, oauthToken) {
     }
   };
 
+  useEffect(() => {
+    if (alert) {
+      // Display the alert for 5 seconds
+      setTimeout(() => {
+        setAlert(null);
+      }, 5000);
+    }
+  }, [alert]);
+
   if (userAddress) {
     return (
       <div>
-        <Stack
-          style={{
-            justifyContent: "center",
-            marginBottom: "12px",
-            alignItems: "center",
-          }}
-        >
-          {isLoading && <CircularProgress />}
+        <Stack style={{ justifyContent: "center", alignItems: "center" }}>
+          {alert}
+          <Stack
+            style={{
+              justifyContent: "center",
+              marginBottom: "12px",
+              alignItems: "center",
+            }}
+          >
+            {isLoading && <CircularProgress />}
+          </Stack>
+          <StyledBuyButton
+            onClick={() =>
+              buyNFT(artwork.artworkPrice, artwork.artworkId, setIsLoading)
+            }
+          >
+            ซื้อผลงานชิ้นนี้
+          </StyledBuyButton>
         </Stack>
-        <StyledBuyButton
-          onClick={() =>
-            buyNFT(artwork.artworkPrice, artwork.artworkId, setIsLoading)
-          }
-        >
-          ซื้อผลงานชิ้นนี้
-        </StyledBuyButton>
       </div>
     );
   }
