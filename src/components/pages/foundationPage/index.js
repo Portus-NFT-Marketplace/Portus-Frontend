@@ -68,7 +68,8 @@ const ImageOverlay = styled("div")({
   maxHeight: "100%",
   "&:hover": {
     fontSize: 50,
-    textDecoration: "underline",
+    textDecoration: "wavy underline #FF701F",
+    textUnderlineOffset: "20px"
   },
 });
 
