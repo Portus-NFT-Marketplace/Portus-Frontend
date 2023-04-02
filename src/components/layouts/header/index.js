@@ -105,7 +105,6 @@ function Header(props) {
                   justifyContent: "center",
                 }}
               >
-                {" "}
                 <a
                   href="/"
                   style={{

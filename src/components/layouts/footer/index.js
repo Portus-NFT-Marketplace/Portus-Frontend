@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import { Stack, Link } from "@mui/material";
+import { Stack, Link, Divider } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,9 +57,24 @@ function Footer() {
         </Typography>
       </div>
       <div className={classes.contentCC}>
-        <Typography style={{ marginLeft: "20px" }} variant="body2">
-          ©2023 Portus
-        </Typography>
+        <Stack
+          direction="row"
+          spacing={2}
+          style={{ alignItems: "center", justifyContent: "center" }}
+        >
+          <Typography style={{ marginLeft: "20px" }} variant="body2">
+            ©2023 Portus
+          </Typography>
+          <Divider orientation="vertical" flexItem color="white"/>
+          <Link
+            href="https://www.flaticon.com/free-icons/secret"
+            variant="body2"
+            underline="hover"
+            color="white"
+          >
+            Secret icons created by iconixar
+          </Link>
+        </Stack>
         <Stack
           direction="row"
           style={{ justifyContent: "space-evenly" }}
