@@ -1,8 +1,13 @@
-import React from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./styles/carouselAds.css";
+
+import Ads1 from "../assets/ads/ads1.jpg";
+import Ads2 from "../assets/ads/ads2.jpg";
+import Ads3 from "../assets/ads/ads3.jpg";
+import Ads4 from "../assets/ads/ads4.jpg";
 
 const CarouselAds = () => {
   const settings = {
@@ -16,41 +21,34 @@ const CarouselAds = () => {
   };
 
   return (
-    <div className='carousel-container'>
+    <div className="carousel-container">
       <Slider {...settings}>
         <div>
           <img
-            className='carousel-image-ads'
-            src='https://via.placeholder.com/1200x345?text=Ad+1'
-            alt='Ad 1'
+            className="carousel-image-ads"
+            src={Ads1}
+            alt="Ad 1"
           />
         </div>
         <div>
           <img
-            className='carousel-image-ads'
-            src='https://via.placeholder.com/1200x345?text=Ad+2'
-            alt='Ad 2'
+            className="carousel-image-ads"
+            src={Ads2}
+            alt="Ad 2"
           />
         </div>
         <div>
           <img
-            className='carousel-image-ads'
-            src='https://via.placeholder.com/1200x345?text=Ad+3'
-            alt='Ad 3'
+            className="carousel-image-ads"
+            src={Ads3}
+            alt="Ad 3"
           />
         </div>
         <div>
           <img
-            className='carousel-image-ads'
-            src='https://via.placeholder.com/1200x345?text=Ad+4'
-            alt='Ad 4'
-          />
-        </div>
-        <div>
-          <img
-            className='carousel-image-ads'
-            src='https://via.placeholder.com/1200x345?text=Ad+5'
-            alt='Ad 5'
+            className="carousel-image-ads"
+            src={Ads4}
+            alt="Ad 4"
           />
         </div>
       </Slider>
