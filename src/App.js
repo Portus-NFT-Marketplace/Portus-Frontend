@@ -1,12 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
-import logo from "./logo.svg";
 
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  useParams,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import Routers from "./Routers";
 import Fonts from "./utils/fonts";
@@ -14,6 +9,20 @@ import { Footer, Header, SignedInHeader } from "./components/layouts";
 
 import Cookies from "js-cookie";
 import axios from "axios";
+
+import { CssBaseline } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    opacity: 0,
+    transition: "opacity 1s ease-in-out",
+    backgroundColor: theme.palette.common.white,
+  },
+  visible: {
+    opacity: 1,
+  },
+}));
 
 function CheckSignedInHeader() {
   const isSignedIn = Cookies.get("isSignedIn");
@@ -24,16 +33,16 @@ function CheckSignedInHeader() {
   } else {
     return <div>{<Header />}</div>;
   }
-
-  // let { pathname } = useLocation();
-  // // console.log(pathname);
-  // // path that have log out button
-  // let pathnames = ["/create_artwork"];
-
-  // return <div>{pathnames.includes(pathname) && <SignedInHeader />}</div>;
 }
 
 function App() {
+  const classes = useStyles();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   const [token, setToken] = useState(null);
 
   useEffect(() => {
@@ -101,14 +110,14 @@ function App() {
 
   return (
     <Router>
-      <div
-      >
+      <CheckSignedInHeader />
+      <div className={`${classes.root} ${isVisible && classes.visible}`}>
+        <CssBaseline />
         <Fonts />
-        <CheckSignedInHeader />
         {/* <Header /> */}
         <Routers oauthToken={token} />
-        <Footer />
       </div>
+      <Footer />
     </Router>
   );
 }
