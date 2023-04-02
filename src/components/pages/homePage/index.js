@@ -85,7 +85,7 @@ function HomePage({ oauthToken }) {
           <Stack style={{ alignItems: "center" }}>
             <div
               style={{
-                marginTop: 10,
+                marginTop: 30,
                 justifyContent: "center",
               }}
             >
@@ -93,7 +93,7 @@ function HomePage({ oauthToken }) {
               <Stack spacing={2} style={{ padding: "20px" }}>
                 <Typography
                   variant="h3"
-                  style={{ paddingLeft: "20px", marginTop: "30px" }}
+                  style={{ paddingLeft: "20px", marginTop: "15px" }}
                 >
                   ผลงานศิลปะยอดนิยม
                 </Typography>
