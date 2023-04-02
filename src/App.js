@@ -10,7 +10,6 @@ import { Footer, Header, SignedInHeader } from "./components/layouts";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-import { CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -112,7 +111,6 @@ function App() {
     <Router>
       <CheckSignedInHeader />
       <div className={`${classes.root} ${isVisible && classes.visible}`}>
-        <CssBaseline />
         <Fonts />
         {/* <Header /> */}
         <Routers oauthToken={token} />
