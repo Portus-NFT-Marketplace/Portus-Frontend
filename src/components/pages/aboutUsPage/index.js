@@ -34,6 +34,17 @@ const StyledTypography = styled(Typography)({
   },
 });
 
+const StyledBoxAds = styled(Box)({
+  backgroundColor: "#E46842",
+  color: "white",
+  height: 900,
+  justifyContent: "center",
+  alignItems: "center",
+  position: "relative", // add position relative to the root
+  display: "flex !important",
+  marginTop: "40px",
+});
+
 function AboutUsPage() {
   const quote = "กรุณากินไก่ให้หมด เพราะไก่ที่หมดจานดีกว่าการที่หมดใจ ⸺ Portus";
 
@@ -98,6 +109,23 @@ function AboutUsPage() {
 
   return (
     <StyledRoot className={`page`}>
+      <StyledBoxAds>
+        <Stack
+          style={{ justifyContent: "center", alignItems: "center" }}
+          spacing={2}
+        >
+          <Typography variant="h4">" Portus กุญแจนำทางของคุณ "</Typography>
+          <Stack style={{ justifyContent: "center", alignItems: "center" }}>
+            <Typography variant="caption">
+              โดย สรุจ สัตยานุรักษ์ และ พิชชาภา แซ่ลิ้ม
+            </Typography>
+            <Typography variant="caption">
+              คณะวิศวกรรมศาสตร์ สาขาวิศวกรรมซอฟต์แวร์และความรู้
+              มหาวิทยาลัยเกษตรศาสตร์
+            </Typography>
+          </Stack>
+        </Stack>
+      </StyledBoxAds>
       <Container maxWidth="lg">
         <Typography
           className="blockquote"

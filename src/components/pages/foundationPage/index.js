@@ -68,8 +68,7 @@ const ImageOverlay = styled("div")({
   maxHeight: "100%",
   "&:hover": {
     fontSize: 50,
-    textDecoration: "wavy underline #FF701F",
-    textUnderlineOffset: "20px"
+    color: "#FF6534",
   },
 });
 
@@ -107,37 +106,40 @@ function FoundationPage({ oauthToken }) {
               <CircularProgress style={{ marginTop: "150px" }} />
             </Stack>
           ) : foundations.length > 0 ? (
-            <StyledBox>
-              {foundations.slice(startIndex, endIndex).map((foundation) => (
-                <a
-                  href={`/foundations/${foundation.id}`}
-                  style={{ color: "white", textDecoration: "none" }}
-                  key={foundation.id}
-                >
-                  <div
-                    style={{
-                      position: "relative",
-                      display: "inline-block",
-                      width: "100%",
-                      height: 345,
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                      marginBottom: 10,
-                    }}
+            <>
+              {" "}
+              <StyledBox>
+                {foundations.slice(startIndex, endIndex).map((foundation) => (
+                  <a
+                    href={`/foundations/${foundation.id}`}
+                    style={{ color: "white", textDecoration: "none" }}
+                    key={foundation.id}
                   >
-                    <StyledImage src={foundation.first_image} />
-                    <ImageOverlay>{foundation.name}</ImageOverlay>
-                  </div>
-                </a>
-              ))}
-              <Stack style={{ alignItems: "center", marginTop: 10 }}>
+                    <div
+                      style={{
+                        position: "relative",
+                        display: "inline-block",
+                        width: "100%",
+                        height: 345,
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        marginBottom: 10,
+                      }}
+                    >
+                      <StyledImage src={foundation.first_image} />
+                      <ImageOverlay>{foundation.name}</ImageOverlay>
+                    </div>
+                  </a>
+                ))}
+              </StyledBox>
+              <Stack style={{ alignItems: "center", marginTop: "20px" }}>
                 <Pagination
                   count={Math.ceil(foundations.length / FOUNDATIONS_PER_PAGE)}
                   page={page}
                   onChange={(event, value) => setPage(value)}
                 />
               </Stack>
-            </StyledBox>
+            </>
           ) : (
             <StyledBoxForNoti>
               <Typography

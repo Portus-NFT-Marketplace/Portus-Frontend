@@ -91,7 +91,7 @@ function HomePage({ oauthToken }) {
             >
               <CarouselAds />
               <Stack spacing={2} style={{ padding: "20px" }}>
-                <Typography variant="h3" style={{ paddingLeft: "20px" }}>
+                <Typography variant="h3" style={{ paddingLeft: "20px", marginTop: "30px" }}>
                   ผลงานศิลปะยอดนิยม
                 </Typography>
                 <Carousel />
