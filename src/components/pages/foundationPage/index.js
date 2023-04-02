@@ -102,7 +102,7 @@ function FoundationPage({ oauthToken }) {
         <Stack style={{ justifyContent: "center" }}>
           {isLoading ? (
             <Stack style={{ justifyContent: "center", alignItems: "center" }}>
-              <CircularProgress style={{ marginTop: "50px" }} />
+              <CircularProgress style={{ marginTop: "150px" }} />
             </Stack>
           ) : foundations.length > 0 ? (
             <StyledBox>
