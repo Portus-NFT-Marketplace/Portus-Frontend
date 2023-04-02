@@ -124,7 +124,7 @@ function Header(props) {
                 <ButtonOrange variant={"text"} href="/foundations">
                   มูลนิธิ
                 </ButtonOrange>
-                <ButtonOrange variant={"text"} component={NavLink} to="/">
+                <ButtonOrange variant={"text"} href="/about_us">
                   เกี่ยวกับเรา
                 </ButtonOrange>
               </Stack>
