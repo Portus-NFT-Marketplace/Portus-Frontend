@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { Container, Stack, Box, Typography } from "@mui/material";
-import { CircularProgress } from "@mui/material";
+import {
+  Container,
+  Stack,
+  Box,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 
 import Carousel from "./carousel";
@@ -59,10 +64,6 @@ function HomePage({ oauthToken }) {
         headers: {
           Authorization: `Bearer ${oauthToken}`,
         },
-        params: {
-          page: page,
-          per_page: ROWS_PER_PAGE,
-        },
       })
       .then((res) => {
         console.log(res.data.data);
@@ -73,7 +74,7 @@ function HomePage({ oauthToken }) {
         console.log(err);
         setLoading(false); // Set loading state to false when API call fails
       });
-  }, [oauthToken, selectedFoundation, page]);
+  }, [oauthToken, selectedFoundation]);
 
   const startIdx = (page - 1) * ROWS_PER_PAGE;
   const endIdx = Math.min(page * ROWS_PER_PAGE, artworks.length);
@@ -95,9 +96,9 @@ function HomePage({ oauthToken }) {
                   variant="h3"
                   style={{ paddingLeft: "20px", marginTop: "15px" }}
                 >
-                  ผลงานศิลปะยอดนิยม
+                  ผลงานศิลปะล่าสุด
                 </Typography>
-                <Carousel />
+                <Carousel oauthToken={oauthToken} />
               </Stack>
             </div>
           </Stack>
