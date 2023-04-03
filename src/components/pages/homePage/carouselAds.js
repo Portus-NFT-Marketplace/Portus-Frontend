@@ -4,10 +4,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles/carouselAds.css";
 
-import Ads1 from "../assets/ads/ads1.jpg";
-import Ads2 from "../assets/ads/ads2.jpg";
-import Ads3 from "../assets/ads/ads3.jpg";
-import Ads4 from "../assets/ads/ads4.jpg";
+import Ads1 from "../assets/ads/ads1.png";
+import Ads2 from "../assets/ads/ads2.png";
+import Ads3 from "../assets/ads/ads3.png";
+import Ads4 from "../assets/ads/ads4.png";
 
 const CarouselAds = () => {
   const settings = {
