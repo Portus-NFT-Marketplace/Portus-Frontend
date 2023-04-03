@@ -20,6 +20,18 @@ const StyledCardContent = styled(CardContent)({
   height: 130,
 });
 
+function roundPrice(price) {
+  const roundedPrice = price / 10 ** 18;
+  const decimalPlaces = 4;
+
+  if (roundedPrice.toString().split(".")[1]?.length > decimalPlaces) {
+    const factor = 10 ** decimalPlaces;
+    return Math.round(roundedPrice * factor + Number.EPSILON) / factor;
+  }
+
+  return roundedPrice;
+}
+
 export default function NFTCard({
   name,
   description,
@@ -63,7 +75,7 @@ export default function NFTCard({
               component="div"
               style={{ color: "#E46842" }}
             >
-              {price / 10 ** 18 || ""}
+              {roundPrice(price) || ""}
             </Typography>
             <Typography variant="body1" style={{ color: "#E46842" }}>
               SepoliaETH
