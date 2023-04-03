@@ -44,11 +44,13 @@ const Carousel = ({ oauthToken }) => {
       });
   }, [oauthToken]);
 
+  const artwork_length = artworks.length;
+
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: artwork_length,
     slidesToScroll: 4,
     autoplay: true,
     autoplaySpeed: 5000,
