@@ -143,7 +143,7 @@ function FoundationPage({ oauthToken }) {
           ) : (
             <StyledBoxForNoti>
               <Typography
-                variant="h4"
+                variant="h5"
                 align="center"
                 style={{ marginTop: "20px" }}
                 color="text.secondary"
