@@ -106,7 +106,7 @@ const LoginForm = () => {
           isSignedIn = Cookies.set("isSignedIn", true, { expires: 29 });
           foundationName = Cookies.set(
             "foundationName",
-            response.data.foundation_name,
+            response.data.foundation.name,
             { expires: 29 }
           );
 
