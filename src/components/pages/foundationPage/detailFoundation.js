@@ -123,12 +123,12 @@ function DetailFoundationPage({ oauthToken }) {
                 spacing={2}
                 style={{ justifyContent: "space-between", marginBottom: 50 }}
               >
-                <StyledImage src={foundations.first_image} alt="first_image" />
                 <StyledImage
                   src={foundations.second_image}
                   alt="second_image"
                 />
                 <StyledImage src={foundations.third_image} alt="third_image" />
+                <StyledImage src={foundations.fourth_image} alt="fourth_image" />
               </Stack>
               <StyledTypography paragraph variant="body1">
                 {foundations.description}
