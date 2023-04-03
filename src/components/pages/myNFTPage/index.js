@@ -90,7 +90,7 @@ function MyNFTPage({ oauthToken }) {
           </Stack>
         ) : artworks.length === 0 ? (
           <StyledBoxForNoti>
-            <Typography variant="h4" align="center" color="text.secondary">
+            <Typography variant="h5" align="center" color="text.secondary">
               คุณไม่มีผลงานศิลปะ
             </Typography>
           </StyledBoxForNoti>

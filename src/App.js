@@ -61,7 +61,6 @@ function App() {
           }, 90 * 60 * 1000);
         } else {
           // Token is not valid or not present, get a new one
-          console.log("api called");
           const response = await axios.post(
             "https://portus-api.herokuapp.com/oauth/token",
             {

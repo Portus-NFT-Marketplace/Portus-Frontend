@@ -1,25 +1,48 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { styled } from "@mui/material/styles";
+import { Box, CircularProgress } from "@mui/material";
+import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles/carousel.css";
 
-const images = [
-  "http://abclearningcenterfl.com/wp-content/uploads/2015/01/Childrens-Artwork.jpg",
-  "https://www.shedloadsoffun.com/uploads/1/2/6/3/126303321/img-5751_orig.jpg",
-  "https://geiselmed.dartmouth.edu/news/wp-content/uploads/sites/2/2015/06/painting-by-Abigail-Ham-web.jpg",
-  "https://media.istockphoto.com/id/1368887626/photo/childs-drawing-spacecraft-in-space.jpg?b=1&s=170667a&w=0&k=20&c=KJZdm_D4Dangf08uKNDC6BBdpBi6sWuU2nvWmyvJwa0=",
-  "https://www.hellowonderful.co/ckfinder/userfiles/images/134_sycheva_planet_5_suns__35846_1405327849_1280_1280.jpg",
-  "https://theworldmuse.org/wp-content/uploads/2022/01/rainbow_1500.jpg",
-  "https://artplatform.com.au/wp-content/gallery/gallery/cathy-butterfly-280710.jpg",
-  "https://images.squarespace-cdn.com/content/v1/51438095e4b0ac55c65e2674/1363582838575-9KGDM510UKQBD9ZLJN6G/DSC04069.JPG?format=1000w",
-  "https://images.squarespace-cdn.com/content/v1/51438095e4b0ac55c65e2674/1363582825426-97FIZWGN9NECU13ENJ1A/DSC03151.JPG",
-  "https://i0.wp.com/www.teachkidsart.net/wp-content/uploads/2014/03/IMG_3212.jpg",
-];
+const StyledBoxForNoti = styled(Box)({
+  border: "1px solid",
+  borderColor: "#CFD3D7",
+  borderRadius: "12px",
+  padding: 35,
+});
 
-const Carousel = () => {
+const Carousel = ({ oauthToken }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
+  const [artworks, setArtworks] = useState([{}]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true); // Set loading state to true before making API call
+    const url = "https://portus-api.herokuapp.com/api/v1/artworks";
+
+    axios
+      .get(url, {
+        headers: {
+          Authorization: `Bearer ${oauthToken}`,
+        },
+      })
+      .then((res) => {
+        const data = res.data.data.slice(0, 5).map((artwork) => ({
+          imageUrl: artwork.image_url,
+          id: artwork.id,
+        }));
+        setArtworks(data);
+        setLoading(false); // Set loading state to false when API call succeeds
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false); // Set loading state to false when API call fails
+      });
+  }, [oauthToken]);
 
   const settings = {
     dots: false,
@@ -49,27 +72,35 @@ const Carousel = () => {
   return (
     <>
       <div className="carousel-container">
-        <Slider {...settings} ref={sliderRef}>
-          {images.map((image, index) => (
-            <div key={index}>
-              <img
-                src={image}
-                alt={`Image ${index}`}
-                className="carousel-image"
-              />
+        {loading ? (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress />
+          </div>
+        ) : artworks.length > 0 && Object.keys(artworks[0]).length > 0 ? (
+          <>
+            <Slider {...settings} ref={sliderRef}>
+              {artworks.map((artwork, index) => (
+                <div key={index}>
+                  <a href={`/details/${artwork.id}`}>
+                    <img src={artwork.imageUrl} className="carousel-image" />
+                  </a>
+                </div>
+              ))}
+            </Slider>
+            <div className="carousel-nav">
+              <button
+                className="carousel-nav-button carousel-prev"
+                onClick={handlePrevClick}
+              ></button>
+              <button
+                className="carousel-nav-button carousel-next"
+                onClick={handleNextClick}
+              ></button>
             </div>
-          ))}
-        </Slider>
-        <div className="carousel-nav">
-          <button
-            className="carousel-nav-button carousel-prev"
-            onClick={handlePrevClick}
-          ></button>
-          <button
-            className="carousel-nav-button carousel-next"
-            onClick={handleNextClick}
-          ></button>
-        </div>
+          </>
+        ) : (
+          <StyledBoxForNoti></StyledBoxForNoti>
+        )}
       </div>
     </>
   );

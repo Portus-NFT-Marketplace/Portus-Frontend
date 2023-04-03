@@ -24,9 +24,15 @@ const StyledRoot = styled("div")({
 });
 
 const StyledImage = styled("img")({
+  borderRadius: "15px",
   width: "350px",
-  height: "auto",
-  borderRadius: "12px",
+  height: "345px",
+  objectFit: "cover",
+  boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.5)",
+  display: "block",
+  maxWidth: "100%",
+  maxHeight: "100%",
+  margin: "16px 4px 16px 4px",
 });
 
 const StyledBox = styled(Box)({
@@ -121,14 +127,17 @@ function DetailFoundationPage({ oauthToken }) {
               <Stack
                 direction="row"
                 spacing={2}
-                style={{ justifyContent: "space-between", marginBottom: 50 }}
+                style={{ justifyContent: "space-between", marginBottom: 50, alignItems: "center" }}
               >
-                <StyledImage src={foundations.first_image} alt="first_image" />
                 <StyledImage
                   src={foundations.second_image}
                   alt="second_image"
                 />
                 <StyledImage src={foundations.third_image} alt="third_image" />
+                <StyledImage
+                  src={foundations.fourth_image}
+                  alt="fourth_image"
+                />
               </Stack>
               <StyledTypography paragraph variant="body1">
                 {foundations.description}
