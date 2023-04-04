@@ -44,13 +44,19 @@ const Carousel = ({ oauthToken }) => {
       });
   }, [oauthToken]);
 
-  const artwork_length = artworks.length;
+  
+  let slides_to_show;
+  if (artworks.length <= 4) {
+    slides_to_show = artworks.length;
+  } else {
+    slides_to_show = 4;
+  }
 
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: artwork_length,
+    slidesToShow: slides_to_show,
     slidesToScroll: 4,
     autoplay: true,
     autoplaySpeed: 5000,
