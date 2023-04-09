@@ -157,30 +157,19 @@ export default function CreatingArtworkForm({
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.status);
         if (response.status === 200) {
           setAlertSeverity("success");
           setAlertMessage("สร้างผลงานศิลปะสำเร็จ");
           Cookies.remove("imgURL");
           history.push("/");
           window.location.reload();
-        } else {
-          setAlertSeverity("error");
-          setAlertMessage("ไม่สามารถสร้างผลงานศิลปะได้ กรุณาลองใหม่อีกครั้ง");
-          clearForm();
         }
       })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          setAlertSeverity("success");
-          setAlertMessage("สร้างผลงานศิลปะสำเร็จ");
-          history.push("/");
-          window.location.reload();
-        } else {
+      .catch((error) => {
+        if (error.response.status === 400) {
           setAlertSeverity("error");
           setAlertMessage("ไม่สามารถสร้างผลงานศิลปะได้ กรุณาลองใหม่อีกครั้ง");
-          clearForm();
         }
       })
       .finally(() => {
