@@ -213,7 +213,7 @@ function DetailPage({ oauthToken }) {
               </Stack>
               <Stack style={{ alignItems: "center" }}>
                 <AppProvider>
-                  {artwork?.status === "available" ? (
+                  {artwork?.status === "available" && !isEditable ? (
                     <BuyButton
                       artworkPrice={artwork?.price}
                       artworkId={artwork?.id}
