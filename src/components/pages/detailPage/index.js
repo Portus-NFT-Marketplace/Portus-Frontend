@@ -14,9 +14,11 @@ import {
 } from "@mui/material";
 import NotesOutlinedIcon from "@mui/icons-material/NotesOutlined";
 import { useParams } from "react-router-dom";
+import Web3 from "web3";
 
 import NFTImage from "../shared/general/ImageNFT";
 import BuyButton from "../shared/general/BuyButton";
+import EditButton from "../shared/general/EditButton";
 import AppProvider from "../../../utils/AppProvider";
 import "./style.css";
 
@@ -43,24 +45,36 @@ const StyledTypography = styled(Typography)({
 });
 
 function DetailPage({ oauthToken }) {
-  const [isLoading, setIsLoading] = useState(true); // set initial state to true to show the loading progress
+  const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const url = `https://portus-api.herokuapp.com/api/v1/artworks/${id}`;
 
   const [artwork, setArtwork] = useState({});
+  const [currentAddress, setCurrentAddress] = useState("");
+  const [isEditable, setIsEditable] = useState(false);
 
-  let chipColor = "#5EDF3E"; // default color for available artwork
-  let chipLabel = artwork?.status; // default label
+  let chipColor = "#5EDF3E";
+  let chipLabel = artwork?.status;
 
   if (artwork?.status === "unavailable") {
     chipColor = "grey";
-    chipLabel = "ขายแล้ว"; // change label to "ขายแล้ว"
+    chipLabel = "ไม่พร้อมขาย";
   } else if (artwork?.status === "available") {
-    chipLabel = "พร้อมขาย"; // change label to "พร้อมขาย"
+    chipLabel = "พร้อมขาย";
   }
 
+  const checkOwnershipAndSetEditable = () => {
+    if (
+      artwork?.current_owner?.toLowerCase() === currentAddress?.toLowerCase()
+    ) {
+      setIsEditable(true);
+    } else {
+      setIsEditable(false);
+    }
+  };
+
   useEffect(() => {
-    setIsLoading(true); // set isLoading to true before making the API call
+    setIsLoading(true);
     axios
       .get(url, {
         headers: {
@@ -69,10 +83,25 @@ function DetailPage({ oauthToken }) {
       })
       .then((res) => {
         setArtwork(res.data);
-        setIsLoading(false); // set isLoading to false after the API call is complete
+        setIsLoading(false);
       })
       .catch((err) => console.log(err));
   }, [oauthToken]);
+
+  useEffect(() => {
+    checkOwnershipAndSetEditable();
+  }, [artwork, currentAddress]);
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      if (window.ethereum && window.ethereum.selectedAddress) {
+        const web3 = new Web3(window.ethereum);
+        const accounts = await web3.eth.getAccounts();
+        setCurrentAddress(accounts[0]);
+      }
+    };
+    fetchAddress();
+  });
 
   return (
     <StyledRoot className={`page`}>
@@ -124,15 +153,22 @@ function DetailPage({ oauthToken }) {
                       SepoliaETH
                     </Typography>
                   </Stack>
-                  <Chip
-                    style={{
-                      width: 90,
-                      height: 25,
-                      backgroundColor: chipColor, // use dynamic color
-                      color: "white",
-                    }}
-                    label={chipLabel} // use dynamic label
-                  />
+                  <Stack
+                    direction="row"
+                    spacing={0.5}
+                    style={{ alignItems: "center" }}
+                  >
+                    <Chip
+                      style={{
+                        width: 90,
+                        height: 25,
+                        backgroundColor: chipColor, // use dynamic color
+                        color: "white",
+                      }}
+                      label={chipLabel} // use dynamic label
+                    />
+                    {isEditable && <EditButton />}
+                  </Stack>
                 </Stack>
                 <Stack spacing={1.5}>
                   <Stack style={{ marginTop: 20 }} spacing={2}>

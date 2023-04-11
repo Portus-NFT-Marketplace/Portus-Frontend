@@ -13,6 +13,14 @@ import {
 import TextFieldTheme from "../shared/general/TextFieldTheme";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  FormHelperText,
+} from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -67,6 +75,7 @@ const schema = yup.object().shape({
       }
     )
     .required(),
+  status: yup.string().required("กรุณาเลือกสถานะ"),
 });
 
 function Alert(props) {
@@ -105,17 +114,22 @@ export default function CreatingArtworkForm({
     window.history.replaceState({ reloaded: true }, "");
   };
 
+  const statusOptions = [
+    { value: "available", label: "พร้อมขาย" },
+    { value: "unavailable", label: "ไม่พร้อมขาย" },
+  ];
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       name: "",
       description: "",
       price: "",
+      status: "",
     },
   });
 
@@ -147,6 +161,7 @@ export default function CreatingArtworkForm({
       description: newData.description,
       price: newData.price,
       image_url: imageUrl,
+      status: newData.status,
     };
 
     axios
@@ -157,42 +172,24 @@ export default function CreatingArtworkForm({
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.status);
         if (response.status === 200) {
           setAlertSeverity("success");
           setAlertMessage("สร้างผลงานศิลปะสำเร็จ");
           Cookies.remove("imgURL");
           history.push("/");
           window.location.reload();
-        } else {
-          setAlertSeverity("error");
-          setAlertMessage("ไม่สามารถสร้างผลงานศิลปะได้ กรุณาลองใหม่อีกครั้ง");
-          clearForm();
         }
       })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          setAlertSeverity("success");
-          setAlertMessage("สร้างผลงานศิลปะสำเร็จ");
-          history.push("/");
-          window.location.reload();
-        } else {
+      .catch((error) => {
+        if (error.response.status === 400) {
           setAlertSeverity("error");
           setAlertMessage("ไม่สามารถสร้างผลงานศิลปะได้ กรุณาลองใหม่อีกครั้ง");
-          clearForm();
         }
       })
       .finally(() => {
         setIsLoading(false);
       });
-  };
-
-  const clearForm = () => {
-    setValue("name", "");
-    setValue("description", "");
-    setValue("price", "");
-    setValue("image_url", "");
   };
 
   const handleCloseAlert = (event, reason) => {
@@ -253,7 +250,7 @@ export default function CreatingArtworkForm({
                     )}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={5}>
                   <Controller
                     name="price"
                     control={control}
@@ -264,6 +261,35 @@ export default function CreatingArtworkForm({
                         error={!!errors.price}
                         helperText={errors.price?.message}
                       />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={5} style={{marginLeft: "30px"}}>
+                  <Controller
+                    name="status"
+                    control={control}
+                    render={({ field }) => (
+                      <FormControl
+                        component="fieldset"
+                        error={errors.status !== undefined}
+                      >
+                        <FormLabel component="legend">สถานะ</FormLabel>
+                        <RadioGroup {...field}>
+                          {statusOptions.map((option) => (
+                            <FormControlLabel
+                              key={option.value}
+                              value={option.value}
+                              control={<Radio />}
+                              label={option.label}
+                            />
+                          ))}
+                        </RadioGroup>
+                        {errors.status && (
+                          <FormHelperText>
+                            {errors.status.message}
+                          </FormHelperText>
+                        )}
+                      </FormControl>
                     )}
                   />
                 </Grid>
