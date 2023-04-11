@@ -116,7 +116,7 @@ export default function CreatingArtworkForm({
 
   const statusOptions = [
     { value: "available", label: "พร้อมขาย" },
-    { value: "unavailable", label: "ไม่สามารถซื้อได้" },
+    { value: "unavailable", label: "ไม่พร้อมขาย" },
   ];
 
   const {

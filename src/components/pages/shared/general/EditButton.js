@@ -54,7 +54,7 @@ const EditButton = ({ oauthToken }) => {
           แก้ไขสถานะเป็น "พร้อมขาย"
         </MenuItem>
         <MenuItem onClick={() => handleStatusChange("unavailable")}>
-          แก้ไขสถานะเป็น "ไม่สามารถซื้อได้"
+          แก้ไขสถานะเป็น "ไม่พร้อมขาย"
         </MenuItem>
       </Menu>
     </>

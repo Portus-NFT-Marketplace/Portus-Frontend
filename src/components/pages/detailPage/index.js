@@ -58,7 +58,7 @@ function DetailPage({ oauthToken }) {
 
   if (artwork?.status === "unavailable") {
     chipColor = "grey";
-    chipLabel = "ไม่สามารถซื้อได้";
+    chipLabel = "ไม่พร้อมขาย";
   } else if (artwork?.status === "available") {
     chipLabel = "พร้อมขาย";
   }
