@@ -51,10 +51,10 @@ const EditButton = ({ oauthToken }) => {
         onClose={handleMenuClose}
       >
         <MenuItem onClick={() => handleStatusChange("available")}>
-          แก้ไขสถานะเป็น "พร้อมขาย"
+          พร้อมขาย
         </MenuItem>
         <MenuItem onClick={() => handleStatusChange("unavailable")}>
-          แก้ไขสถานะเป็น "ไม่พร้อมขาย"
+          ไม่พร้อมขาย
         </MenuItem>
       </Menu>
     </>
