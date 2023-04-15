@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
+import ReactMarkdown from 'react-markdown';
+
 import {
   Container,
   Stack,
@@ -14,6 +16,9 @@ import {
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
+import LanguageIcon from '@mui/icons-material/Language';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import ChatIcon from '@mui/icons-material/Chat';
 
 const StyledRoot = styled("div")({
   minWidth: 350,
@@ -74,9 +79,10 @@ function DetailFoundationPage({ oauthToken }) {
 
   const location = (
     <Stack
+      marginBottom={0.5}
       direction="row"
       spacing={1}
-      style={{ alignItems: "center", justifyContent: "center" }}
+      style={{ alignItems: "left", justifyContent: "left" }}
     >
       <Typography variant="body2" color="text.secondary">
         <PlaceOutlinedIcon />
@@ -87,17 +93,71 @@ function DetailFoundationPage({ oauthToken }) {
     </Stack>
   );
 
-  const email = (
-    <Stack direction="row" spacing={1} style={{ alignItems: "center" }}>
-      <MailOutlineOutlinedIcon />
-      <Typography variant="body2">{foundations.email}</Typography>
+  const web = (
+    <Stack
+      marginBottom={0.5}
+      direction="row"
+      spacing={1}
+      style={{ alignItems: "left", justifyContent: "left" }}
+    >
+      <Typography variant="body2" color="text.secondary">
+        <LanguageIcon />
+      </Typography>
+      <a href={foundations.website}>
+        <Typography variant="body2" color="text.secondary">
+          {foundations.website}
+        </Typography>
+      </a>
+    </Stack>
+  );
+
+  const facebook = (
+    <Stack
+      marginBottom={0.5}
+      direction="row"
+      spacing={1}
+      style={{ alignItems: "left", justifyContent: "left" }}
+    >
+      <Typography variant="body2" color="text.secondary">
+        <FacebookIcon />
+      </Typography>
+      <a href={foundations.facebook}>
+        <Typography variant="body2" color="text.secondary">
+          {foundations.facebook}
+        </Typography>
+      </a>
+    </Stack>
+  );
+
+  const line = (
+    <Stack
+      marginBottom={0.5}
+      direction="row"
+      spacing={1}
+      style={{ alignItems: "left", justifyContent: "left" }}
+    >
+      <Typography variant="body2" color="text.secondary">
+        <ChatIcon />
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        {foundations.line}
+      </Typography>
     </Stack>
   );
 
   const tel = (
-    <Stack direction="row" spacing={1} style={{ alignItems: "center" }}>
-      <LocalPhoneOutlinedIcon />
-      <Typography variant="body2">{foundations.telephone_number}</Typography>
+    <Stack
+      marginBottom={0.5}
+      direction="row"
+      spacing={1}
+      style={{ alignItems: "left", justifyContent: "left" }}
+    >
+      <Typography variant="body2" color="text.secondary">
+        <LocalPhoneOutlinedIcon />
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        {foundations.telephone_number}
+      </Typography>
     </Stack>
   );
 
@@ -117,13 +177,12 @@ function DetailFoundationPage({ oauthToken }) {
                   style={{ justifyContent: "space-between" }}
                 >
                   <Typography variant="h4">{foundations.name}</Typography>{" "}
-                  <Stack direction="row" spacing={2}>
-                    {email}
-                    {tel}
-                  </Stack>
                 </Stack>
               </Stack>
-              <Divider style={{ marginBottom: 50, marginTop: 10 }} />
+              <Stack>
+                  <Typography variant="small" marginTop={1} color="text.secondary">{foundations.foundation_type}</Typography>{" "}
+              </Stack>
+              <Divider style={{ marginBottom: 40, marginTop: 10 }} />
               <Stack
                 direction="row"
                 spacing={2}
@@ -139,12 +198,14 @@ function DetailFoundationPage({ oauthToken }) {
                   alt="fourth_image"
                 />
               </Stack>
-              <StyledTypography paragraph variant="body1">
-                {foundations.description}
-              </StyledTypography>
+              <StyledTypography paragraph variant="body1" dangerouslySetInnerHTML={{ __html: foundations.description }}></StyledTypography>
               <Divider style={{ marginBottom: 20, marginTop: 20 }} />
-              <Stack style={{ justifyContent: "center", marginBottom: 20 }}>
+              <Stack style={{ justifyContent: "left", marginBottom: 20 }}>
                 {location}
+                {tel}
+                {line}
+                {web}
+                {facebook}
               </Stack>
             </StyledBox>
           )}
