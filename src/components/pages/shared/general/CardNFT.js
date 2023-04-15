@@ -78,7 +78,7 @@ export default function NFTCard({
               {roundPrice(price) || ""}
             </Typography>
             <Typography variant="body1" style={{ color: "#E46842" }}>
-              SepoliaETH
+              AVAX
             </Typography>
           </Stack>
         </Stack>

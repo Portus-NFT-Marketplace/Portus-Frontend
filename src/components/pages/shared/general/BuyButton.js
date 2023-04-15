@@ -43,11 +43,11 @@ export default function BuyButton(artwork, oauthToken) {
       method: "eth_chainId",
     });
 
-    if (chainId !== "0xaa36a7") {
+    if (chainId !== "0xa86a") {
       setAlert(
         <Alert severity="warning">
           <AlertTitle>คำเตือน</AlertTitle>
-          กรุณาเลือก Blockchain เป็น SepoliaETH ก่อนทำการซื้อผลงานศิลปะ
+          กรุณาเลือก Blockchain เป็น Avalanche(C-Chain) ก่อนทำการซื้อผลงานศิลปะ
         </Alert>
       );
       return;

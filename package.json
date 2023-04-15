@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.0",
     "react-hooks-useform": "^0.1.86",
+    "react-markdown": "^8.0.7",
     "react-redux": "^8.0.5",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
