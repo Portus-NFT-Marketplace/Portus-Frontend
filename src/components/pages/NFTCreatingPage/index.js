@@ -62,7 +62,7 @@ const schema = yup.object().shape({
   price: yup
     .number()
     .typeError("ราคาต้องเป็นตัวเลขเท่านั้น")
-    .positive("ราคาต้องมากกว่า 0 SepoliaETH")
+    .positive("ราคาต้องมากกว่า 0 AVAX")
     .test(
       "maxDecimalPlaces",
       "ราคาต้องไม่เกิน 4 ตำแหน่งทศนิยม",
@@ -257,7 +257,7 @@ export default function CreatingArtworkForm({
                     render={({ field }) => (
                       <TextFieldTheme
                         {...field}
-                        label="ราคา (SepoliaETH)"
+                        label="ราคา (AVAX)"
                         error={!!errors.price}
                         helperText={errors.price?.message}
                       />
