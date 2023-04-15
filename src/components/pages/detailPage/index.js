@@ -150,7 +150,7 @@ function DetailPage({ oauthToken }) {
                       variant="h4"
                       style={{ color: "#E46842", fontWeight: "bold" }}
                     >
-                      SepoliaETH
+                      AVAX
                     </Typography>
                   </Stack>
                   <Stack
