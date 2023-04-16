@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import ReactMarkdown from 'react-markdown';
 
 import {
   Container,
@@ -11,14 +10,14 @@ import {
   Typography,
   CircularProgress,
   Divider,
+  Link,
 } from "@mui/material";
 
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
-import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
-import LanguageIcon from '@mui/icons-material/Language';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import ChatIcon from '@mui/icons-material/Chat';
+import LanguageIcon from "@mui/icons-material/Language";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import ChatIcon from "@mui/icons-material/Chat";
 
 const StyledRoot = styled("div")({
   minWidth: 350,
@@ -103,11 +102,14 @@ function DetailFoundationPage({ oauthToken }) {
       <Typography variant="body2" color="text.secondary">
         <LanguageIcon />
       </Typography>
-      <a href={foundations.website}>
-        <Typography variant="body2" color="text.secondary">
-          {foundations.website}
-        </Typography>
-      </a>
+      <Link
+        href={foundations.website}
+        underline="hover"
+        variant="body2"
+        color="text.secondary"
+      >
+        {foundations.website}
+      </Link>
     </Stack>
   );
 
@@ -121,11 +123,14 @@ function DetailFoundationPage({ oauthToken }) {
       <Typography variant="body2" color="text.secondary">
         <FacebookIcon />
       </Typography>
-      <a href={foundations.facebook}>
-        <Typography variant="body2" color="text.secondary">
-          {foundations.facebook}
-        </Typography>
-      </a>
+      <Link
+        href={foundations.facebook}
+        underline="hover"
+        variant="body2"
+        color="text.secondary"
+      >
+        {foundations.facebook}
+      </Link>
     </Stack>
   );
 
@@ -180,13 +185,23 @@ function DetailFoundationPage({ oauthToken }) {
                 </Stack>
               </Stack>
               <Stack>
-                  <Typography variant="small" marginTop={1} color="text.secondary">{foundations.foundation_type}</Typography>{" "}
+                <Typography
+                  variant="small"
+                  marginTop={1}
+                  color="text.secondary"
+                >
+                  {foundations.foundation_type}
+                </Typography>{" "}
               </Stack>
               <Divider style={{ marginBottom: 40, marginTop: 10 }} />
               <Stack
                 direction="row"
                 spacing={2}
-                style={{ justifyContent: "space-between", marginBottom: 50, alignItems: "center" }}
+                style={{
+                  justifyContent: "space-between",
+                  marginBottom: 50,
+                  alignItems: "center",
+                }}
               >
                 <StyledImage
                   src={foundations.second_image}
@@ -198,9 +213,13 @@ function DetailFoundationPage({ oauthToken }) {
                   alt="fourth_image"
                 />
               </Stack>
-              <StyledTypography paragraph variant="body1" dangerouslySetInnerHTML={{ __html: foundations.description }}></StyledTypography>
-              <Divider style={{ marginBottom: 20, marginTop: 20 }} />
-              <Stack style={{ justifyContent: "left", marginBottom: 20 }}>
+              <StyledTypography
+                paragraph
+                variant="body1"
+                dangerouslySetInnerHTML={{ __html: foundations.description }}
+              ></StyledTypography>
+              <Divider style={{ marginBottom: 30, marginTop: 20 }} />
+              <Stack style={{ justifyContent: "left" }}>
                 {location}
                 {tel}
                 {line}
